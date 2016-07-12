@@ -1,0 +1,19 @@
+@import "base-reset";
+@import "vars";
+@import "mixins";
+@import "fonts";
+
+body {
+  font-family: "FjallaOne", sans-serif;
+  background-color: #838182;
+  overflow-x: hidden;
+}
+
+@media all and (max-width: @fixed-page-width) {
+  body {
+    overflow-x: scroll;
+  }
+}
+
+@import "header";
+@import "contents";
