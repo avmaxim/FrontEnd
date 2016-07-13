@@ -1,0 +1,61 @@
+#subslider-navigation{
+  position: relative;
+  height: 170px;
+  border: thin solid #fff;
+  background-color: #fff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#subslider-navigation > div{
+  position: relative;
+  float: left;
+  width: 25%;
+  height: 100%;
+  z-index: 100;
+
+ .subnav-title, .subnav-link{
+    text-align: center;
+  }
+
+  .subnav-logo{
+    width: 70px;
+    height: 52px;
+    display: block;
+    margin: 15px auto;
+    border: thin solid #000;
+  }
+
+  .subnav-title{
+    color: #747474;
+    padding: 5px;
+  }
+  .subnav-link{
+      padding: 5px;
+      a{
+        color: #979797;
+        font-family: "Oxygen", sans-serif;
+
+        &:hover {
+          color: #979797;
+        }
+      }
+  }
+
+  &:last-of-type{
+    clear: right;
+  }
+
+  &:not(:last-of-type):after {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    height: 70%;
+    left: 100%;
+    top: 0;
+    box-shadow: 1px 10px 10px 2px #000;
+    background: #000;
+    transform: rotate(0deg);
+  }
+}
