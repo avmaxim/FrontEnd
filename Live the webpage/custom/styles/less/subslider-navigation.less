@@ -2,13 +2,13 @@
 .subslider-navigation{
   position: relative;
   height: 170px;
-  margin: 0 auto 37px;
-  width: 1100px;
-  max-width: 1100px;
+  margin: 0 auto 72px;
+  width: @fixed-page-width;
+  max-width: @fixed-page-width;
   background-color: #fff;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: @block-shadow;
 
   &::after, &::before{
     content: "";
@@ -20,12 +20,14 @@
   }
 }
 
+
 .subslider-navigation > div{
   background: #fff;
   position: relative;
   float: left;
-  width: 25%;
   height: 100%;
+  width: 25.642%;
+
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 
@@ -58,6 +60,10 @@
           color: #979797;
         }
       }
+  }
+
+  &:last-of-type{
+    width: 23.07825756%;
   }
 
   &:not(:last-of-type)::before {

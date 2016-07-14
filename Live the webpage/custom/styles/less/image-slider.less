@@ -2,9 +2,11 @@
 #homepage-image-slider{
   @border-trl-width: 20px;  //trl -> top, right, left
   @border-trl-style: @border-trl-width solid #fff;
+  @font-color: #F9E3D3;
 
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: @block-shadow;
   position: relative;
+  margin: 0;
   height: 440px - @border-trl-width;
   background: url("../../images/slider-bg.png") no-repeat 50% 14%;
   width: @fixed-page-width - @border-trl-width * 2;
@@ -14,6 +16,7 @@
   border-bottom: 1px solid #fff;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  text-align: center;
 
   > .left-slider-arrow,
   > .right-slider-arrow{
@@ -25,18 +28,15 @@
     border-top: 20px solid #fff;
     border-bottom: 20px solid #fff;
     transform: translate(0, -50%);
-    width: 22px;
-    height: 22px;
+    width: 17px;
+    height: 17px;
     cursor: pointer;
     &::after{
       content: '';
       position: absolute;
-      background-color: #000;
-      width: 22px;
-      height: 22px;
-    }
-    &::before{
-
+      width: 17px;
+      height: 19px;
+      top: -1px;
     }
   }
 
@@ -46,6 +46,7 @@
     border-bottom-right-radius: 8px;
     &::after{
       left: 0;
+      background: url("../../images/slider-arrow-left.png") no-repeat 0 0;
     }
   }
 
@@ -55,6 +56,69 @@
     border-bottom-left-radius: 8px;
     &::after{
       right: 0;
+      background: url("../../images/slider-arrow-right.png") no-repeat 0 0;
     }
+  }
+
+  .wallpaper-title,
+  .wallpaper-site,
+  .wallpaper-recap{
+    color: @font-color;
+    opacity: 0.8;
+  }
+
+  > .wallpaper-site{
+    text-align: right;
+    height: 9.04761904%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 13px;
+      p {  .centrify-vertically;    }
+  }
+
+  > .space-fix-1{
+    height: 3.95238095%;
+  }
+
+  > .wallpaper-logo{
+    height: 28.42857143%;
+    img{ .centrify-vertically; }
+  }
+
+  > .wallpaper-title{
+    height: 19.04761905%;
+    pointer-events: none;
+    p{
+      .centrify-vertically;
+      font-size: 63px;
+    }
+  }
+
+  > .wallpaper-recap{
+    height: 8.76190476%;
+    p{
+      .centrify-vertically;
+      font-size: 21px;
+    }
+  }
+
+  > .wallpaper-button{
+    height: 16.47619048%;
+    color: @font-color;
+    button{
+      .centrify-vertically;
+      font-size: 17px;
+      border-radius: 5px;
+      background-color: transparent;
+      border: 3px solid @font-color;
+      color: @font-color;
+      font-family: "FjallaOne";
+      padding: 7px 13px;
+      cursor: pointer;
+    }
+  }
+
+  > .space-fix-2{
+    height: 14.28571429%;
   }
 }
