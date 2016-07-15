@@ -18,9 +18,13 @@
     ul > li{
         position: relative;
         font-family: "Oxygen", sans-serif;
-        color: #A5A5A5;
         padding: 12px 17px;
-        font-size: 15px;
+        > a {
+          font-size: 15px;
+          color: #A5A5A5;
+          text-decoration:  none;
+          &:focus{ text-decoration:  none; }
+        }
         &:not(:last-of-type) {
           border-bottom: thin solid #F0F0F0;
         }
