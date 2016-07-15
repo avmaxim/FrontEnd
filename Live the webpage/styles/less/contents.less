@@ -1,26 +1,22 @@
-#contents-wrapper{
+.contents-wrapper{
   margin: 10px auto;
 }
 
 .contents-upper-wrapper{
   max-width: @fixed-page-width;
-  margin: 0 auto;
   width: @fixed-page-width;
+  margin: 0 auto;
 }
 
 .contents-lower-wrapper{
   background-color: #F0F0F0;
-  height: 100%;
   display: inline-block;
   width: 100%;
+  min-width: 1170px;
 }
 
 @media all and (max-width: @fixed-page-width) {
   .contents-lower-wrapper {
-    width: auto;
+    /*width: auto;*/
   }
 }
-
-@import "image-slider";
-@import "subslider-navigation";
-@import "contents-container.less";

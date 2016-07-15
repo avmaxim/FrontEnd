@@ -1,14 +1,12 @@
-.container{
+
+.container {
   position: relative;
   margin: 0 auto;
   width: @fixed-page-width;
   max-width: @fixed-page-width;
-
   .clear-fix;
 
-  main, aside{
-    float: left;
-  }
+  main, aside{ float: left; }
 
   main {
     width: 76.92307693%;
@@ -17,27 +15,18 @@
     flex-flow: column wrap;
     justify-content: flex-start;
     align-content: flex-start;
-
     .clear-fix;
-
-    @import "article";
   }
 
-  aside {
-    width: 23.07692307%;
-    .news-box, .events-box{
-      background: #fff;
-      border-radius: 5px;
-      box-shadow: @block-shadow;
-    }
+  aside {  width: 23.07692307%; }
 
-    @import "search-box";
-    @import "news-box";
-    @import "events-box";
-
-    .events-box{
-      height: 368px;
-      margin-bottom: 30px;
-    }
+  .news-box, .events-box{
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: @block-shadow;
+  }
+  .events-box{
+    height: 368px;
+    margin-bottom: 30px;
   }
 }

@@ -1,8 +1,9 @@
 
-#homepage-image-slider{
-  @border-trl-width: 20px;  //trl -> top, right, left
-  @border-trl-style: @border-trl-width solid #fff;
-  @font-color: #F9E3D3;
+@border-trl-width: 20px; //trl -> top, right, left
+@border-trl-style: @border-trl-width solid #fff;
+@font-color: #F9E3D3;
+
+.homepage-image-slider {
 
   box-shadow: @block-shadow;
   position: relative;
@@ -14,11 +15,12 @@
   border-right: @border-trl-style;
   border-top: @border-trl-style;
   border-bottom: 1px solid #fff;
-  .border-top-radius(5px);
+  border-radius: 5px 5px 0 0;
   text-align: center;
+}
 
-  > .left-slider-arrow,
-  > .right-slider-arrow{
+.left-slider-arrow,
+.right-slider-arrow{
     position: absolute;
     top: 50%;
     background: transparent;
@@ -39,83 +41,78 @@
     }
   }
 
-  > .left-slider-arrow {
+.left-slider-arrow {
     left: 0;
-    .border-right-radius(8px);
+    border-radius: 0 8px 8px 0;
     &::after{
       left: 0;
       background: url("../../images/slider-arrow-left.png") no-repeat 0 0;
     }
   }
 
-  > .right-slider-arrow {
+.right-slider-arrow {
     right: 0;
-    .border-left-radius(8px);
+    border-radius: 8px 0 0 8px;
     &::after{
       right: 0;
       background: url("../../images/slider-arrow-right.png") no-repeat 0 0;
     }
-  }
+}
 
-  .wallpaper-title,
-  .wallpaper-site,
-  .wallpaper-recap{
+.wallpaper-title,
+.wallpaper-site,
+.wallpaper-recap{
     color: @font-color;
     opacity: 0.8;
-  }
+}
 
-  > .wallpaper-site{
+.wallpaper-site{
     text-align: right;
-    height: 9.04761904%;
+    height: 38px;
     box-sizing: border-box;
     padding: 12px;
     font-size: 13px;
-      p {  .centrify-vertically;    }
-  }
+    p {  .centrify-vertically;   }
+}
 
-  > .space-fix-1{
-    height: 3.95238095%;
-  }
-
-  > .wallpaper-logo{
-    height: 28.42857143%;
+.wallpaper-logo{
+    height: 86px;
+    padding: 27px 0 17px 0;
     img{ .centrify-vertically; }
-  }
+}
 
-  > .wallpaper-title{
-    height: 19.04761905%;
-    pointer-events: none;
-    p{
-      .centrify-vertically;
-      font-size: 63px;
-    }
+.wallpaper-title{
+  height: 62px;
+  padding: 9px 0 9px 0;
+  pointer-events: none;
+  p{
+    .centrify-vertically;
+    font-size: 63px;
   }
+}
 
-  > .wallpaper-recap{
-    height: 8.76190476%;
-    p{
-      .centrify-vertically;
-      font-size: 21px;
-    }
+.wallpaper-recap{
+  height: 20px;
+  padding: 8px 0 8px 0;
+  p{
+    .centrify-vertically;
+    font-size: 21px;
   }
+}
 
-  > .wallpaper-button{
-    height: 16.47619048%;
+.wallpaper-button{
+  height: 40px;
+  padding: 15px 0 15px 0;
+  color: @font-color;
+  button{
+    .centrify-vertically;
+    font-size: 17px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 3px solid @font-color;
     color: @font-color;
-    button{
-      .centrify-vertically;
-      font-size: 17px;
-      border-radius: 5px;
-      background-color: transparent;
-      border: 3px solid @font-color;
-      color: @font-color;
-      font-family: "FjallaOne";
-      padding: 7px 13px;
-      cursor: pointer;
-    }
-  }
-
-  > .space-fix-2{
-    height: 14.28571429%;
+    font-family: "FjallaOne";
+    padding: 7px 13px;
+    cursor: pointer;
   }
 }
