@@ -1,0 +1,23 @@
+{
+  "name": "frontend-tasks",
+  "version": "1.0.0",
+  "description": "Tasks n all that",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avmaxim/FrontEnd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avmaxim/FrontEnd/issues"
+  },
+  "homepage": "https://github.com/avmaxim/FrontEnd#readme",
+  "devDependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1"
+  }
+}
