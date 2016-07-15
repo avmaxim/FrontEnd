@@ -6,8 +6,7 @@
   width: @fixed-page-width;
   max-width: @fixed-page-width;
   background-color: #fff;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  .border-bottom-radius(5px);
   box-shadow: @block-shadow;
 
   &::after, &::before{
@@ -21,15 +20,14 @@
 }
 
 
-.subslider-navigation > div{
+.subslider-navigation > section{
   background: #fff;
   position: relative;
   float: left;
   height: 100%;
   width: 25.642%;
 
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  .border-bottom-radius(5px);
 
  .subnav-title, .subnav-link{
     text-align: center;
@@ -66,26 +64,27 @@
     width: 23.07825756%;
   }
 
-  &:not(:last-of-type)::before {
-    content: '';
-    z-index: 1;
-    position: absolute;
-    height: 80%;
-    top: 0;
-    right: 0;
-    box-shadow: 1px 10px 10px 2px #000;
-    background: #000;
-    transform: rotate(3deg);
-  }
-
-  &:not(:last-of-type)::after {
-    content: '';
-    position: absolute;
-    right: -5px;
-    top: 0;
-    width: 20px;
-    height: 100%;
-    background: #fff;
-    z-index: 1000;
+  &:not(:last-of-type) {
+    &::before {
+      content: '';
+      z-index: 1;
+      position: absolute;
+      height: 80%;
+      top: 0;
+      right: 0;
+      box-shadow: 1px 10px 10px 2px #000;
+      background: #000;
+      transform: rotate(3deg);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 0;
+      width: 20px;
+      height: 100%;
+      background: #fff;
+      z-index: 1000;
+    }
   }
 }

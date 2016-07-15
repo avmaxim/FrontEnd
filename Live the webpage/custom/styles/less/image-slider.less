@@ -14,8 +14,7 @@
   border-right: @border-trl-style;
   border-top: @border-trl-style;
   border-bottom: 1px solid #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  .border-top-radius(5px);
   text-align: center;
 
   > .left-slider-arrow,
@@ -42,8 +41,7 @@
 
   > .left-slider-arrow {
     left: 0;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    .border-right-radius(8px);
     &::after{
       left: 0;
       background: url("../../images/slider-arrow-left.png") no-repeat 0 0;
@@ -52,8 +50,7 @@
 
   > .right-slider-arrow {
     right: 0;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    .border-left-radius(8px);
     &::after{
       right: 0;
       background: url("../../images/slider-arrow-right.png") no-repeat 0 0;

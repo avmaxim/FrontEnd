@@ -21,12 +21,7 @@ footer{
   > div{
     height: 50%;
     box-sizing: border-box;
-    &::after, &::before{
-      content: '';
-      display: table;
-    }
-
-    &::after{ clear: both; }
+    .clear-fix;
   }
   > div:first-of-type{
     border-bottom: thin solid rgba(74, 74, 74, 0.8);
@@ -73,10 +68,15 @@ footer{
         }
 
     }
-    .footer-navigation > span{
+    .footer-navigation{
       color: #B297C4;
       font-family: "OpenSans-Bold", sans-serif;
       font-size: 16px;
+      a {
+        text-decoration: none;
+        color: #B297C4;
+        &:focus {  text-decoration: none;  }
+      }
     }
   }
 }

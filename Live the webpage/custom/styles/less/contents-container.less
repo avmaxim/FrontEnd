@@ -4,8 +4,7 @@
   width: @fixed-page-width;
   max-width: @fixed-page-width;
 
-  &::after, &::before{ content: '';  display: table; }
-  &::after{  clear: both; }
+  .clear-fix;
 
   main, aside{
     float: left;
@@ -19,13 +18,7 @@
     justify-content: flex-start;
     align-content: flex-start;
 
-    &::after, &::before{
-      content: '';
-      display: table;
-    }
-    &::after{
-      clear: both;
-    }
+    .clear-fix;
 
     @import "article";
   }

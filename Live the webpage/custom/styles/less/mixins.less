@@ -1,5 +1,61 @@
+.user-select(@selection){
+  -webkit-touch-callout: @selection;
+  -webkit-user-select: @selection;
+  -moz-user-select: @selection;
+  -ms-user-select: @selection;
+  user-select: @selection;
+}
+
+.border-bottom-radius(@size){
+    border-bottom-left-radius: @size;
+    border-bottom-right-radius: @size;
+}
+
+.border-right-radius(@size){
+  border-top-right-radius: @size;
+  border-bottom-right-radius: @size;
+}
+
+.border-left-radius(@size){
+  border-top-left-radius: @size;
+  border-bottom-left-radius: @size;
+}
+
+.border-top-radius(@size){
+  border-top-left-radius: @size;
+  border-top-right-radius: @size;
+}
+
+
+.centrify(@orientation){
+
+  @horisontal: `@{orientation} == 'horisontal'`;
+  @vertical: `@{orientation} == 'vertical'`;
+  @both: `@{orientation} == 'both'`;
+
+  & when (@horisontal){
+    /* ... */
+  }
+
+  & when (@both){
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
 .centrify-vertically{
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  .centrify('vertical');
+}
+
+.centrify-ver-hor{
+  .centrify('both');
+}
+
+.clear-fix{
+  &::after, &::before{ content: '';  display: table; }
+  &::after{  clear: both; }
 }
