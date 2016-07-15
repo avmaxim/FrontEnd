@@ -11,6 +11,14 @@
 .contents-lower-wrapper{
   background-color: #F0F0F0;
   height: 100%;
+  display: inline-block;
+  width: 100%;
+}
+
+@media all and (max-width: @fixed-page-width) {
+  .contents-lower-wrapper {
+    width: auto;
+  }
 }
 
 @import "image-slider";
