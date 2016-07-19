@@ -74,17 +74,9 @@ var MiniLib = (function() {
 
 		var chainResult = [];
 
+		/*** PRIVATE API ***/
 
-		this.chain = function(chainSequence){
-			chainResult = chainSequence;
-			this.filter = decorator(this.filter);
-			this.take = decorator(this.take);
-			this.skip = decorator(this.skip);
-			this.map = decorator(this.map);
-			return this;
-		};
-
-		this.decorator = function(func){
+		var decorator = function(func){
 			return function (){
 				if (arguments.length == 2){
 					return func.apply(this, arguments);
@@ -95,30 +87,80 @@ var MiniLib = (function() {
 			}
 		};
 
-		this.result = function(){
+		var tryValidateArguments = function (obj) {
+			if (TypeChecker.isUndefined(obj))
+				throw new ReferenceError("'" + obj + "' is not defined.")
+
+			if (!TypeChecker.isObject(obj)) {
+				throw new TypeError("'" + obj + "' must be of Object type.")
+			}
+
+			if (!TypeChecker.isUndefined(obj.isRequiredArgsCount) && !TypeChecker.isUndefined(obj.args)) {
+				if (obj.args.length < obj.isRequiredArgsCount) {
+					throw new RangeError("Function must supply at least " + obj.isRequiredArgsCount + " parameters");
+				}
+			}
+
+			if (!TypeChecker.isUndefined(obj.isValidArray)) {
+				if (!TypeChecker.isArray(obj.isValidArray)) {
+					throw new TypeError("'" + obj.isValidArray + "' must be of Array type.");
+				}
+			}
+
+			if (!TypeChecker.isUndefined(obj.isFunction)) {
+				if (!TypeChecker.isFunction(obj.isFunction)) {
+					throw new TypeError("'" + obj.isFunction + "' must be of Function type.");
+				}
+			}
+
+			if (!TypeChecker.isUndefined(obj.isValidNumber) ){
+				if(TypeChecker.isNumber(obj.isValidNumber)) {
+					if ((obj.isValidNumber < 0 || obj.isValidNumber >= obj.isValidArray.length)) {
+						throw new RangeError("'" + obj.isValidNumber + "' is out of range.");
+					}
+				}else{
+					throw new TypeError("'" + obj.isValidNumber + "' is must be of Number type");
+				}
+			}
+
+			return true;
+		};
+
+		/*** Public API. Implementation ***/
+		var result = function(){
 			return chainResult;
 		};
 
-		/*** Implementation ***/
-		this.forEach = function(arr, action) {
-			if(!areArgumentsValid({
+		var chain = function(chainSequence){
+			chainResult = chainSequence;
+			publicAPI.filter = decorator(publicAPI.filter);
+			publicAPI.take = decorator(publicAPI.take);
+			publicAPI.skip = decorator(publicAPI.skip);
+			publicAPI.map = decorator(publicAPI.map);
+			return publicAPI;
+		};
+
+		var forEach = function(arr, action) {
+			tryValidateArguments({
 					args: arguments,
 					isRequiredArgsCount: 2,
 					isValidArray: arr,
-					isFunction: action
-				})) return undefined;
+					isFunction: action });
+
+			if (arr.length == 0) return undefined;
 
 			for (var i = 0; i < arr.length; i++) {
 				action(arr[i], i, arr);
 			}
 		};
 
-		this.filter = function(arr, predicate) {
-			if (!areArgumentsValid({
+		var filter = function(arr, predicate) {
+			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
-					isFunction: predicate
-				})) return [];
+					isFunction: predicate });
+
+			if (arr.length == 0) return [];
 
 			var resultArray = [];
 			for (var i = 0; i < arr.length; i++) {
@@ -129,31 +171,31 @@ var MiniLib = (function() {
 			return resultArray;
 		};
 
-		this.first = function(arr) {
-			if (!areArgumentsValid({
+		var first = function(arr) {
+			tryValidateArguments({
 					args: arguments,
-					isValidArray: arr
-				})) return undefined;
+					isValidArray: arr });
 
+			if (arr.length == 0) return undefined;
 			return arr[0];
 		};
 
-		this.last = function(arr) {
-
-			if (!areArgumentsValid({
+		var last = function(arr) {
+			tryValidateArguments({
 					args: arguments,
-					isValidArray: arr
-				})) return undefined;
+					isValidArray: arr });
 
+			if (arr.length == 0) return undefined;
 			return arr[arr.length - 1];
 		};
 
-		this.take = function(arr, number) {
-			if (!areArgumentsValid({
+		var take = function(arr, number) {
+			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
-					isValidNumber: number
-				})) return [];
+					isValidNumber: number });
+
+			if (arr.length == 0) return [];
 
 			var resultArray = [];
 			for (var i = 0; i < number; i++) {
@@ -162,12 +204,13 @@ var MiniLib = (function() {
 			return resultArray;
 		};
 
-		this.skip = function(arr, number) {
-			if (!areArgumentsValid({
+		var skip = function(arr, number) {
+			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
-					isValidNumber: number
-				})) return [];
+					isValidNumber: number });
+
+			if (arr.length == 0) return [];
 
 			var resultArray = [];
 
@@ -180,12 +223,13 @@ var MiniLib = (function() {
 		};
 
 
-		this.map = function(arr, selector) {
-			if (!areArgumentsValid({
+		var map = function(arr, selector) {
+			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
-					isFunction: selector
-				})) return [];
+					isFunction: selector });
+
+			if (arr.length == 0) return [];
 
 			var resultArray = [];
 			for (var i = 0; i < arr.length; i++) {
@@ -194,13 +238,23 @@ var MiniLib = (function() {
 			return resultArray;
 		};
 
-		this.reduce = function(arr, action, initialPrevValue) {
+		var reduce = function(arr, action, initialPrevValue) {
 
-			if(!areArgumentsValid({
-					args: arguments,
-					isValidArray: arr,
-					isFunction: action
-				})) return initialPrevValue;
+			tryValidateArguments({
+				args: arguments,
+				isValidArray: arr,
+				isFunction: action });
+
+
+				/* JS spec on 'reduce' requires the following check: */
+
+				if (arr.length == 0 && TypeChecker.isUndefined(initialPrevValue))
+					throw new TypeError("Both Array Length is 0 and initialPrevValue is undefined");
+				else if ( arr.length == 1 && TypeChecker.isUndefined(initialPrevValue)){
+					return arr[0];
+				}else if (arr.length == 0 && !TypeChecker.isUndefined(initialPrevValue)) {
+					return initialPrevValue;
+				}
 
 			var prevValue = null;
 			var currentValue = null;
@@ -225,60 +279,20 @@ var MiniLib = (function() {
 			return prevValue;
 		};
 
-		/*** PRIVATE API ***/
-		var areArgumentsValid = function (obj) {
-			if (TypeChecker.isUndefined(obj)) return true;
-
-			if (!TypeChecker.isObject(obj)) {
-				throw new TypeError("'" + obj + "' must be of Object type.")
-			}
-
-			if (!TypeChecker.isUndefined(obj.isRequiredArgsCount) && !TypeChecker.isUndefined(obj.args)) {
-				if (obj.args.length < obj.isRequiredArgsCount) {
-					throw new RangeError("Function must supply at least " + obj.isRequiredArgsCount + " parameters");
-				}
-			}
-
-			if (!TypeChecker.isUndefined(obj.isValidArray)) {
-				if (!TypeChecker.isArray(obj.isValidArray)) {
-					throw new TypeError("'" + obj.isValidArray + "' must be of Array type.");
-				}
-			}
-
-			if (!TypeChecker.isUndefined(obj.isFunction)) {
-				if (!TypeChecker.isFunction(obj.isFunction)) {
-					throw new TypeError("'" + obj.isFunction + "' must be of Function type.");
-				}
-			}
-
-			if (!TypeChecker.isUndefined(obj.isValidArray)) {
-				if (obj.isValidArray.length == 0)  return false;
-			}
-
-			if (!TypeChecker.isUndefined(obj.isValidNumber) ){
-				if(TypeChecker.isNumber(obj.isValidNumber)) {
-					if (obj.isValidNumber < 0 || obj.isValidNumber >= obj.isValidArray.length) {
-						throw new RangeError("'" + obj.isValidNumber + "' is out of range.");
-					}
-				}else{
-					throw new TypeError("'" + obj.isValidNumber + "' is must be of Number type");
-				}
-			}
-
-			return true;
+		var publicAPI = {
+			forEach : forEach,
+			filter : filter,
+			first: first,
+			last : last,
+			map : map,
+			skip : skip,
+			take : take,
+			reduce : reduce,
+			result: result,
+			chain: chain
 		};
-		return {
-			forEach : this.forEach,
-			filter : this.filter,
-			first: this.first,
-			last : this.last,
-			map : this.map,
-			skip : this.skip,
-			take : this.take,
-			reduce : this.reduce,
-			result: this.result,
-			chain: this.chain
-		}
+
+		return publicAPI;
 	})(TypeChecker);
 
 	return {

@@ -50,18 +50,13 @@ describe('Functions Chaining Tests for MiniLib.ArraysAPI', function() {
                 ).to.be.eql([4]);
             });
 
-            it('should be [] when test-array is empty and need to Filter (items > 1) => Map(2) => Take(3) => Skip(2)', function () {
+            it('should be [] when test-array is empty and need to Filter (items > 1)', function () {
                 expect(
                     MiniLib.ArraysAPI
                         .chain([])
                         .filter(function (item) {
                             return item > 1;
                         })
-                        .map(function (item) {
-                            return item * 2;
-                        })
-                        .take(3)
-                        .skip(2)
                         .result()
                 ).to.be.eql([]);
             });
@@ -111,21 +106,6 @@ describe('Functions Chaining Tests for MiniLib.ArraysAPI', function() {
                 ).to.be.eql([4, 6, 10]);
             });
 
-            it('should be [] when test-array is empty and need to  Take(3) => Filter (items > 1) => Map(2) => Skip(2)', function () {
-                expect(
-                    MiniLib.ArraysAPI
-                        .chain([])
-                        .take(3)
-                        .filter(function (item) {
-                            return item > 1;
-                        })
-                        .map(function (item) {
-                            return item * 2;
-                        })
-                        .skip(2)
-                        .result()
-                ).to.be.eql([]);
-            });
         });
 
 
@@ -173,21 +153,6 @@ describe('Functions Chaining Tests for MiniLib.ArraysAPI', function() {
                 ).to.be.eql([4, 6]);
             });
 
-            it('should be [] when test-array is empty and need to  Take(3) => Filter (items > 1) => Map(2) => Skip(2)', function () {
-                expect(
-                    MiniLib.ArraysAPI
-                        .chain([])
-                        .take(3)
-                        .filter(function (item) {
-                            return item > 1;
-                        })
-                        .map(function (item) {
-                            return item * 2;
-                        })
-                        .skip(2)
-                        .result()
-                ).to.be.eql([]);
-            });
         });
 
 
@@ -250,7 +215,7 @@ describe('Functions Chaining Tests for MiniLib.ArraysAPI', function() {
                 ).to.be.eql([]);
             });
         });
-        
+
 
     });
 });

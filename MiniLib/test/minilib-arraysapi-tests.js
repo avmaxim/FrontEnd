@@ -134,7 +134,7 @@ describe('MiniLib.ArraysAPI', function() {
         it('should pass when 1st arg is empty Array', function () {
             expect(function () {
                 MiniLib.ArraysAPI.take([], 0);
-            }).to.not.throw();
+            }).to.throw(RangeError);
         });
 
         it('should throw TypeError if 1st arg is Array, 2nd arg is NOT Number \'', function () {
@@ -161,7 +161,7 @@ describe('MiniLib.ArraysAPI', function() {
         it('should pass when 1st arg is empty Array', function () {
             expect(function () {
                 MiniLib.ArraysAPI.skip([], 0);
-            }).to.not.throw();
+            }).to.throw(RangeError);
         });
 
         it('should throw TypeError if 2nd arg is NOT Number \'', function () {
@@ -213,21 +213,21 @@ describe('MiniLib.ArraysAPI', function() {
             }).to.not.throw();
         });
 
-        it('should throw TypeError when 1st arg is Array, 2nd is NOT Function, 3rd is Number', function () {
+        it('should throw TypeError when 1st arg is Array, 2nd is NOT Function, 3rd is NOT undefined', function () {
             expect(function () {
                 MiniLib.ArraysAPI.reduce([10, 20],"", 10);
             }).to.throw(TypeError);
         });
 
-        it('should throw TypeError when 1st arg is NOT Array, 2nd is Function, 3rd is Number', function () {
+        it('should throw TypeError when 1st arg is NOT Array, 2nd is Function, 3rd is NOT undefined', function () {
             expect(function () {
                 MiniLib.ArraysAPI.reduce("",function(prevValue, curValue, curIndex, arr){return prevValue + curValue; }, 10);
             }).to.throw(TypeError);
         });
 
-        it('should throw TypeError when 1st arg is Array, 2nd is Function, 3rd is NOT Number', function () {
+        it('should throw TypeError when 1st arg is empty Array and 3rd is undefined', function () {
             expect(function () {
-                MiniLib.ArraysAPI.reduce([10, 20],function(prevValue, curValue, curIndex, arr){return prevValue + curValue; }, "");
+                MiniLib.ArraysAPI.reduce([],function(prevValue, curValue, curIndex, arr){return prevValue + curValue; });
             }).to.throw(TypeError);
         });
     });
