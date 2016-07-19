@@ -127,20 +127,20 @@ var MiniLib = (function() {
 		};
 
 		/*** Public API. Implementation ***/
-		var result = function(){
+		this.result = function(){
 			return chainResult;
 		};
 
-		var chain = function(chainSequence){
+		this.chain = function(chainSequence){
 			chainResult = chainSequence;
-			publicAPI.filter = decorator(publicAPI.filter);
-			publicAPI.take = decorator(publicAPI.take);
-			publicAPI.skip = decorator(publicAPI.skip);
-			publicAPI.map = decorator(publicAPI.map);
-			return publicAPI;
+			this.filter = decorator(this.filter);
+			this.take = decorator(this.take);
+			this.skip = decorator(this.skip);
+			this.map = decorator(this.map);
+			return this;
 		};
 
-		var forEach = function(arr, action) {
+		this.forEach = function(arr, action) {
 			tryValidateArguments({
 					args: arguments,
 					isRequiredArgsCount: 2,
@@ -154,7 +154,7 @@ var MiniLib = (function() {
 			}
 		};
 
-		var filter = function(arr, predicate) {
+		this.filter = function(arr, predicate) {
 			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
@@ -171,7 +171,7 @@ var MiniLib = (function() {
 			return resultArray;
 		};
 
-		var first = function(arr) {
+		this.first = function(arr) {
 			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr });
@@ -180,7 +180,7 @@ var MiniLib = (function() {
 			return arr[0];
 		};
 
-		var last = function(arr) {
+		this.last = function(arr) {
 			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr });
@@ -189,7 +189,7 @@ var MiniLib = (function() {
 			return arr[arr.length - 1];
 		};
 
-		var take = function(arr, number) {
+		this.take = function(arr, number) {
 			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
@@ -204,7 +204,7 @@ var MiniLib = (function() {
 			return resultArray;
 		};
 
-		var skip = function(arr, number) {
+		this.skip = function(arr, number) {
 			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
@@ -223,7 +223,7 @@ var MiniLib = (function() {
 		};
 
 
-		var map = function(arr, selector) {
+		this.map = function(arr, selector) {
 			tryValidateArguments({
 					args: arguments,
 					isValidArray: arr,
@@ -238,7 +238,7 @@ var MiniLib = (function() {
 			return resultArray;
 		};
 
-		var reduce = function(arr, action, initialPrevValue) {
+		this.reduce = function(arr, action, initialPrevValue) {
 
 			tryValidateArguments({
 				args: arguments,
@@ -279,20 +279,18 @@ var MiniLib = (function() {
 			return prevValue;
 		};
 
-		var publicAPI = {
-			forEach : forEach,
-			filter : filter,
-			first: first,
-			last : last,
-			map : map,
-			skip : skip,
-			take : take,
-			reduce : reduce,
-			result: result,
-			chain: chain
+		return {
+			forEach : this.forEach,
+			filter : this.filter,
+			first: this.first,
+			last : this.last,
+			map : this.map,
+			skip : this.skip,
+			take : this.take,
+			reduce : this.reduce,
+			result: this.result,
+			chain: this.chain
 		};
-
-		return publicAPI;
 	})(TypeChecker);
 
 	return {
