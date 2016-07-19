@@ -5,27 +5,14 @@
 
 var MiniLib = (function() {
 
-	function MiniLib() {}
-
 	/**
 	 * TypeChecker Class. Implements JS type-check API.
 	 **/
 
-	MiniLib.TypeChecker = (function () {
+	var TypeChecker = (function () {
 
 		function TypeChecker() {
 		}
-
-		/*** Public API ***/
-		TypeChecker.isArray = isArray;
-		TypeChecker.isBoolean = isBoolean;
-		TypeChecker.isDate = isDate;
-		TypeChecker.isNumber = isNumber;
-		TypeChecker.isString = isString;
-		TypeChecker.isObject = isObject;
-		TypeChecker.isFunction = isFunction;
-		TypeChecker.isUndefined = isUndefined;
-		TypeChecker.isNull = isNull;
 
 		/*** Implementation ***/
 		function isArray(obj) {
@@ -64,7 +51,17 @@ var MiniLib = (function() {
 			return (obj === null);
 		}
 
-		return TypeChecker;
+		return {
+			isArray : isArray,
+			isBoolean : isBoolean,
+			isDate : isDate,
+			isNumber : isNumber,
+			isString : isString,
+			isObject : isObject,
+			isFunction : isFunction,
+			isUndefined : isUndefined,
+			isNull : isNull
+		}
 
 	})();
 
@@ -73,19 +70,9 @@ var MiniLib = (function() {
 	 * ArraysAPI Class. Implements the most usable API from Array.prototype
 	 **/
 
-	MiniLib.ArraysAPI = (function (TypeChecker) {
+	var ArraysAPI = (function (TypeChecker) {
 
-		function ArraysAPI() {}
-
-		/*** Public API ***/
-		ArraysAPI.forEach = forEach;
-		ArraysAPI.filter = filter;
-		ArraysAPI.first = first;
-		ArraysAPI.last = last;
-		ArraysAPI.map = map;
-		ArraysAPI.skip = skip;
-		ArraysAPI.take = take;
-		ArraysAPI.reduce = reduce;
+		var chainResult;
 
 		/*** Implementation ***/
 		function forEach(arr, action) {
@@ -99,96 +86,141 @@ var MiniLib = (function() {
 			for (var i = 0; i < arr.length; i++) {
 				action(arr[i], i, arr);
 			}
-
 		}
 
 		function filter(arr, predicate) {
-			if(!areArgumentsValid({
+			var correctedArgs = {};
+			if(TypeChecker.isFunction(arr)) {
+				correctedArgs = { arr: chainResult, predicate: arr};
+			} else {
+				correctedArgs = { arr: arr, predicate: predicate};
+			}
+
+			if (!areArgumentsValid({
 					args: arguments,
-					isRequiredArgsCount: 2,
-					isValidArray: arr,
-					isFunction: predicate
+					isValidArray: correctedArgs.arr,
+					isFunction: correctedArgs.predicate
 				})) return;
 
 			var resultArray = [];
 
-			for (var i = 0; i < arr.length; i++) {
-				if (predicate(arr[i])) {
-					resultArray.push(arr[i]);
+			for (var i = 0; i < correctedArgs.arr.length; i++) {
+				if (correctedArgs.predicate(correctedArgs.arr[i])) {
+					resultArray.push(correctedArgs.arr[i]);
 				}
 			}
-			return resultArray;
+
+			chainResult = resultArray;
+			return this;
 		}
 
 		function first(arr) {
-			if(!areArgumentsValid({
+			var correctedArgs = {};
+
+			if(TypeChecker.isUndefined(arr)) {
+				correctedArgs = { arr: chainResult};
+			} else {
+				correctedArgs = { arr: arr};
+			}
+			if (!areArgumentsValid({
 					args: arguments,
-					isRequiredArgsCount: 1,
-					isValidArray: arr
+					isValidArray: correctedArgs.arr
 				})) return;
 
-			return arr[0];
+			return correctedArgs.arr[0];
 		}
 
 		function last(arr) {
-			if(!areArgumentsValid({
+			var correctedArgs = {};
+
+			if(TypeChecker.isUndefined(arr)) {
+				correctedArgs = { arr: chainResult};
+			} else {
+				correctedArgs = { arr: arr};
+			}
+			if (!areArgumentsValid({
 					args: arguments,
-					isRequiredArgsCount: 1,
-					isValidArray: arr
+					isValidArray: correctedArgs.arr
 				})) return;
 
-			return arr[arr.length - 1];
+			return correctedArgs.arr[correctedArgs.arr.length - 1];
 		}
 
 		function take(arr, number) {
-			if(!areArgumentsValid({
+			var correctedArgs = {};
+
+			if(TypeChecker.isNumber(arr)) {
+				correctedArgs = { arr: chainResult, number: arr};
+			} else {
+				correctedArgs = { arr: arr, number: number};
+			}
+
+			if (!areArgumentsValid({
 					args: arguments,
-					isRequiredArgsCount: 2,
-					isValidNumber: number
+					isValidArray: correctedArgs.arr,
+					isValidNumber: correctedArgs.number
 				})) return;
 
 			var resultArray = [];
-			for (var i = 0; i < number; i++)
-				resultArray.push(arr[i]);
+			for (var i = 0; i < correctedArgs.number; i++)
+				resultArray.push(correctedArgs.arr[i]);
 
-			return resultArray;
+			chainResult = resultArray;
+			return this;
 		}
 
 		function skip(arr, number) {
-			if(!areArgumentsValid({
+			var correctedArgs = {};
+
+			if(TypeChecker.isNumber(arr)) {
+				correctedArgs = { arr: chainResult, number: arr};
+			} else {
+				correctedArgs = { arr: arr, number: number};
+			}
+
+			if (!areArgumentsValid({
 					args: arguments,
-					isRequiredArgsCount: 2,
-					isValidArray: arr,
-					isValidNumber: number
-			}))
+					isValidArray: correctedArgs.arr,
+					isValidNumber: correctedArgs.number
+				})) return;
 
 			var resultArray = [];
 
-			for (var i = 0; i < arr.length; i++) {
-				if (i !== number) {
-					resultArray.push(arr[i]);
+			for (var i = 0; i < correctedArgs.arr.length; i++) {
+				if (i !== correctedArgs.number) {
+					resultArray.push(correctedArgs.arr[i]);
 				}
 			}
-			return resultArray;
+			chainResult = resultArray;
+			return this;
 		}
 
 
 		function map(arr, selector) {
-			if(!areArgumentsValid({
+			var correctedArgs = {};
+
+			if(TypeChecker.isFunction(arr)) {
+				correctedArgs = { arr: chainResult, selector: arr};
+			} else {
+				correctedArgs = { arr: arr, selector: selector};
+			}
+
+			if (!areArgumentsValid({
 					args: arguments,
-					isRequiredArgsCount: 2,
-					isArray: arr,
-					isFunction: selector
+					isValidArray: correctedArgs.arr,
+					isFunction: correctedArgs.selector
 				})) return;
 
 			var resultArray = [];
-			for (var i = 0; i < arr.length; i++) {
-				resultArray.push(selector(arr[i]));
+			for (var i = 0; i < correctedArgs.arr.length; i++) {
+				resultArray.push(correctedArgs.selector(correctedArgs.arr[i]));
 			}
-			return resultArray;
+			chainResult = resultArray;
+			return this;
 		}
 
 		function reduce(arr, action, initialPrevValue) {
+
 			if(!areArgumentsValid({
 					args: arguments,
 					isRequiredArgsCount: 2,
@@ -199,7 +231,11 @@ var MiniLib = (function() {
 			var prevValue = 0;
 
 			if (!TypeChecker.isUndefined(initialPrevValue)) {
-				prevValue = initialPrevValue;
+				if (TypeChecker.isNumber(initialPrevValue)) {
+					prevValue = initialPrevValue;
+				}else{
+					throw new TypeError("'" + initialPrevValue + "' is must be of Number type");
+				}
 			}
 
 			for (var i = 0; i < arr.length; i++) {
@@ -207,6 +243,11 @@ var MiniLib = (function() {
 			}
 
 			return prevValue;
+		}
+
+
+		function result(){
+			return chainResult;
 		}
 
 		/*** PRIVATE API ***/
@@ -219,7 +260,7 @@ var MiniLib = (function() {
 
 			if (!TypeChecker.isUndefined(obj.isRequiredArgsCount) && !TypeChecker.isUndefined(obj.args)) {
 				if (obj.args.length < obj.isRequiredArgsCount) {
-					throw new ReferenceError("Function must supply at least " + obj.isRequiredArgsCount + " parameters");
+					throw new RangeError("Function must supply at least " + obj.isRequiredArgsCount + " parameters");
 				}
 			}
 
@@ -240,16 +281,32 @@ var MiniLib = (function() {
 			}
 
 			if (!TypeChecker.isUndefined(obj.isValidNumber) ){
-				if(!TypeChecker.isNumber(obj.isValidNumber))
+				if(TypeChecker.isNumber(obj.isValidNumber)) {
 					if (obj.isValidNumber < 0 || obj.isValidNumber >= obj.isValidArray.length) {
 						throw new RangeError("'" + obj.isValidNumber + "' is out of range.");
 					}
+				}else{
+					throw new TypeError("'" + obj.isValidNumber + "' is must be of Number type");
+				}
 			}
 
 			return true;
 		};
-		return ArraysAPI;
-	})(MiniLib.TypeChecker);
+		return {
+			forEach : forEach,
+			filter :filter,
+			first: first,
+			last : last,
+			map : map,
+			skip : skip,
+			take : take,
+			reduce : reduce,
+			result: result
+		}
+	})(TypeChecker);
 
-	return MiniLib;
+	return {
+		ArraysAPI: ArraysAPI,
+		TypeChecker: TypeChecker
+	};
 })();
