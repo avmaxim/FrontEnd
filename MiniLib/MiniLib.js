@@ -1,300 +1,257 @@
 
 /**
- * MiniLib Class. Manages TypeChecker & ArraysAPI classes;
+ * MiniLib (ML) Class.
+ * 1) Implements JS type-check API.
+ * 2) Implements the most usable API from Array.prototype
  **/
 
-var MiniLib = (function() {
+var m = (function() {
 
-	/**
-	 * TypeChecker Class. Implements JS type-check API.
-	 **/
+	var chainResult = [];
 
-	var TypeChecker = (function () {
+	var TYPE = {
+		BOOLEAN : 0,
+		FUNCTION: 1,
+		ARRAY: 2,
+		DATE: 3,
+		STRING: 4,
+		NUMBER: 5,
+		UNDEFINED: 6,
+		NULL: 7,
+		OBJECT: 8
+	};
 
-		function TypeChecker() {
-		}
-
-		/*** Implementation ***/
-		function isArray(obj) {
-			return obj instanceof Array;
-		}
-
-		function isBoolean(obj) {
-			return (typeof obj === "boolean") ? true : (obj instanceof Boolean);
-		}
-
-		function isDate(obj) {
-			return (obj instanceof Date);
-		}
-
-		function isNumber(obj) {
-			return (typeof obj === "number") ? true : (obj instanceof Number);
-		}
-
-		function isString(obj) {
-			return (typeof obj === "string") ? true : (obj instanceof String);
-		}
-
-		function isObject(obj) {
-			return obj instanceof Object;
-		}
-
-		function isFunction(obj) {
-			return (typeof obj === "function") ? true : (obj instanceof Function);
-		}
-
-		function isUndefined(obj) {
-			return (typeof obj === "undefined");
-		}
-
-		function isNull(obj) {
-			return (obj === null);
-		}
-
-		return {
-			isArray : isArray,
-			isBoolean : isBoolean,
-			isDate : isDate,
-			isNumber : isNumber,
-			isString : isString,
-			isObject : isObject,
-			isFunction : isFunction,
-			isUndefined : isUndefined,
-			isNull : isNull
-		}
-
-	})();
-
-
-	/**
-	 * ArraysAPI Class. Implements the most usable API from Array.prototype
-	 **/
-
-	var ArraysAPI = (function (TypeChecker) {
-
-		var chainResult = [];
-
-		/*** PRIVATE API ***/
-
-		var decorator = function(func){
-			return function (){
-				if (arguments.length == 2){
-					return func.apply(this, arguments);
-				}else if (arguments.length == 1) {
-					chainResult = func.apply(this, [chainResult, arguments[0]]);
-					return this;
-				}
+	/*** Private API Implementation ***/
+	function decorator (func){
+		return function (){
+			if (arguments.length == 2){
+				return func.apply(this, arguments);
+			}else if (arguments.length == 1) {
+				chainResult = func.apply(this, [chainResult, arguments[0]]);
+				return this;
 			}
-		};
+		}
+	}
 
-		var tryValidateArguments = function (obj) {
-			if (TypeChecker.isUndefined(obj))
-				throw new ReferenceError("'" + obj + "' is not defined.")
+	function tryValidateArgs (args, expectedTypes) {
 
-			if (!TypeChecker.isObject(obj)) {
-				throw new TypeError("'" + obj + "' must be of Object type.")
-			}
+		if (isUndefined(expectedTypes))
+			throw new ReferenceError("Argument 'expectedTypes' is not defined.");
 
-			if (!TypeChecker.isUndefined(obj.isRequiredArgsCount) && !TypeChecker.isUndefined(obj.args)) {
-				if (obj.args.length < obj.isRequiredArgsCount) {
-					throw new RangeError("Function must supply at least " + obj.isRequiredArgsCount + " parameters");
-				}
-			}
+		for(var i = 0, currentArg = args[i]; i < expectedTypes.length; currentArg = args[ ++i ]){
 
-			if (!TypeChecker.isUndefined(obj.isValidArray)) {
-				if (!TypeChecker.isArray(obj.isValidArray)) {
-					throw new TypeError("'" + obj.isValidArray + "' must be of Array type.");
-				}
-			}
+			if (isUndefined(currentArg))
+				throw new ReferenceError("Argument " + currentArg + " is not defined.");
 
-			if (!TypeChecker.isUndefined(obj.isFunction)) {
-				if (!TypeChecker.isFunction(obj.isFunction)) {
-					throw new TypeError("'" + obj.isFunction + "' must be of Function type.");
-				}
-			}
-
-			if (!TypeChecker.isUndefined(obj.isValidNumber) ){
-				if(TypeChecker.isNumber(obj.isValidNumber)) {
-					if ((obj.isValidNumber < 0 || obj.isValidNumber >= obj.isValidArray.length)) {
-						throw new RangeError("'" + obj.isValidNumber + "' is out of range.");
+			switch(expectedTypes[i]){
+				case TYPE.ARRAY:
+				{
+					if (!isArray(currentArg)) {
+						throw new TypeError("'" + currentArg + "' must be of Array type.");
 					}
-				}else{
-					throw new TypeError("'" + obj.isValidNumber + "' is must be of Number type");
+					break;
+				}
+				case TYPE.FUNCTION:
+				{
+					if (!isFunction(currentArg)) {
+						throw new TypeError("'" + currentArg + "' must be of Function type.");
+					}
+					break;
+				}
+				case TYPE.NUMBER:
+				{
+					if (!isNumber(currentArg)) {
+						throw new TypeError("'" + currentArg + "' is must be of Number type");
+					}
+					break;
 				}
 			}
+		}
+	}
 
-			return true;
-		};
+	/*** Public API Implementation ***/
 
-		/*** Public API. Implementation ***/
-		this.result = function(){
-			return chainResult;
-		};
+	function isArray(obj) {
+		return obj instanceof Array;
+	}
 
-		this.chain = function(chainSequence){
-			chainResult = chainSequence;
-			this.filter = decorator(this.filter);
-			this.take = decorator(this.take);
-			this.skip = decorator(this.skip);
-			this.map = decorator(this.map);
-			return this;
-		};
+	function isBoolean(obj) {
+		return (typeof obj === "boolean") ? true : (obj instanceof Boolean);
+	}
 
-		this.forEach = function(arr, action) {
-			tryValidateArguments({
-					args: arguments,
-					isRequiredArgsCount: 2,
-					isValidArray: arr,
-					isFunction: action });
+	function isDate(obj) {
+		return (obj instanceof Date);
+	}
 
-			if (arr.length == 0) return undefined;
+	function isNumber(obj) {
+		return (typeof obj === "number") ? true : (obj instanceof Number);
+	}
 
-			for (var i = 0; i < arr.length; i++) {
-				action(arr[i], i, arr);
-			}
-		};
+	function isString(obj) {
+		return (typeof obj === "string") ? true : (obj instanceof String);
+	}
 
-		this.filter = function(arr, predicate) {
-			tryValidateArguments({
-					args: arguments,
-					isValidArray: arr,
-					isFunction: predicate });
+	function isObject(obj) {
+		return obj instanceof Object;
+	}
 
-			if (arr.length == 0) return [];
+	function isFunction(obj) {
+		return (typeof obj === "function") ? true : (obj instanceof Function);
+	}
 
-			var resultArray = [];
-			for (var i = 0; i < arr.length; i++) {
-				if (predicate(arr[i])) {
-					resultArray.push(arr[i]);
-				}
-			}
-			return resultArray;
-		};
+	function isUndefined(obj) {
+		return (typeof obj === "undefined");
+	}
 
-		this.first = function(arr) {
-			tryValidateArguments({
-					args: arguments,
-					isValidArray: arr });
+	function isNull(obj) {
+		return (obj === null);
+	}
 
-			if (arr.length == 0) return undefined;
-			return arr[0];
-		};
+	this.result = function(){
+		return chainResult;
+	};
 
-		this.last = function(arr) {
-			tryValidateArguments({
-					args: arguments,
-					isValidArray: arr });
+	this.chain = function(chainSequence){
+		chainResult = chainSequence;
+		this.filter = decorator(this.filter);
+		this.take = decorator(this.take);
+		this.skip = decorator(this.skip);
+		this.map = decorator(this.map);
+		return this;
+	};
 
-			if (arr.length == 0) return undefined;
-			return arr[arr.length - 1];
-		};
+	this.forEach = function(arr, action) {
+		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
-		this.take = function(arr, number) {
-			tryValidateArguments({
-					args: arguments,
-					isValidArray: arr,
-					isValidNumber: number });
+		for (var i = 0; i < arr.length; i++) {
+			action(arr[i], i, arr);
+		}
+	};
 
-			if (arr.length == 0) return [];
+	this.filter = function(arr, predicate) {
+		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
-			var resultArray = [];
-			for (var i = 0; i < number; i++) {
+		var resultArray = [];
+		for (var i = 0; i < arr.length; i++) {
+			if (predicate(arr[i])) {
 				resultArray.push(arr[i]);
 			}
-			return resultArray;
-		};
+		}
 
-		this.skip = function(arr, number) {
-			tryValidateArguments({
-					args: arguments,
-					isValidArray: arr,
-					isValidNumber: number });
+		return resultArray;
+	};
 
-			if (arr.length == 0) return [];
+	this.first = function(arr) {
+		tryValidateArgs(arguments, [TYPE.ARRAY]);
+		return arr[0];
+	};
 
-			var resultArray = [];
+	this.last = function(arr) {
+		tryValidateArgs(arguments, [TYPE.ARRAY]);
+		return arr[ arr.length - 1 ];
+	};
 
-			for (var i = 0; i < arr.length; i++) {
-				if (i !== number) {
-					resultArray.push(arr[i]);
-				}
+	this.take = function(arr, number) {
+		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.NUMBER]);
+
+		if (number < 0 || number >= arr.length)
+			throw new RangeError(number + " is out of range (0, " + arr.length + "); ");
+
+		var resultArray = [];
+		for (var i = 0; i < number; i++) {
+			resultArray.push( arr[i] );
+		}
+
+		return resultArray;
+	};
+
+	this.skip = function(arr, number) {
+		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.NUMBER]);
+
+		if (number < 0 || number >= arr.length)
+			throw new RangeError(number + " is out of range (0, " + arr.length + "); ");
+
+		var resultArray = [];
+		for (var i = 0; i < arr.length; i++) {
+			if (i !== number) {
+				resultArray.push( arr[i] );
 			}
-			return resultArray;
-		};
+		}
+
+		return resultArray;
+	};
 
 
-		this.map = function(arr, selector) {
-			tryValidateArguments({
-					args: arguments,
-					isValidArray: arr,
-					isFunction: selector });
+	this.map = function(arr, selector) {
+		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
-			if (arr.length == 0) return [];
+		var resultArray = [];
+		for (var i = 0; i < arr.length; i++) {
+			resultArray.push( selector( arr[i] ) );
+		}
 
-			var resultArray = [];
-			for (var i = 0; i < arr.length; i++) {
-				resultArray.push(selector(arr[i]));
+		return resultArray;
+	};
+
+	this.reduce = function(arr, action, initialPrevValue) {
+		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
+
+		/* JS spec on 'reduce' requires the following check: */
+		if (arr.length == 0 && isUndefined(initialPrevValue)) {
+			throw new TypeError("Both Array Length is 0 and initialPrevValue is undefined");
+		}
+		else if ( arr.length == 1 && isUndefined(initialPrevValue)){
+			return arr[0];
+		}
+		else if (arr.length == 0 && !isUndefined(initialPrevValue)) {
+			return initialPrevValue;
+		}
+
+		var prevValue = null;
+		var currentValue = null;
+		var startAt = 0;
+
+		if (!isUndefined(initialPrevValue)) {
+			prevValue = initialPrevValue;
+			currentValue = arr[0];
+		}
+		else {
+			prevValue = arr[0];
+			currentValue = arr[1];
+			startAt = 1;
+		}
+
+		var i = startAt;
+		while(i < arr.length) {
+			if(!isUndefined(currentValue) && !isUndefined(prevValue)) {
+				prevValue = action(prevValue, currentValue, i, arr);
 			}
-			return resultArray;
-		};
+			currentValue = arr[ ++i ];
+		}
 
-		this.reduce = function(arr, action, initialPrevValue) {
-
-			tryValidateArguments({
-				args: arguments,
-				isValidArray: arr,
-				isFunction: action });
-
-
-				/* JS spec on 'reduce' requires the following check: */
-
-				if (arr.length == 0 && TypeChecker.isUndefined(initialPrevValue))
-					throw new TypeError("Both Array Length is 0 and initialPrevValue is undefined");
-				else if ( arr.length == 1 && TypeChecker.isUndefined(initialPrevValue)){
-					return arr[0];
-				}else if (arr.length == 0 && !TypeChecker.isUndefined(initialPrevValue)) {
-					return initialPrevValue;
-				}
-
-			var prevValue = null;
-			var currentValue = null;
-			var startAt = 0;
-
-			if (!TypeChecker.isUndefined(initialPrevValue)) {
-				prevValue = initialPrevValue;
-				currentValue = arr[0];
-			}else{
-				prevValue = arr[0];
-				currentValue = arr[1];
-				startAt = 1;
-			}
-
-			var i = startAt;
-			while(i < arr.length) {
-				if(!TypeChecker.isUndefined(currentValue))
-					prevValue = action(prevValue, currentValue, i, arr);
-				currentValue = arr[++i];
-			}
-
-			return prevValue;
-		};
-
-		return {
-			forEach : this.forEach,
-			filter : this.filter,
-			first: this.first,
-			last : this.last,
-			map : this.map,
-			skip : this.skip,
-			take : this.take,
-			reduce : this.reduce,
-			result: this.result,
-			chain: this.chain
-		};
-	})(TypeChecker);
+		return prevValue;
+	};
 
 	return {
-		ArraysAPI: ArraysAPI,
-		TypeChecker: TypeChecker
+		forEach : forEach,
+		filter : filter,
+		first: first,
+		last : last,
+		map : map,
+		skip : skip,
+		take : take,
+		reduce : reduce,
+		result: result,
+		chain: chain,
+		isArray : isArray,
+		isBoolean : isBoolean,
+		isDate : isDate,
+		isNumber : isNumber,
+		isString : isString,
+		isObject : isObject,
+		isFunction : isFunction,
+		isUndefined : isUndefined,
+		isNull : isNull,
+		TYPE: TYPE
 	};
 })();
