@@ -7,8 +7,6 @@
 
 var m = (function() {
 
-	var chainResult = [];
-
 	var TYPE = {
 		BOOLEAN : 0,
 		FUNCTION: 1,
@@ -22,16 +20,6 @@ var m = (function() {
 	};
 
 	/*** Private API Implementation ***/
-	function decorator (func){
-		return function (){
-			if (arguments.length == 2){
-				return func.apply(this, arguments);
-			}else if (arguments.length == 1) {
-				chainResult = func.apply(this, [chainResult, arguments[0]]);
-				return this;
-			}
-		}
-	}
 
 	function tryValidateArgs (args, expectedTypes) {
 
@@ -107,28 +95,40 @@ var m = (function() {
 		return (obj === null);
 	}
 
-	this.result = function(){
-		return chainResult;
-	};
+	function chain(array){ // chainLE -> {chainArray: [], resultObj: {}, decorator: function(){} }
+		var chainArray = array,
+			resultObj = {
+				result: function() { // [[Scope]] -> chainLE;  resultLE -> {}
+							return chainArray;
+						}
+			};
 
-	this.chain = function(chainSequence){
-		chainResult = chainSequence;
-		this.filter = decorator(this.filter);
-		this.take = decorator(this.take);
-		this.skip = decorator(this.skip);
-		this.map = decorator(this.map);
-		return this;
-	};
+		resultObj.filter = decorator(filter);
+		resultObj.map = decorator(map);
+		resultObj.take = decorator(take);
+		resultObj.skip = decorator(skip);
 
-	this.forEach = function(arr, action) {
+		function decorator (func){ // [[Scope]] -> chainLE; decoratorLE -> {func: function(){}, anonym: function(){} }
+			return function (){ // [[Scope]] -> decoratorLE; anonymLE -> {args: arguments}
+				var argsArray = [].slice.call(arguments);
+				argsArray.unshift(chainArray);
+				chainArray = func.apply(null, argsArray);
+				return resultObj;
+			}
+		}
+
+		return resultObj;
+	}
+
+	function forEach(arr, action) {
 		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
 		for (var i = 0; i < arr.length; i++) {
 			action(arr[i], i, arr);
 		}
-	};
+	}
 
-	this.filter = function(arr, predicate) {
+	function filter(arr, predicate) {
 		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
 		var resultArray = [];
@@ -139,19 +139,19 @@ var m = (function() {
 		}
 
 		return resultArray;
-	};
+	}
 
-	this.first = function(arr) {
+	function first (arr) {
 		tryValidateArgs(arguments, [TYPE.ARRAY]);
 		return arr[0];
-	};
+	}
 
-	this.last = function(arr) {
+	function last (arr) {
 		tryValidateArgs(arguments, [TYPE.ARRAY]);
 		return arr[ arr.length - 1 ];
-	};
+	}
 
-	this.take = function(arr, number) {
+	function take (arr, number) {
 		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.NUMBER]);
 
 		if (number < 0 || number >= arr.length)
@@ -163,9 +163,9 @@ var m = (function() {
 		}
 
 		return resultArray;
-	};
+	}
 
-	this.skip = function(arr, number) {
+	function skip(arr, number) {
 		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.NUMBER]);
 
 		if (number < 0 || number >= arr.length)
@@ -179,10 +179,10 @@ var m = (function() {
 		}
 
 		return resultArray;
-	};
+	}
 
 
-	this.map = function(arr, selector) {
+	function map(arr, selector) {
 		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
 		var resultArray = [];
@@ -191,9 +191,9 @@ var m = (function() {
 		}
 
 		return resultArray;
-	};
+	}
 
-	this.reduce = function(arr, action, initialPrevValue) {
+	function reduce(arr, action, initialPrevValue) {
 		tryValidateArgs(arguments, [TYPE.ARRAY, TYPE.FUNCTION]);
 
 		/* JS spec on 'reduce' requires the following check: */
@@ -230,9 +230,9 @@ var m = (function() {
 		}
 
 		return prevValue;
-	};
+	}
 
-	return {
+	exportObject = {
 		forEach : forEach,
 		filter : filter,
 		first: first,
@@ -241,7 +241,6 @@ var m = (function() {
 		skip : skip,
 		take : take,
 		reduce : reduce,
-		result: result,
 		chain: chain,
 		isArray : isArray,
 		isBoolean : isBoolean,
@@ -254,4 +253,6 @@ var m = (function() {
 		isNull : isNull,
 		TYPE: TYPE
 	};
+
+	return exportObject;
 })();
