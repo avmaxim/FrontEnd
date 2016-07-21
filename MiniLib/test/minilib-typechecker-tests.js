@@ -406,4 +406,3 @@ describe('MiniLib - TypeChecker logic', function() {
     });
 
 });
-

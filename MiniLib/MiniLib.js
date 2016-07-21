@@ -124,30 +124,30 @@ var m = (function() {
 
 	/***** Chaining Function Implementation Improvement - WAY 2 *****/
 	/*
-	function chain(array){
-		var chainArray = array,
-			resultObj = {
-				result: function() {
-					return chainArray;
-				}
-			};
+	 function chain(array){
+	 var chainArray = array,
+	 resultObj = {
+	 result: function() {
+	 return chainArray;
+	 }
+	 };
 
-		resultObj.filter = decorator(filter);
-		resultObj.map = decorator(map);
-		resultObj.take = decorator(take);
-		resultObj.skip = decorator(skip);
+	 resultObj.filter = decorator(filter);
+	 resultObj.map = decorator(map);
+	 resultObj.take = decorator(take);
+	 resultObj.skip = decorator(skip);
 
-		function decorator (func){
-			return function (){
-				var argsArray = [].slice.call(arguments);
-				argsArray.unshift(chainArray);
-				return chain(func.apply(null, argsArray));
-			}
-		}
+	 function decorator (func){
+	 return function (){
+	 var argsArray = [].slice.call(arguments);
+	 argsArray.unshift(chainArray);
+	 return chain(func.apply(null, argsArray));
+	 }
+	 }
 
-		return resultObj;
-	}
-	*/
+	 return resultObj;
+	 }
+	 */
 
 
 	function forEach(arr, action) {
