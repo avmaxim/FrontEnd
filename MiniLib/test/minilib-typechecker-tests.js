@@ -3,108 +3,134 @@
  */
 
 
-var assert = chai.assert;
+var expect = chai.expect;
 
-describe('MiniLib.TypeChecker', function() {
+describe('MiniLib - TypeChecker logic', function() {
+
     describe('isArray', function() {
+
         //Positive tests
         it('should be True when arg is \'[]\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray([]));
+            expect( m.isArray( [] ) ).to.be.true;
         });
+
         it('should be True when arg is \'[undefined]\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray([undefined]));
+            expect( m.isArray( [undefined] ) ).to.be.true;
         });
+
         it('should be True when arg is \'[100, 200]\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray([100, 200]));
+            expect( m.isArray( [100, 200] ) ).to.be.true;
         });
+
         it('should be True when arg is \'[100, undefined, 200]\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray([100, undefined, 200]));
+            expect( m.isArray( [100, undefined, 200] ) ).to.be.true;
         });
+
         it('should be True when arg is \'[{g: 0}, true, 10, "", null, NaN]\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray([{g: 0}, true, 10, "", null, NaN]));
+            expect( m.isArray( [{g: 0}, true, 10, "", null, NaN] ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Array\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray(new Array));
+            expect( m.isArray(new Array) ).to.be.true;
         });
+
         it('should be True when arg is \'new Array(0)\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray(new Array(0)));
+            expect( m.isArray( new Array(0) ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Array(3, 5)\'', function () {
-            assert.isOk(MiniLib.TypeChecker.isArray(new Array(3, 5)));
+            expect( m.isArray( new Array(3, 5) ) ).to.be.true;
         });
+
         it('should be True when arg is \'[100, undefined * 1, 200]\'', function () {
             var testArr = [100];
             delete testArr[0];
-            assert.isOk(MiniLib.TypeChecker.isArray(testArr));
+            expect( m.isArray( testArr ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'undefined\'', function () {
-            assert.isNotOk(MiniLib.TypeChecker.isArray(undefined));
+            expect( m.isArray( undefined )).to.be.false;
         });
-        it('should be False when arg is \'null\'', function () {
-            assert.isNotOk(MiniLib.TypeChecker.isArray(null));
-        });
-        it('should be False when arg is \'NaN\'', function () {
-            assert.isNotOk(MiniLib.TypeChecker.isArray(NaN));
-        });
-        it('should be False when arg is \'""\'', function () {
-            assert.isNotOk(MiniLib.TypeChecker.isArray(""));
-        });
-        it('should be False when arg is \'0\'', function () {
-            assert.isNotOk(MiniLib.TypeChecker.isArray(0));
-        });
-        it('should be False when arg is \'new Function\'', function () {
-            assert.isNotOk(MiniLib.TypeChecker.isArray(new Function));
-        });
-    });
 
+        it('should be False when arg is \'null\'', function () {
+            expect( m.isArray( null ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'NaN\'', function () {
+            expect( m.isArray( NaN ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'""\'', function () {
+            expect( m.isArray( "" ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'0\'', function () {
+            expect( m.isArray( 0 ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'new Function\'', function () {
+            expect( m.isArray( new Function ) ).to.be.false;
+        });
+
+    });
 
     describe('isBoolean', function() {
 
         //Positive tests
         it('should be True when arg is \'true\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isBoolean(true));
+            expect( m.isBoolean( true ) ).to.be.true;
         });
+
         it('should be True when arg is \'false\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isBoolean(false));
+            expect( m.isBoolean( false ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Boolean\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isBoolean(new Boolean));
+            expect( m.isBoolean( new Boolean ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Boolean(true)\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isBoolean(new Boolean(true)));
+            expect( m.isBoolean( new Boolean( true ) ) ).to.be.true;
         });
+
         it('should be True when arg is \'100 == 100\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isBoolean(100 == 100));
+            expect( m.isBoolean( 100 == 100 ) ).to.be.true;
         });
+
         it('should be True when arg is \'Array.isArray([3, 5])\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isBoolean(Array.isArray([3, 5])));
+            expect( m.isBoolean( Array.isArray( [3, 5] ) ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'"true"\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean("true"));
+            expect( m.isBoolean( "true" ) ).to.be.false;
         });
 
         it('should be False when arg is \'undefined\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean(undefined));
+            expect( m.isBoolean( undefined ) ).to.be.false;
         });
+
         it('should be False when arg is \'null\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean(null));
+            expect( m.isBoolean( null ) ).to.be.false;
         });
+
         it('should be False when arg is \'NaN\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean(NaN));
+            expect( m.isBoolean( NaN ) ).to.be.false;
         });
+
         it('should be False when arg is \'""\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean(""));
+            expect( m.isBoolean( "" ) ).to.be.false;
         });
+
         it('should be False when arg is \'0\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean(0));
+            expect( m.isBoolean( 0 ) ).to.be.false;
         });
+
         it('should be False when arg is \'new Function\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isBoolean(new Function));
+            expect( m.isBoolean( new Function ) ).to.be.false;
         });
+
     });
 
 
@@ -112,241 +138,271 @@ describe('MiniLib.TypeChecker', function() {
 
         //Positive tests
         it('should be True when arg is \'new Date\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isDate(new Date));
+            expect( m.isDate( new Date ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Date()\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isDate(new Date()));
+            expect( m.isDate( new Date() ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Date("2015-11-09")\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isDate(new Date("2015-11-09")));
+            expect( m.isDate( new Date( "2015-11-09" ) ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'"2015-11-09"\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(""));
+            expect( m.isDate( "" ) ).to.be.false;
         });
 
         it('should be False when arg is \'undefined\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(undefined));
+            expect( m.isDate( undefined ) ).to.be.false;
         });
-        it('should be False when arg is \'null\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(null));
-        });
-        it('should be False when arg is \'NaN\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(NaN));
-        });
-        it('should be False when arg is \'""\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(""));
-        });
-        it('should be False when arg is \'0\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(0));
-        });
-        it('should be False when arg is \'new Function\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isDate(new Function));
-        });
-    });
 
+        it('should be False when arg is \'null\'', function(){
+            expect( m.isDate( null ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'NaN\'', function(){
+            expect( m.isDate( NaN ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'""\'', function(){
+            expect( m.isDate( "" ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'0\'', function(){
+            expect( m.isDate( 0 ) ).to.be.false;
+        });
+
+        it('should be False when arg is \'new Function\'', function(){
+            expect( m.isDate( new Function ) ).to.be.false;
+        });
+
+    });
 
     describe('isNumber', function() {
 
         //Positive tests
         it('should be True when arg is \'0\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(0));
+            expect( m.isNumber( 0 ) ).to.be.true;
         });
+
         it('should be True when arg is \'10\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(10));
+            expect( m.isNumber( 10 ) ).to.be.true;
         });
+
         it('should be True when arg is \'0.10\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(0.10));
+            expect( m.isNumber( 0.10 ) ).to.be.true;
         });
+
         it('should be True when arg is \'-0.10\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(-0.10));
+            expect( m.isNumber( -0.10 ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Number\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(new Number));
+            expect( m.isNumber( new Number ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Number(10)\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(new Number(10)));
+            expect( m.isNumber( new Number(10) ) ).to.be.true;
         });
+
         it('should be True when arg is \'NaN\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNumber(NaN));
+            expect( m.isNumber( NaN ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'"10"\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNumber(""));
+            expect( m.isNumber( "" ) ).to.be.false;
         });
 
         it('should be False when arg is \'undefined\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNumber(undefined));
+            expect( m.isNumber( undefined ) ).to.be.false;
         });
+
         it('should be False when arg is \'null\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNumber(null));
+            expect( m.isNumber( null ) ).to.be.false;
         });
 
         it('should be False when arg is \'""\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNumber(""));
+            expect( m.isNumber( "" ) ).to.be.false;
         });
-        it('should be False when arg is \'new Function\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNumber(new Function));
-        });
-    });
 
+        it('should be False when arg is \'new Function\'', function(){
+            expect( m.isNumber( new Function ) ).to.be.false;
+        });
+
+    });
 
     describe('isString', function() {
 
         //Positive tests
         it('should be True when arg is \'""\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isString(""));
+            expect( m.isString( "" ) ).to.be.true;
         });
+
         it('should be True when arg is \'"ABCabc897*&^"\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isString("ABCabc897*&^"));
+            expect( m.isString( "ABCabc897*&^" ) ).to.be.true;
         });
+
         it('should be True when arg is \'new String\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isString(new String));
+            expect( m.isString( new String ) ).to.be.true;
         });
+
         it('should be True when arg is \'new String("qwe")\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isString(new String("qwe")));
+            expect( m.isString( new String( "qwe" ) ) ).to.be.true;
         });
+
         it('should be True when arg is \'""\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isString(""));
+            expect( m.isString( "" ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'10\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isString(10));
+            expect( m.isString( 10 ) ).to.be.false;
         });
 
         it('should be False when arg is \'undefined\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isString(undefined));
+            expect( m.isString( undefined ) ).to.be.false;
         });
 
         it('should be False when arg is \'false\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isString(false));
+            expect( m.isString( false ) ).to.be.false;
         });
 
         it('should be False when arg is \'null\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isString(null));
+            expect( m.isString( null ) ).to.be.false;
         });
 
         it('should be False when arg is \'NaN\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isString(NaN));
+            expect( m.isString( NaN ) ).to.be.false;
         });
 
         it('should be False when arg is \'new Date\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isString(new Date));
+            expect( m.isString( new Date ) ).to.be.false;
         });
+
     });
-
-
 
     describe('isFunction', function() {
 
         //Positive tests
         it('should be True when arg is \'function(){}\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isFunction(function(){}));
+            expect( m.isFunction( function(){} ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Function\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isFunction(new Function));
+            expect( m.isFunction( new Function ) ).to.be.true;
         });
+
         it('should be True when arg is \'new Function("item", "return item < 100;")\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isFunction(new Function("item", "return item < 100;")));
+            expect( m.isFunction( new Function( "item", "return item < 100;") ) ).to.be.true;
         });
-        var functionExpr = function(){ console.log("hi there"); }
+
+        var functionExpr = function(){
+            console.log("hi there");
+        };
+
         it('should be True when arg is \'isFunction\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isFunction(functionExpr));
+            expect( m.isFunction( functionExpr ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'""\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isFunction(""));
+            expect( m.isFunction( "" ) ).to.be.false;
         });
 
         it('should be False when arg is \'undefined\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isFunction(undefined));
+            expect( m.isFunction( undefined ) ).to.be.false;
         });
 
         it('should be False when arg is \'false\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isFunction(false));
+            expect( m.isFunction( false ) ).to.be.false;
         });
 
         it('should be False when arg is \'null\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isFunction(null));
+            expect( m.isFunction( null ) ).to.be.false;
         });
 
         it('should be False when arg is \'NaN\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isFunction(NaN));
+            expect( m.isFunction( NaN ) ).to.be.false;
         });
 
         it('should be False when arg is \'new Date\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isFunction(new Date));
+            expect( m.isFunction( new Date ) ).to.be.false;
         });
-    });
 
+    });
 
     describe('isUndefined', function() {
 
         //Positive tests
         it('should be True when arg is \'undefined\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isUndefined(undefined));
+            expect( m.isUndefined( undefined ) ).to.be.true;
         });
+
         it('should be True when arg is variable got set to Undefined by JS interpreter', function(){
             var undefVar;
-            assert.isOk(MiniLib.TypeChecker.isUndefined(undefVar));
+            expect( m.isUndefined( undefVar ) ).to.be.true;
         });
 
         it('should be True when arg is variable got set to undefined manually', function(){
             var undefVar = undefined;
-            assert.isOk(MiniLib.TypeChecker.isUndefined(undefVar));
+            expect( m.isUndefined( undefVar) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'""\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isUndefined(""));
+            expect( m.isUndefined( "" ) ).to.be.false;
         });
 
         it('should be False when arg is \'NaN\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isUndefined(NaN));
+            expect( m.isUndefined( NaN ) ).to.be.false;
         });
 
         it('should be False when arg is \'false\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isUndefined(false));
+            expect( m.isUndefined( false ) ).to.be.false;
         });
 
         it('should be False when arg is \'null\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isUndefined(null));
+            expect( m.isUndefined( null ) ).to.be.false;
         });
 
         it('should be False when arg is \'new Date\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isUndefined(new Date));
+            expect( m.isUndefined( new Date ) ).to.be.false;
         });
-    });
 
+    });
 
     describe('isNull', function() {
 
         //Positive tests
         it('should be True when arg is \'null\'', function(){
-            assert.isOk(MiniLib.TypeChecker.isNull(null));
+            expect( m.isNull( null ) ).to.be.true;
         });
+
         it('should be True when arg is variable got set to null manually', function(){
             var nullVar = null;
-            assert.isOk(MiniLib.TypeChecker.isNull(nullVar));
+            expect( m.isNull( nullVar ) ).to.be.true;
         });
 
         //Negative tests
         it('should be False when arg is \'""\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNull(""));
+            expect( m.isNull( "" ) ).to.be.false;
         });
+
         it('should be False when arg is \'NaN\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNull(NaN));
+            expect( m.isNull( NaN ) ).to.be.false;
         });
+
         it('should be False when arg is \'false\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNull(false));
+            expect( m.isNull( false ) ).to.be.false;
         });
+
         it('should be False when arg is \'new Date\'', function(){
-            assert.isNotOk(MiniLib.TypeChecker.isNull(new Date));
+            expect( m.isNull( new Date ) ).to.be.false;
         });
+
     });
 
 });
