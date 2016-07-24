@@ -2,10 +2,13 @@
  * Created by andrei.maksimchanka on 7/22/2016.
  */
 
-(function($){
+(function($) {
 
     $(document).ready(function(){
-        $( ".tabs" ).tabs();
+        $( ".tabs" ).jtabs({
+            theme: "grass",
+            canBeClosed: true
+        });
     });
 
 })(jQuery);

@@ -1,0 +1,64 @@
+@import "base-reset";
+
+.jtabs-widget {
+
+}
+
+.jtabs-nav {
+  padding: 5px 0 0 5px;
+  background: transparent;
+  border-bottom: 1px solid green;
+
+  .close-tab-btn{
+    -moz-transition: opacity .2s ease-in;
+    -o-transition: opacity .2s ease-in;
+    -webkit-transition: opacity .2s ease-in;
+    transition: opacity .2s ease-in;
+    position: absolute;
+    right: 5px;
+    top: -8px;
+    font-size: 12px;
+    cursor: pointer;
+    color: green;
+    -webkit-user-select: none;
+    opacity: 0;
+    &:hover{
+      opacity: 1;
+    }
+  }
+
+  a:hover + .close-tab-btn{
+    opacity: 1;
+  }
+
+  li {
+    list-style: none;
+    display: inline;
+    position: relative;
+    margin: 0px;
+    border-radius: 0px;
+  }
+
+  li a {
+    padding: 5px 20px;
+    display: inline-block;
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  li a.active {
+    background-color: white;
+    color: green;
+    border-top: 1px solid green;
+    border-left: 1px solid green;
+    border-right: 1px solid green;
+  }
+}
+
+.jtabs-content{
+  padding: 10px;
+}
