@@ -7,7 +7,8 @@
     $(document).ready(function(){
         $( ".tabs" ).jtabs({
             theme: "grass",
-            canBeClosed: true
+            canBeClosed: true,
+            urlRouting: false
         });
     });
 

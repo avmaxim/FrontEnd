@@ -10,46 +10,52 @@
                 theme: 'grass',
                 urlRouting: false,
                 canBeClosed: false
-            };
-
-        var settings = $.extend(defaults, options);
-
-        var $widget = $(this).addClass('jtabs-widget');
-        var $tabControl = $widget.children('ul').eq(0).addClass('jtabs-nav');
-
-        var $tabs = $tabControl.children('li').addClass('jtab');
-        $tabs.find('a').addClass('jlink');
-
-        var $activeTab = $tabs.eq(0).addClass('active');
-        var $activeContent = getContentForTab( $activeTab );
+            },
+            settings = $.extend(defaults, options),
+            $widget = $(this).addClass('jtabs-widget'),                                                                 // div.jtabs-widget
+            $tabControl = $widget.children('ul').eq(0).addClass('jtabs-nav'),                                           // ul.jtabs-nav
+            $tabs = $tabControl.children('li').addClass('jtab'),                                                        // [li.jtab, ...]
+            $activeTab,                                                                                                 // li.jtab.active
+            $activeContent;                                                                                             // div#tabN
 
         $tabs.each(function(){
-            var $currentContent = getContentForTab( $(this) );
-            $currentContent.hide().addClass('jtabs-content');
+            var $currentTab = $(this);
+            $currentTab.find('a').addClass('jlink');
+            var $currentContent = getContentForTab( $currentTab );
+            $currentContent.addClass('jtabs-content').hide();
         });
-
-        $activeContent.show();
 
         $tabs.on('click', 'a.jlink', function(e){
-            var $tab = $(this).parent();
-            changeActiveTabTo($tab);
-            if(!settings.urlRouting)
+            if(!settings.urlRouting){
+                var $tab = $(this).parent();
+                changeActiveTabTo( $tab );
                 e.preventDefault();
+            }
         });
+
+        if(settings.urlRouting) {
+            $(window)
+                .on('hashchange', function () {
+                    var tabFromHash = $tabs.find('[href="' + location.hash + '"]').parent()[0];
+                    changeActiveTabTo( tabFromHash ? $(tabFromHash) : $tabs.eq(0) );
+                })
+                .trigger('hashchange');
+        }
+        else {
+            changeActiveTabTo( $tabs.eq(0) );
+        }
 
         if(settings.canBeClosed) {
             $tabs.append('<span class="close-tab-btn" >x</span>');
 
             $('.close-tab-btn').on('click', function (e) {
-                var $closeBtn = $(this);
-                var $currentTab = $closeBtn.parent();
-
-                var $visibleTabs = $currentTab.siblings().not('.hidden');
+                var $closeBtn = $(this),
+                    $currentTab = $closeBtn.parent(),
+                    $visibleTabs = $currentTab.siblings().not('.hidden');
 
                 if ($visibleTabs.length) {
                     changeActiveTabTo( $visibleTabs.eq(0) );
-                    $currentTab.hide();
-                    $currentTab.addClass('hidden');
+                    $currentTab.addClass('hidden').hide();
                 }
 
             });
@@ -59,11 +65,14 @@
 
 
         function changeActiveTabTo($activeTabPretender){
-            $activeTab.removeClass( 'active' );
-            $activeContent.hide();
+            if($activeTab && $activeContent) {
+                $activeTab.removeClass('active');
+                $activeContent.hide();
+            }
 
             $activeTab = $activeTabPretender;
-            $activeContent = getContentForTab( $activeTabPretender) ;
+            $activeContent = getContentForTab( $activeTabPretender);
+            location.hash = (settings.urlRouting) ? $activeTab.find('.jlink')[0].hash : '';
 
             $activeTab.addClass( 'active' );
             $activeContent.show();
