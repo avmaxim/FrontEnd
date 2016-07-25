@@ -27,7 +27,7 @@
         }
 
         if ( this.settings.dynamicTabs.length > 0 ){
-           // this.initDynamicTabsFeature();
+            this.initDynamicTabsFeature();
         }
 
         if( this.settings.urlRouting ) {
@@ -73,13 +73,13 @@
         var self = this;
         this.$tabs.on('dblclick', 'a.jlink', function(e){
             var $currentTab = $(this).parent(),
-                $visibleTabs = $currentTab.siblings().not('.hidden');
+                $visibleTabs = $currentTab.siblings().not('.closed');
 
             if ( $visibleTabs.length > 0 ) {
                 var $newActiveTab = $visibleTabs.eq(0);
 
                 self.changeActiveTabTo( $newActiveTab );
-                $currentTab.addClass('hidden').hide();
+                $currentTab.addClass('closed').hide();
 
                 if( $newActiveTab.find('.jlink').hasClass('dynamic') ){
                     $newActiveTab.find('.jlink').trigger('click');
@@ -91,7 +91,23 @@
 
     //**** Dynamic Page Loading Feature ****//
     JTabsPlugin.prototype.initDynamicTabsFeature = function(){
-        //...
+        var self = this;
+        this.settings.dynamicTabs.forEach(function(tab){
+            if( !self.$tabs[ tab.number - 1 ] ) {
+                return;
+            }
+
+            self.$tabs
+                    .eq(tab.number - 1)
+                    .find('.jlink')
+                    .addClass('dynamic')
+                    .on('click', function(){
+                        //if content hasn't been loaded yet, do it now.
+                        if ( !$('#tab' + tab.number).html().trim() ) {
+                            self.loadContentForTab(tab);
+                        }
+                    });
+        });
     };
 
     //**** URL Routing Feature ****//
@@ -122,6 +138,26 @@
 
         this.$activeTab.addClass( 'active' );
         this.$activeContent.show();
+    };
+
+    JTabsPlugin.prototype.loadContentForTab = function(tab){
+        $.ajax({
+            method: 'GET',
+            url: tab.url || '',
+            beforeSend: function(){
+                $('.jtabs-progress-bar').removeClass('hidden');
+            }
+        }).fail(function(e){
+            $('#tab' + +tab.number).html(e);
+            tab.error(e);
+            $('.jtabs-progress-bar').addClass('hidden');
+        }).done(function(response){
+            setTimeout(function () {
+                $('#tab' + +tab.number).html(response);
+                tab.success(response);
+                $('.jtabs-progress-bar').addClass('hidden');
+            }, 3000);
+        })
     };
 
     var $getContentForTab = function($tab){
