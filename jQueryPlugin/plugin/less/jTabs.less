@@ -22,40 +22,37 @@
     color: green;
     -webkit-user-select: none;
     opacity: 0;
-    &:hover{
-      opacity: 1;
-    }
   }
 
-  a:hover + .close-tab-btn{
-    opacity: 1;
-  }
+  .close-tab-btn:hover{ opacity: 1; }
 
-  li {
+  a:hover + .close-tab-btn { opacity: 1; }
+
+  li.jtab {
     list-style: none;
     display: inline;
     position: relative;
     margin: 0px;
     border-radius: 0px;
-  }
 
-  li a {
-    padding: 5px 20px;
-    display: inline-block;
-    background-color: green;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 5px 5px 0 0;
-  }
+    a.jlink {
+      padding: 5px 20px;
+      display: inline-block;
+      background-color: green;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 5px 5px 0 0;
+    }
 
-  li a.active {
-    background-color: white;
-    color: green;
-    border-top: 1px solid green;
-    border-left: 1px solid green;
-    border-right: 1px solid green;
+    &.active a.jlink {
+      background-color: white;
+      color: green;
+      border-top: 1px solid green;
+      border-left: 1px solid green;
+      border-right: 1px solid green;
+    }
   }
 }
 

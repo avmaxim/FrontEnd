@@ -14,68 +14,63 @@
 
         var settings = $.extend(defaults, options);
 
-        var $widget = $(this);
-        var $tabControl = $widget.children("ul").eq(0);
+        var $widget = $(this).addClass('jtabs-widget');
+        var $tabControl = $widget.children('ul').eq(0).addClass('jtabs-nav');
 
-        var $tabs = $tabControl.find("a");
-        var $activeTab = $tabs.eq(0);
-        var $content = $( $activeTab[0].hash );
+        var $tabs = $tabControl.children('li').addClass('jtab');
+        $tabs.find('a').addClass('jlink');
 
-        $widget.addClass( 'jtabs-widget' );
-        $tabControl.addClass( 'jtabs-nav' );
-        $activeTab.addClass( 'active' );
+        var $activeTab = $tabs.eq(0).addClass('active');
+        var $activeContent = getContentForTab( $activeTab );
 
-        $tabs.each(iterateThruTabs);
-        
-        this.on('click', 'a', onTabClick);
-        
-        return this;
+        $tabs.each(function(){
+            var $currentContent = getContentForTab( $(this) );
+            $currentContent.hide().addClass('jtabs-content');
+        });
 
-        function onTabClick(e){
+        $activeContent.show();
 
-            $activeTab.removeClass( 'active' );
-            $content.hide();
-
-            $activeTab = $(this);
-            $content = $(this.hash);
-
-            $activeTab.addClass( 'active' );
-            $content.show();
-
+        $tabs.on('click', 'a.jlink', function(e){
+            var $tab = $(this).parent();
+            changeActiveTabTo($tab);
             if(!settings.urlRouting)
                 e.preventDefault();
+        });
+
+        if(settings.canBeClosed) {
+            $tabs.append('<span class="close-tab-btn" >x</span>');
+
+            $('.close-tab-btn').on('click', function (e) {
+                var $closeBtn = $(this);
+                var $currentTab = $closeBtn.parent();
+
+                var $visibleTabs = $currentTab.siblings().not('.hidden');
+
+                if ($visibleTabs.length) {
+                    changeActiveTabTo( $visibleTabs.eq(0) );
+                    $currentTab.hide();
+                    $currentTab.addClass('hidden');
+                }
+
+            });
         }
 
-        function iterateThruTabs(){
-            var self = this;
-
-            if(settings.canBeClosed){
-                $('<span class="close-tab-btn" >x</span>')
-                    .insertAfter(this)
-                    .on('click', function(){
-                        var activeTabPretender = $(self).parent().prev()[0];
-
-                        if( !activeTabPretender ) {
-                            activeTabPretender = $(self).parent().next()[0];
-                        }
-
-                       changeActiveTabTo(activeTabPretender);
+        return this;
 
 
-                        $(self).hide();
-                    })
-            }
+        function changeActiveTabTo($activeTabPretender){
+            $activeTab.removeClass( 'active' );
+            $activeContent.hide();
 
-            if( !$(this).hasClass('active')) {
-                $(this.hash).hide();
-            }
+            $activeTab = $activeTabPretender;
+            $activeContent = getContentForTab( $activeTabPretender) ;
 
-            $(this.hash).addClass('jtabs-content');
+            $activeTab.addClass( 'active' );
+            $activeContent.show();
         }
 
-        function changeActiveTabTo(activeTabPretender){
-            $activeTab = $(activeTabPretender);
-
+        function getContentForTab($tab){
+           return $( $tab.find('.jlink')[0].hash );
         }
     };
 
