@@ -25,9 +25,17 @@
             },
             {
                 number: 5,
-                url: function(){
+                url: function( callback ){
                     setTimeout(function(){
-                        $('#tab' + +tab.number).html("Rickey da Happy. Yey =)");
+                        // jkhbh
+                        //fsafasdfsdf
+                        //...
+                        //bla-bla-bla
+                        //....
+                        //a multitude of lines of code ....
+                        //....
+                        
+                        callback( "Rickey da Happy. Yey =)" );
                     }, 5000);
                 },
                 success : function(data){

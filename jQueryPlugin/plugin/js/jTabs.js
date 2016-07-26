@@ -15,6 +15,7 @@
         this.$tabs = this.$tabControl.children('li').addClass('jtab');                                                  // [li.jtab, ...]
         this.$activeTab = undefined;                                                                                    // li.jtab.active
         this.$activeContent = undefined;                                                                                // div#tabN
+        this.$progressBar = undefined;
         this.init();
     }
 
@@ -38,7 +39,6 @@
         }
     };
 
-
     JTabsPlugin.prototype.initSettings = function(options){
         var defaults = {
             theme: 'material',
@@ -51,6 +51,7 @@
 
     JTabsPlugin.prototype.initProgressBar = function(options){
         this.$tabControl.after('<div class="jtabs-progress-bar hidden"></div>');
+        this.$progressBar = $('.jtabs-progress-bar');
     };
 
     JTabsPlugin.prototype.initTabsWithCorrespondingContent = function(){
@@ -110,6 +111,49 @@
         });
     };
 
+    JTabsPlugin.prototype.loadContentForTab = function(tab) {
+        if (typeof tab.url == 'function' || tab.url instanceof Function){
+            this.loadContentViaCallback( tab );
+        }
+        else {
+            this.loadContentViaUrl( tab );
+        }
+    };
+
+    JTabsPlugin.prototype.loadContentViaCallback = function(tab){
+        var self = this;
+        this.showProgressBar();
+        tab.url( function callback( html ){
+            $('#tab' + +tab.number).html(html);
+            self.hideProgressBar();
+        });
+    };
+
+    JTabsPlugin.prototype.loadContentViaUrl = function(tab){
+        var self = this;
+        $.ajax({
+            method: 'GET',
+            url: tab.url || '',
+            beforeSend: function () {
+                self.showProgressBar();
+            }
+        }).fail(function (e) {
+            $('#tab' + +tab.number).html(e);
+            if (tab.error) {
+                tab.error(e);
+            }
+            self.hideProgressBar();
+        }).done(function (response) {
+            setTimeout(function () {
+                $('#tab5').html(response);
+                if (tab.success) {
+                    tab.success(response);
+                }
+                self.hideProgressBar();
+            }, 3000);
+        })
+    };
+
     //**** URL Routing Feature ****//
     JTabsPlugin.prototype.initUrlRoutingFeature = function(){
         var self = this;
@@ -140,47 +184,12 @@
         this.$activeContent.show();
     };
 
-    JTabsPlugin.prototype.loadContentForTab = function(tab) {
-        if (typeof tab.url == 'function' || tab.url instanceof Function){
-            this.loadContentViaCallback( tab );
-        }
-        else {
-           this.loadContentViaUrl( tab );
-        }
+    JTabsPlugin.prototype.showProgressBar = function(){
+        this.$progressBar.removeClass('hidden');
     };
 
-    JTabsPlugin.prototype.loadContentViaCallback = function(tab){
-        $('.jtabs-progress-bar').removeClass('hidden');
-        setTimeout(function(){
-            var result = tab.url();
-        });
-            
-        
-        $('.jtabs-progress-bar').addClass('hidden');
-    };
-
-    JTabsPlugin.prototype.loadContentViaUrl = function(tab){
-        $.ajax({
-            method: 'GET',
-            url: tab.url || '',
-            beforeSend: function () {
-                $('.jtabs-progress-bar').removeClass('hidden');
-            }
-        }).fail(function (e) {
-            $('#tab' + +tab.number).html(e);
-            if (tab.error) {
-                tab.error(e);
-            }
-            $('.jtabs-progress-bar').addClass('hidden');
-        }).done(function (response) {
-            setTimeout(function () {
-                $('#tab5').html(response);
-                if (tab.success) {
-                    tab.success(response);
-                }
-                $('.jtabs-progress-bar').addClass('hidden');
-            }, 3000);
-        })
+    JTabsPlugin.prototype.hideProgressBar = function(){
+        this.$progressBar.addClass('hidden');
     };
 
     var $getContentForTab = function($tab){
@@ -191,7 +200,6 @@
         return $tab.find('.jlink')[0].hash;
     };
 
-
-    //Return JTabsPlugin to Public for Unit-Testing purposes only!
+    //Return JTabsPlugin to Public for Unit-Testing purposes only!!!
     return JTabsPlugin;
 })(  jQuery);
