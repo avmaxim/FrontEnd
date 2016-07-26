@@ -99,71 +99,22 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-.jtabs-nav {
-  padding: 5px 0 0 5px;
-  background: transparent;
-  border-bottom: 1px solid green;
-}
-.jtabs-nav .close-tab-btn {
-  -moz-transition: opacity 0.2s ease-in;
-  -o-transition: opacity 0.2s ease-in;
-  -webkit-transition: opacity 0.2s ease-in;
-  transition: opacity 0.2s ease-in;
-  position: absolute;
-  right: 5px;
-  top: -8px;
-  font-size: 12px;
-  cursor: pointer;
-  color: green;
-  -webkit-user-select: none;
-  opacity: 0;
-}
-.jtabs-nav .close-tab-btn:hover {
-  opacity: 1;
-}
-.jtabs-nav a:hover + .close-tab-btn {
-  opacity: 1;
-}
-.jtabs-nav li.jtab {
-  list-style: none;
-  display: inline;
-  position: relative;
-  margin: 0px;
-  border-radius: 0px;
-}
-.jtabs-nav li.jtab a.jlink {
-  padding: 5px 20px;
-  display: inline-block;
-  background-color: green;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 5px 5px 0 0;
-}
-.jtabs-nav li.jtab.active a.jlink {
-  background-color: white;
-  color: green;
-  border-top: 1px solid green;
-  border-left: 1px solid green;
-  border-right: 1px solid green;
-}
-.jtabs-content {
-  padding: 10px;
-}
-.progress-bar,
-.progress-bar:before {
+.jtabs-progress-bar,
+.jtabs-progress-bar:before {
   height: 3px;
   width: 100%;
   margin: 0;
 }
-.progress-bar {
-  background-color: rgba(0, 226, 27, 0.51);
+.jtabs-progress-bar {
+  background-color: rgba(168, 215, 255, 0.51);
   display: -webkit-flex;
   display: flex;
 }
-.progress-bar:before {
-  background-color: #3ab514;
+.jtabs-progress-bar.hidden {
+  display: none;
+}
+.jtabs-progress-bar:before {
+  background-color: #4285f4;
   content: '';
   -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -195,4 +146,78 @@ table {
     margin-left: 100%;
     margin-right: 0;
   }
+}
+body {
+  padding: 20px;
+}
+.jtabs-widget {
+  background: #FFF none repeat scroll 0% 0%;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+}
+.jtabs-nav {
+  border-bottom: 2px solid #a8d7ff;
+}
+.jtabs-nav::before,
+.jtabs-nav::after {
+  display: table;
+  content: '';
+}
+.jtabs-nav::after {
+  clear: both;
+}
+.jtabs-nav li.jtab {
+  list-style: none;
+  position: relative;
+  display: block;
+  float: left;
+  margin-bottom: -1px;
+}
+.jtabs-nav li.jtab .jlink {
+  position: relative;
+  display: block;
+  margin-right: 2px;
+  line-height: 1.42857143;
+  padding: 10px 20px;
+  border: none;
+  color: #666;
+  font-size: 20px;
+  text-decoration: none;
+}
+.jtabs-nav li.jtab.active .jlink,
+.jtabs-nav li.jtab.active .jlink:focus,
+.jtabs-nav li.jtab.active .jlink:hover {
+  cursor: default;
+  background-color: #fff;
+  border-bottom-color: transparent;
+  text-decoration: none;
+}
+.jtabs-nav li.jtab .jlink:focus {
+  background-color: #eee;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.jtabs-nav li.jtab.active .jlink,
+.jtabs-nav li.jtab .jlink:hover {
+  border: none;
+  color: #4285F4 !important;
+  background: transparent;
+}
+.jtabs-nav li.jtab .jlink::after {
+  content: "";
+  background: #4285F4;
+  height: 2px;
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  bottom: -1px;
+  transition: all 250ms ease 0s;
+  transform: scale(0);
+}
+.jtabs-nav li.jtab.active .jlink::after,
+.jtabs-nav li.jtab:hover .jlink::after {
+  transform: scale(1);
+}
+.jtabs-content {
+  padding: 15px 15px;
 }

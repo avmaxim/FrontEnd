@@ -19,6 +19,8 @@
             $activeTab,                                                                                                 // li.jtab.active
             $activeContent;                                                                                             // div#tabN
 
+        $tabControl.after('<div class="jtabs-progress-bar hidden"></div>');
+
         $tabs.each(function(){
             var $currentTab = $(this);
             $currentTab.find('a').addClass('jlink');
@@ -34,11 +36,52 @@
             }
         });
 
+        if( settings.dynamicTabs.length ){
+            var tabs = settings.dynamicTabs;
+            for(var i in tabs){
+                var index = tabs[i].number - 1;
+                if( !$tabs[ index ] )
+                    continue;
+
+                $tabs.eq( index ).find('.jlink').addClass("dynamic");
+                (function (tab) {
+
+                    $tabs.eq(tab.number - 1).on('click', 'a.jlink', function (e) {
+                        if( !$('#tab' + tab.number).html().trim() ) {
+                            $(".jtabs-progress-bar").removeClass('hidden');
+
+                            $.ajax({
+                                method: "GET",
+                                url: tab.url || '',
+                                success: function (responce) {
+                                    setTimeout(function () {
+                                        $('#tab' + +tab.number).html(responce);
+                                        $(".jtabs-progress-bar").addClass('hidden');
+                                        tab.success(responce);
+                                    }, 3000);
+                                },
+                                error: function (e) {
+                                    $('#tab' + +tab.number).html(e);
+                                    $(".jtabs-progress-bar").addClass('hidden');
+                                    tab.error(e);
+                                }
+                            });
+                        }
+                    })
+
+                })( tabs[i] );
+            }
+        }
+
         if(settings.urlRouting) {
             $(window)
                 .on('hashchange', function () {
-                    var tabFromHash = $tabs.find('[href="' + location.hash + '"]').parent()[0];
-                    changeActiveTabTo( tabFromHash ? $(tabFromHash) : $tabs.eq(0) );
+                    var tabFromHash = $tabs.find('[href="' + location.hash + '"]').parent()[0],
+                        $possibleTab = tabFromHash ? $(tabFromHash) : $tabs.eq(0);
+                    changeActiveTabTo( $possibleTab );
+                    if($possibleTab.find('.jlink').hasClass('dynamic')){
+                        $possibleTab.find('.jlink').trigger('click');
+                    }
                 })
                 .trigger('hashchange');
         }
@@ -47,49 +90,23 @@
         }
 
         if(settings.closeable) {
-            $tabs.append('<span class="close-tab-btn" >x</span>');
-
-            $('.close-tab-btn').on('click', function (e) {
-                var $closeBtn = $(this),
-                    $currentTab = $closeBtn.parent(),
+            $tabs.on('dblclick', 'a.jlink', function(e){
+                var $currentTab = $(this).parent(),
                     $visibleTabs = $currentTab.siblings().not('.hidden');
 
-                if ($visibleTabs.length) {
-                    changeActiveTabTo( $visibleTabs.eq(0) );
+                if ( $visibleTabs.length ) {
+                    var $newActiveTab = $visibleTabs.eq(0);
+                    changeActiveTabTo($newActiveTab);
                     $currentTab.addClass('hidden').hide();
-                }
+                    if($newActiveTab.find('.jlink').hasClass('dynamic')){
+                        $newActiveTab.find('.jlink').trigger('click');
+                    }
 
+                }
             });
         }
 
-        if( settings.dynamicTabs.length ){
-            $(".progress-bar").hide();
-            var tabs = settings.dynamicTabs;
-            for(var i in tabs){
-                var index = tabs[i].number - 1;
-                if( $tabs[ index ] ) {
-                    (function (tab) {
-                        $tabs.eq(tab.number - 1).on('click', 'a.jlink', function (e) {
-                            $(".progress-bar").show();
-                            $.ajax({
-                                method: "GET",
-                                url: tab.url || '',
-                                success: function(responce){
-                                    $('#tab' + +tab.number).html(responce);
-                                    $(".progress-bar").hide();
-                                    tab.success(responce);
-                                },
-                                error: function(e){
-                                    $('#tab' + +tab.number).html(e);
-                                    $(".progress-bar").hide();
-                                    tab.error(e);
-                                }
-                            });
-                        })
-                    })( tabs[i] );
-                }
-            }
-        }
+
 
         return this;
 

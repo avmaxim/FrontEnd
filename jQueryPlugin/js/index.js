@@ -6,13 +6,13 @@
 
     $(document).ready(function(){
         $( ".tabs" ).jtabs({
-            theme: "grass",
+            theme: "material",
             closeable: true,
-            urlRouting: false,
+            urlRouting: true,
             dynamicTabs: [
                 {
                     number: 2,
-                    url: "http://localhost:8080/sample/tab1.html",
+                    url: "http://localhost:8080/storage/tab2.html",
                     success : function(data){
                         console.dir(data);
                     },

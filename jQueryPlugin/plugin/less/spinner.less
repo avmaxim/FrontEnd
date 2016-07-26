@@ -1,0 +1,35 @@
+
+.jtabs-progress-bar,
+.jtabs-progress-bar:before {
+  height: 3px;
+  width: 100%;
+  margin: 0;
+}
+
+.jtabs-progress-bar {
+  background-color: rgba(168, 215, 255, 0.51);
+  display: -webkit-flex;
+  display: flex;
+  &.hidden{
+    display: none;
+  }
+}
+
+.jtabs-progress-bar:before {
+  background-color: #4285f4;
+  content: '';
+  -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@-webkit-keyframes running-progress {
+  0% { margin-left: 0px; margin-right: 100%; }
+  50% { margin-left: 25%; margin-right: 0%; }
+  100% { margin-left: 100%; margin-right: 0; }
+}
+
+@keyframes running-progress {
+  0% { margin-left: 0px; margin-right: 100%; }
+  50% { margin-left: 25%; margin-right: 0%; }
+  100% { margin-left: 100%; margin-right: 0; }
+}
