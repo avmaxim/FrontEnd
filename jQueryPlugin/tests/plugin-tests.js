@@ -3,8 +3,8 @@ var expect = chai.expect;
 
 describe('Dynamic Page Loading Feature', function() {
 
-    it('', function() {
-
+    it('should', function() {
+       
     });
 
 });
@@ -12,7 +12,9 @@ describe('Dynamic Page Loading Feature', function() {
 describe('Closing Tab Feature', function() {
 
     it('', function() {
-
+        $( ".tabs" ).jtabs({
+            closeable: true
+        });
     });
 
 });

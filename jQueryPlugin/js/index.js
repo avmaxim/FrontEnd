@@ -6,9 +6,8 @@
 
     $(document).ready(function(){
         $( ".tabs" ).jtabs({
-            theme: "material",
             closeable: true,
-            urlRouting: true,
+            urlRouting: false,
             dynamicTabs: [
                 {
                     number: 2,
