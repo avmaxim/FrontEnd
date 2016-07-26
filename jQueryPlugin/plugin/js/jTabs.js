@@ -9,7 +9,8 @@
         var defaults = {
                 theme: 'grass',
                 urlRouting: false,
-                canBeClosed: false
+                closeable: false,
+                dynamicTabs: []
             },
             settings = $.extend(defaults, options),
             $widget = $(this).addClass('jtabs-widget'),                                                                 // div.jtabs-widget
@@ -45,7 +46,7 @@
             changeActiveTabTo( $tabs.eq(0) );
         }
 
-        if(settings.canBeClosed) {
+        if(settings.closeable) {
             $tabs.append('<span class="close-tab-btn" >x</span>');
 
             $('.close-tab-btn').on('click', function (e) {
@@ -59,6 +60,35 @@
                 }
 
             });
+        }
+
+        if( settings.dynamicTabs.length ){
+            $(".progress-bar").hide();
+            var tabs = settings.dynamicTabs;
+            for(var i in tabs){
+                var index = tabs[i].number - 1;
+                if( $tabs[ index ] ) {
+                    (function (tab) {
+                        $tabs.eq(tab.number - 1).on('click', 'a.jlink', function (e) {
+                            $(".progress-bar").show();
+                            $.ajax({
+                                method: "GET",
+                                url: tab.url || '',
+                                success: function(responce){
+                                    $('#tab' + +tab.number).html(responce);
+                                    $(".progress-bar").hide();
+                                    tab.success(responce);
+                                },
+                                error: function(e){
+                                    $('#tab' + +tab.number).html(e);
+                                    $(".progress-bar").hide();
+                                    tab.error(e);
+                                }
+                            });
+                        })
+                    })( tabs[i] );
+                }
+            }
         }
 
         return this;

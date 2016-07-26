@@ -59,3 +59,31 @@
 .jtabs-content{
   padding: 10px;
 }
+
+
+.progress-bar, .progress-bar:before {
+  height: 3px;
+  width: 100%;
+  margin: 0;
+}
+.progress-bar {
+  background-color: rgba(0, 226, 27, 0.51);
+  display: -webkit-flex;
+  display: flex;
+}
+.progress-bar:before {
+  background-color: #3ab514;
+  content: '';
+  -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@-webkit-keyframes running-progress {
+  0% { margin-left: 0px; margin-right: 100%; }
+  50% { margin-left: 25%; margin-right: 0%; }
+  100% { margin-left: 100%; margin-right: 0; }
+}
+@keyframes running-progress {
+  0% { margin-left: 0px; margin-right: 100%; }
+  50% { margin-left: 25%; margin-right: 0%; }
+  100% { margin-left: 100%; margin-right: 0; }
+}

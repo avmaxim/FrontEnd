@@ -7,8 +7,20 @@
     $(document).ready(function(){
         $( ".tabs" ).jtabs({
             theme: "grass",
-            canBeClosed: true,
-            urlRouting: false
+            closeable: true,
+            urlRouting: false,
+            dynamicTabs: [
+                {
+                    number: 2,
+                    url: "http://localhost:8080/sample/tab1.html",
+                    success : function(data){
+                        console.dir(data);
+                    },
+                    error: function(error){
+                        console.dir(error);
+                    }
+                }
+            ]
         });
     });
 
