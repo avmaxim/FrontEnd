@@ -19,6 +19,28 @@
                     error: function(error){
                         console.dir(error);
                     }
+                },
+                {
+                    number: 4,
+                    url: "http://localhost:8080/storage/tab1.html",
+                    success : function(data){
+                        console.dir(data);
+                    },
+                    error: function(error){
+                        console.dir(error);
+                    }
+                },
+                {
+                    number: 5,
+                    url: function(){
+                        return '<h2> Introduction </h2>';
+                    },
+                    success : function(data){
+                        console.dir(data);
+                    },
+                    error: function(error){
+                        console.dir(error);
+                    }
                 }
             ]
         });

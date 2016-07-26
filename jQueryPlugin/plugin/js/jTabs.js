@@ -29,50 +29,19 @@
         });
 
         $tabs.on('click', 'a.jlink', function(e){
-            if(!settings.urlRouting){
+            if( !settings.urlRouting ){
                 var $tab = $(this).parent();
                 changeActiveTabTo( $tab );
                 e.preventDefault();
             }
         });
 
-        if( settings.dynamicTabs.length ){
-            var tabs = settings.dynamicTabs;
-            for(var i in tabs){
-                var index = tabs[i].number - 1;
-                if( !$tabs[ index ] )
-                    continue;
+        //**** Dynamic Page Loading Feature ****//
+        if ( settings.dynamicTabs.length > 0 ){
 
-                $tabs.eq( index ).find('.jlink').addClass("dynamic");
-                (function (tab) {
-
-                    $tabs.eq(tab.number - 1).on('click', 'a.jlink', function (e) {
-                        if( !$('#tab' + tab.number).html().trim() ) {
-                            $(".jtabs-progress-bar").removeClass('hidden');
-
-                            $.ajax({
-                                method: "GET",
-                                url: tab.url || '',
-                                success: function (responce) {
-                                    setTimeout(function () {
-                                        $('#tab' + +tab.number).html(responce);
-                                        $(".jtabs-progress-bar").addClass('hidden');
-                                        tab.success(responce);
-                                    }, 3000);
-                                },
-                                error: function (e) {
-                                    $('#tab' + +tab.number).html(e);
-                                    $(".jtabs-progress-bar").addClass('hidden');
-                                    tab.error(e);
-                                }
-                            });
-                        }
-                    })
-
-                })( tabs[i] );
-            }
         }
 
+        //**** URL Routing Feature ****//
         if(settings.urlRouting) {
             $(window)
                 .on('hashchange', function () {
@@ -88,6 +57,8 @@
         else {
             changeActiveTabTo( $tabs.eq(0) );
         }
+
+        //**** Closing Tab Feature ****//
 
         if(settings.closeable) {
             $tabs.on('dblclick', 'a.jlink', function(e){
@@ -106,8 +77,6 @@
             });
         }
 
-
-
         return this;
 
 
@@ -119,14 +88,18 @@
 
             $activeTab = $activeTabPretender;
             $activeContent = getContentForTab( $activeTabPretender);
-            location.hash = (settings.urlRouting) ? $activeTab.find('.jlink')[0].hash : '';
+            location.hash = (settings.urlRouting) ? getHashFromTab($activeTab) : '';
 
             $activeTab.addClass( 'active' );
             $activeContent.show();
         }
 
         function getContentForTab($tab){
-           return $( $tab.find('.jlink')[0].hash );
+           return $( getHashFromTab($tab) );
+        }
+
+        function getHashFromTab($tab){
+            return $tab.find('.jlink')[0].hash;
         }
     };
 
