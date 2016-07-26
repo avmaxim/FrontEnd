@@ -11,13 +11,7 @@
             dynamicTabs: [
             {
                 number: 2,
-                url: "http://localhost:8080/storage/tabABC.html",
-                success : function(data){
-                    console.dir(data);
-                },
-                error: function(error){
-                    console.dir(error);
-                }
+                url: "http://localhost:8080/storage/tabABC.html"
             },
             {
                 number: 4,
@@ -32,7 +26,9 @@
             {
                 number: 5,
                 url: function(){
-                    return '<h2> Introduction </h2>';
+                    setTimeout(function(){
+                        $('#tab' + +tab.number).html("Rickey da Happy. Yey =)");
+                    }, 5000);
                 },
                 success : function(data){
                     console.dir(data);

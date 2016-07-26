@@ -140,21 +140,44 @@
         this.$activeContent.show();
     };
 
-    JTabsPlugin.prototype.loadContentForTab = function(tab){
+    JTabsPlugin.prototype.loadContentForTab = function(tab) {
+        if (typeof tab.url == 'function' || tab.url instanceof Function){
+            this.loadContentViaCallback( tab );
+        }
+        else {
+           this.loadContentViaUrl( tab );
+        }
+    };
+
+    JTabsPlugin.prototype.loadContentViaCallback = function(tab){
+        $('.jtabs-progress-bar').removeClass('hidden');
+        setTimeout(function(){
+            var result = tab.url();
+        });
+            
+        
+        $('.jtabs-progress-bar').addClass('hidden');
+    };
+
+    JTabsPlugin.prototype.loadContentViaUrl = function(tab){
         $.ajax({
             method: 'GET',
             url: tab.url || '',
-            beforeSend: function(){
+            beforeSend: function () {
                 $('.jtabs-progress-bar').removeClass('hidden');
             }
-        }).fail(function(e){
+        }).fail(function (e) {
             $('#tab' + +tab.number).html(e);
-            tab.error(e);
+            if (tab.error) {
+                tab.error(e);
+            }
             $('.jtabs-progress-bar').addClass('hidden');
-        }).done(function(response){
+        }).done(function (response) {
             setTimeout(function () {
-                $('#tab' + +tab.number).html(response);
-                tab.success(response);
+                $('#tab5').html(response);
+                if (tab.success) {
+                    tab.success(response);
+                }
                 $('.jtabs-progress-bar').addClass('hidden');
             }, 3000);
         })
@@ -167,6 +190,7 @@
     var getHashFromTab = function($tab){
         return $tab.find('.jlink')[0].hash;
     };
+
 
     //Return JTabsPlugin to Public for Unit-Testing purposes only!
     return JTabsPlugin;
