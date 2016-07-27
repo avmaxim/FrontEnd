@@ -97,7 +97,6 @@
             if( !self.$tabs[ tab.number - 1 ] ) {
                 return;
             }
-
             self.$tabs
                     .eq(tab.number - 1)
                     .find('.jlink')
@@ -112,18 +111,30 @@
     };
 
     JTabsPlugin.prototype.loadContentForTab = function(tab) {
-        if (typeof tab.url == 'function' || tab.url instanceof Function){
-            this.loadContentViaCallback( tab );
-        }
-        else {
+        if (tab.url !== undefined){
             this.loadContentViaUrl( tab );
         }
+        else if (tab.load !== undefined){
+            this.loadContentViaCallback( tab );
+        }
+        else if (tab.loadAsPromise !== undefined){
+            this.loadContentViaPromise( tab );
+        }
+    };
+
+    JTabsPlugin.prototype.loadContentViaPromise = function(tab){
+        var self = this;
+        this.showProgressBar();
+        tab.loadAsPromise().then( (html) => {
+            $('#tab' + +tab.number).html(html);
+            self.hideProgressBar();
+        });
     };
 
     JTabsPlugin.prototype.loadContentViaCallback = function(tab){
         var self = this;
         this.showProgressBar();
-        tab.url( function callback( html ){
+        tab.load( (html) => {
             $('#tab' + +tab.number).html(html);
             self.hideProgressBar();
         });
@@ -144,8 +155,8 @@
             }
             self.hideProgressBar();
         }).done(function (response) {
-            setTimeout(function () {
-                $('#tab5').html(response);
+            setTimeout(() => {
+                $('#tab' + +tab.number).html(response);
                 if (tab.success) {
                     tab.success(response);
                 }
