@@ -17,7 +17,7 @@
             dynamicTabs: [
             {
                 number: 2,
-                url: "http://localhost:8080/storage/tabABC.html",
+                url: "http://localhost:8080/storage/tab123.html",
                 success : function(data){
                     console.dir(data);
                 },
