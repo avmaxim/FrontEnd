@@ -2,23 +2,29 @@
  * Created by andrei.maksimchanka on 7/27/2016.
  */
 
+var asyncTask = (function(){
 
-var asyncTaskNo1 = (function(){
-
-    var getZip = function(addr, cb) {
-        setTimeout(function() {
-            cb(Math.random() * 1000);
-        }, Math.random() * 1000);
+    var getZip = function(addr) {
+        return new Promise( function(resolve){
+            setTimeout(function () {
+                resolve( Math.random() * 1000 );
+            }, Math.random() * 1000);
+        });
     };
 
-    var getStores = function(zip, cb) {
-        setTimeout(function() {
-            cb([{store: "1_" + zip }, {store: "1_" + zip }]);
-        }, Math.random() * 1000);
+    var getStores = function(zip) {
+        return new Promise( function(resolve){
+            setTimeout(function () {
+                resolve( [{store: "1_" + zip }, {store: "1_" + zip }] );
+            }, Math.random() * 1000);
+        });
     };
 
     var render = function(stores) {
-        console.log(stores);
+        return new Promise( function(resolve) {
+            console.log(stores);
+            resolve();
+        });
     };
 
     return {

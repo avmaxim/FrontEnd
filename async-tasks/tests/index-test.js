@@ -9,33 +9,34 @@ var expect = chai.expect;
 describe('Asynchronous Tasks', function() {
 
     it('should call render array of objects', function() {
-        var vm = asyncTaskNo1;
+        var vm = asyncTask;
 
         //input
         var addr1 = "blabla 1";
         var addr2 = "lollol 2";
 
-        var storesToPrint = [];
+        var storesDatabase = [];
         var addresses = [addr1, addr2];
 
-        for(var i = 0; i < addresses.length; i++){
-            vm.getZip(addresses[i], function( zip ){
-                vm.getStores(zip, function( stores){
-                    storesToPrint.push( stores );
-                    if(storesToPrint.length == addresses.length) {
-                        storesToPrint = [].concat.apply([], storesToPrint);
-
-                        expect(storesToPrint.length).to.be.equal(4);
-                        expect(storesToPrint[0].store).to.be.eql(storesToPrint[1].store);
-                        expect(storesToPrint[2].store).to.be.eql(storesToPrint[3].store);
-
-                        //output
-                        vm.render(storesToPrint);
-                    }
+        Promise.all( addresses.map( vm.getZip ) )
+                .then( (zips) => {
+                    return Promise.all( zips.map( vm.getStores ) );
+                })
+                .then ( (stores) => {
+                    return vm.render([].concat.apply([], stores));
                 });
-            });
-        }
 
+        /*
+
+         Promise.all( addresses.map( vm.getZip ) )
+         .all( (zips) => zips.map( vm.getStores ) )
+         .then( function() {
+         storesDatabase.push(stores);
+         storesDatabase = [].concat.apply([], storesDatabase);
+         return vm.render(storesDatabase);
+         });
+
+         */
     });
 
 });
