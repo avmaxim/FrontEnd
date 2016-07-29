@@ -79,7 +79,6 @@
             });
         }
 
-        //**** Dynamic Page Loading Feature ****//
         initDynamicTabsFeature() {
             const self = this;
             this.settings.dynamicTabs.forEach(function (tab) {
@@ -92,39 +91,25 @@
         }
 
         loadContentForTab( tab ) {
-            this.showProgressBar();
-            if ( tab.url ) this.loadViaUrl( tab );
-            if ( tab.load ) this.load( tab );
-        }
-
-        load( tab ) {
             const self = this;
-            let nextStep;
-            nextStep = tab.load(callback) && nextStep.then(callback);
+            this.showProgressBar();
+            if ( tab.load ){
+                let nextStep = tab.load(callback);
+                nextStep && nextStep.then(callback);
+            }
+            else if ( tab.url ) {
+                $.ajax( tab.url || '')
+                    .fail(callback)
+                    .done(function (response) {
+                        setTimeout(callback.bind(null, response), 3000);
+                    });
+            }
             function callback(html){
                 $('#tab' + +tab.number).html(html);
                 self.hideProgressBar();
             }
         }
 
-        loadViaUrl( tab ) {
-            $.ajax({
-                method: 'GET',
-                url: tab.url || ''
-            }).fail(function (e) {
-                $('#tab' + +tab.number).html(e);
-                if (tab.error) tab.error(e);
-                self.hideProgressBar();
-            }).done(function (response) {
-                setTimeout(() => {
-                    $('#tab' + +tab.number).html(response);
-                    if (tab.success) tab.success(response);
-                    self.hideProgressBar();
-                }, 3000);
-            })
-        }
-
-        //**** URL Routing Feature ****//
         initUrlRoutingFeature() {
             const self = this;
             $(window).on('hashchange', function (){
