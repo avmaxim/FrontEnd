@@ -28,15 +28,15 @@
     function loadContentsViaPromise(){
         return new Promise( ( resolve ) => {
             setTimeout(() => {
-                resolve( "Four. Rickey da Happy. Yey =) " );                                                            // assume it comprises a multitude of lines of code that runs 5sec long.
-            }, 5000);
+                resolve( "Four. Rickey da Happy. Yey =) " );                                                            // assume it comprises a multitude of lines of code that runs a very long time.
+            }, Math.random() * 3000);
         });
     }
 
     function loadContentsViaCallback( callback ){
         setTimeout(() => {
-            callback( "Five. Rickey da Happy. Yey =) " );                                                               // assume it comprises a multitude of lines of code that runs 5sec long.
-        }, 5000);
+            callback( "Five. Rickey da Happy. Yey =) " );                                                               // assume it comprises a multitude of lines of code that runs a very long time.
+        }, Math.random() * 3000);
     }
 
 })(jQuery);

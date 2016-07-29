@@ -93,16 +93,15 @@
         loadContentForTab( tab ) {
             const self = this;
             this.showProgressBar();
+
             if ( tab.load ){
                 let nextStep = tab.load(callback);
-                nextStep && nextStep.then(callback);
+                if ( nextStep instanceof Promise) nextStep.then(callback);
             }
             else if ( tab.url ) {
-                $.ajax( tab.url || '')
-                    .fail(callback)
-                    .done(function (response) {
-                        setTimeout(callback.bind(null, response), 3000);
-                    });
+                setTimeout(() => {
+                    $.ajax(tab.url || '').fail(callback).done(callback)
+                }, Math.random() * 3000);
             }
             function callback(html){
                 $('#tab' + +tab.number).html(html);
