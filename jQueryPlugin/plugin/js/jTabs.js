@@ -34,18 +34,9 @@
         init() {
             this.initProgressBar();
             this.initTabsWithContent();
-            if (this.settings.closeable) {
-                this.initClosingTabsFeature();
-            }
-            if (this.settings.dynamicTabs.length > 0) {
-                this.initDynamicTabsFeature();
-            }
-            if (this.settings.urlRouting) {
-                this.initUrlRoutingFeature();
-            }
-            else {
-                this.changeActiveTabTo(this.$tabs.first());
-            }
+            this.settings.closeable  &&  this.initClosingTabsFeature();
+            this.settings.dynamicTabs.length && this.initDynamicTabsFeature();
+            this.settings.urlRouting ? this.initUrlRoutingFeature() : this.changeActiveTabTo(this.$tabs.first());
         }
 
         initProgressBar(options) {
@@ -105,15 +96,15 @@
         }
 
         loadContentForTab(tab) {
-            if (tab.url) {
+            /*
+            (tab.url) ? this.loadContentViaUrl(tab) :
+                (tab.load) ? this.loadContentViaCallback(tab) :
+                    (tab.loadAsPromise) && this.loadContentViaPromise(tab);
+                    */
+
+            if((tab.url)
                 this.loadContentViaUrl(tab);
-            }
-            else if (tab.load) {
-                this.loadContentViaCallback(tab);
-            }
-            else if (tab.loadAsPromise) {
-                this.loadContentViaPromise(tab);
-            }
+            if (tab.load && tab.load )
         }
 
         loadContentViaPromise(tab) {
@@ -139,21 +130,15 @@
             $.ajax({
                 method: 'GET',
                 url: tab.url || '',
-                beforeSend: function () {
-                    self.showProgressBar();
-                }
+                beforeSend: () =>  self.showProgressBar()
             }).fail(function (e) {
                 $('#tab' + +tab.number).html(e);
-                if (tab.error) {
-                    tab.error(e);
-                }
+                if (tab.error) tab.error(e);
                 self.hideProgressBar();
             }).done(function (response) {
                 setTimeout(() => {
                     $('#tab' + +tab.number).html(response);
-                    if (tab.success) {
-                        tab.success(response);
-                    }
+                    if (tab.success) tab.success(response);
                     self.hideProgressBar();
                 }, 3000);
             })
@@ -187,13 +172,8 @@
             this.$activeContent.show();
         }
 
-        showProgressBar () {
-            this.$progressBar.removeClass('hidden');
-        }
-
-        hideProgressBar () {
-            this.$progressBar.addClass('hidden');
-        }
+        showProgressBar () { this.$progressBar.removeClass('hidden'); }
+        hideProgressBar () { this.$progressBar.addClass('hidden'); }
     }
 
     let getContentForTab = ($tab) => $( getHashFromTab( $tab ) );

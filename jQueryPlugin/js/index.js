@@ -4,12 +4,6 @@
 
 (function($) {
 
-    function promise(callback) {
-        return new Promise( (resolve) => {
-            callback(resolve);
-        });
-    }
-
     $(document).ready(function(){
         $( ".tabs" ).jtabs({
             closeable: true,
@@ -27,8 +21,8 @@
             },
             {
                 number: 4,
-                loadAsPromise:  function(){
-                    return promise(function(resolve) {
+                load:  function(){
+                    return new Promise( ( resolve ) => {
                         // assume it comprises a multitude of lines of code that runs 5sec long.
                         setTimeout(() => {
                             resolve( "Four. Rickey da Happy. Yey =) " );
