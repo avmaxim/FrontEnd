@@ -8,209 +8,195 @@
         return $.data(this, 'jtabs', new JTabsPlugin(this, options));
     };
 
-    function JTabsPlugin(element, options){
-        this.settings = this.initSettings( options );
-        this.$widget = $(element).addClass('jtabs-widget');                                                             // div.jtabs-widget
-        this.$tabControl = this.$widget.children('ul').eq(0).addClass('jtabs-nav');                                     // ul.jtabs-nav
-        this.$tabs = this.$tabControl.children('li').addClass('jtab');                                                  // [li.jtab, ...]
-        this.$activeTab = undefined;                                                                                    // li.jtab.active
-        this.$activeContent = undefined;                                                                                // div#tabN
-        this.$progressBar = undefined;
-        this.init();
-    }
+    class JTabsPlugin {
 
-    JTabsPlugin.prototype.init = function(){
-        this.initProgressBar();
-        this.initTabsWithCorrespondingContent();
-
-        if( this.settings.closeable ) {
-            this.initCloseableTabFeature();
-        }
-
-        if ( this.settings.dynamicTabs.length > 0 ){
-            this.initDynamicTabsFeature();
-        }
-
-        if( this.settings.urlRouting ) {
-            this.initUrlRoutingFeature();
-        }
-        else {
-            this.changeActiveTabTo( this.$tabs.eq(0) );
-        }
-    };
-
-    JTabsPlugin.prototype.initSettings = function(options){
-        var defaults = {
-            theme: 'material',
-            urlRouting: false,
-            closeable: false,
-            dynamicTabs: []
+        constructor(element, options) {
+            this.settings = this.initSettings(options);
+            this.$widget = $(element).addClass('jtabs-widget');                                                             // div.jtabs-widget
+            this.$tabControl = this.$widget.children('ul').first().addClass('jtabs-nav');                                   // ul.jtabs-nav
+            this.$tabs = this.$tabControl.children('li').addClass('jtab');                                                  // [li.jtab, ...]
+            this.$activeTab = undefined;                                                                                    // li.jtab.active
+            this.$activeContent = undefined;                                                                                // div#tabN
+            this.$progressBar = undefined;
+            this.init();
         };
-        return $.extend( defaults, options );
-    };
 
-    JTabsPlugin.prototype.initProgressBar = function(options){
-        this.$tabControl.after('<div class="jtabs-progress-bar hidden"></div>');
-        this.$progressBar = $('.jtabs-progress-bar');
-    };
+        initSettings(options) {
+            const defaults = {
+                theme: 'material',
+                urlRouting: false,
+                closeable: false,
+                dynamicTabs: []
+            };
+            return $.extend(defaults, options);
+        }
 
-    JTabsPlugin.prototype.initTabsWithCorrespondingContent = function(){
-        var self = this;
-        this.$tabs.find('a').addClass('jlink');
-        this.$tabs
-                .each( function(){
-                    $getContentForTab( $(this) ).addClass( 'jtabs-content' ).hide();
+        init() {
+            this.initProgressBar();
+            this.initTabsWithContent();
+            if (this.settings.closeable) {
+                this.initClosingTabsFeature();
+            }
+            if (this.settings.dynamicTabs.length > 0) {
+                this.initDynamicTabsFeature();
+            }
+            if (this.settings.urlRouting) {
+                this.initUrlRoutingFeature();
+            }
+            else {
+                this.changeActiveTabTo(this.$tabs.first());
+            }
+        }
+
+        initProgressBar(options) {
+            this.$tabControl.after('<div class="jtabs-progress-bar hidden"></div>');
+            this.$progressBar = $('.jtabs-progress-bar');
+        }
+
+        initTabsWithContent() {
+            const self = this;
+            this.$tabs.find('a').addClass('jlink');
+            this.$tabs
+                .each(function () {
+                    getContentForTab($(this)).addClass('jtabs-content').hide();
                 })
-                .on('click', 'a.jlink', function(e){
-                    if( !self.settings.urlRouting ){
-                        self.changeActiveTabTo( $(this).parent() );
+                .on('click', 'a.jlink', function (e) {
+                    if (!self.settings.urlRouting) {
+                        self.changeActiveTabTo($(this).parent());
                         e.preventDefault();
                     }
                 });
-    };
+        }
 
-    //**** Closeable Tab Feature ****//
-    JTabsPlugin.prototype.initCloseableTabFeature = function(){
-        var self = this;
-        this.$tabs.on('dblclick', 'a.jlink', function(e){
-            var $currentTab = $(this).parent(),
-                $visibleTabs = $currentTab.siblings().not('.closed');
+        //**** Closeable Tab Feature ****//
+        initClosingTabsFeature() {
+            const self = this;
+            this.$tabs.on('dblclick', 'a.jlink', function (e) {
+                const $tab = $(this).parent(),
+                      $visibleTabs = $tab.siblings().not('.closed');
 
-            if ( $visibleTabs.length > 0 ) {
-                var $newActiveTab = $visibleTabs.eq(0);
+                if ($visibleTabs.length > 0) {
+                    const $newActiveTab = $visibleTabs;
 
-                self.changeActiveTabTo( $newActiveTab );
-                $currentTab.addClass('closed').hide();
+                    self.changeActiveTabTo( $newActiveTab );
+                    $tab.addClass('closed').hide();
 
-                if( $newActiveTab.find('.jlink').hasClass('dynamic') ){
-                    $newActiveTab.find('.jlink').trigger('click');
+                    if ($newActiveTab.find('.jlink').hasClass('dynamic')) {
+                        $newActiveTab.find('.jlink').trigger('click');
+                    }
                 }
-
-            }
-        });
-    };
-
-    //**** Dynamic Page Loading Feature ****//
-    JTabsPlugin.prototype.initDynamicTabsFeature = function(){
-        var self = this;
-        this.settings.dynamicTabs.forEach(function(tab){
-            if( !self.$tabs[ tab.number - 1 ] ) {
-                return;
-            }
-            self.$tabs
-                    .eq(tab.number - 1)
-                    .find('.jlink')
-                    .addClass('dynamic')
-                    .on('click', function(){
-                        //if content hasn't been loaded yet, do it now.
-                        if ( !$('#tab' + tab.number).html().trim() ) {
-                            self.loadContentForTab(tab);
-                        }
-                    });
-        });
-    };
-
-    JTabsPlugin.prototype.loadContentForTab = function(tab) {
-        if (tab.url !== undefined){
-            this.loadContentViaUrl( tab );
+            });
         }
-        else if (tab.load !== undefined){
-            this.loadContentViaCallback( tab );
+
+        //**** Dynamic Page Loading Feature ****//
+        initDynamicTabsFeature() {
+            const self = this;
+            this.settings.dynamicTabs.forEach(function (tab) {
+                if (!self.$tabs[tab.number - 1]) {
+                    return;
+                }
+                self.$tabs.eq(tab.number - 1).find('.jlink').addClass('dynamic').on('click', function () {
+                    //if content hasn't been loaded yet, do it now.
+                    if (!$('#tab' + tab.number).html().trim()) {
+                        self.loadContentForTab(tab);
+                    }
+                });
+            });
         }
-        else if (tab.loadAsPromise !== undefined){
-            this.loadContentViaPromise( tab );
+
+        loadContentForTab(tab) {
+            if (tab.url) {
+                this.loadContentViaUrl(tab);
+            }
+            else if (tab.load) {
+                this.loadContentViaCallback(tab);
+            }
+            else if (tab.loadAsPromise) {
+                this.loadContentViaPromise(tab);
+            }
         }
-    };
 
-    JTabsPlugin.prototype.loadContentViaPromise = function(tab){
-        var self = this;
-        this.showProgressBar();
-        tab.loadAsPromise().then( (html) => {
-            $('#tab' + +tab.number).html(html);
-            self.hideProgressBar();
-        });
-    };
+        loadContentViaPromise(tab) {
+            const self = this;
+            this.showProgressBar();
+            tab.loadAsPromise().then((html) => {
+                $('#tab' + +tab.number).html(html);
+                self.hideProgressBar();
+            });
+        }
 
-    JTabsPlugin.prototype.loadContentViaCallback = function(tab){
-        var self = this;
-        this.showProgressBar();
-        tab.load( (html) => {
-            $('#tab' + +tab.number).html(html);
-            self.hideProgressBar();
-        });
-    };
+        loadContentViaCallback(tab) {
+            const self = this;
+            this.showProgressBar();
+            tab.load((html) => {
+                $('#tab' + +tab.number).html(html);
+                self.hideProgressBar();
+            });
+        }
 
-    JTabsPlugin.prototype.loadContentViaUrl = function(tab){
-        var self = this;
-        $.ajax({
-            method: 'GET',
-            url: tab.url || '',
-            beforeSend: function () {
-                self.showProgressBar();
-            }
-        }).fail(function (e) {
-            $('#tab' + +tab.number).html(e);
-            if (tab.error) {
-                tab.error(e);
-            }
-            self.hideProgressBar();
-        }).done(function (response) {
-            setTimeout(() => {
-                $('#tab' + +tab.number).html(response);
-                if (tab.success) {
-                    tab.success(response);
+        loadContentViaUrl(tab) {
+            const self = this;
+            $.ajax({
+                method: 'GET',
+                url: tab.url || '',
+                beforeSend: function () {
+                    self.showProgressBar();
+                }
+            }).fail(function (e) {
+                $('#tab' + +tab.number).html(e);
+                if (tab.error) {
+                    tab.error(e);
                 }
                 self.hideProgressBar();
-            }, 3000);
-        })
-    };
-
-    //**** URL Routing Feature ****//
-    JTabsPlugin.prototype.initUrlRoutingFeature = function(){
-        var self = this;
-        $(window)
-                .on('hashchange', function () {
-                    var tabFromHash = self.$tabs.find('[href="' + location.hash + '"]').parent()[0],
-                        $possibleTab = tabFromHash ? $(tabFromHash) : self.$tabs.eq(0);
-
-                    self.changeActiveTabTo( $possibleTab );
-                    if( $possibleTab.find('.jlink').hasClass('dynamic') ){
-                        $possibleTab.find('.jlink').trigger('click');
+            }).done(function (response) {
+                setTimeout(() => {
+                    $('#tab' + +tab.number).html(response);
+                    if (tab.success) {
+                        tab.success(response);
                     }
-                })
-                .trigger('hashchange');
-    };
-
-    JTabsPlugin.prototype.changeActiveTabTo = function($activeTabPretender){
-        if(this.$activeTab && this.$activeContent) {
-            this.$activeTab.removeClass('active');
-            this.$activeContent.hide();
+                    self.hideProgressBar();
+                }, 3000);
+            })
         }
 
-        this.$activeTab = $activeTabPretender;
-        this.$activeContent = $getContentForTab( $activeTabPretender);
-        location.hash = (this.settings.urlRouting) ? getHashFromTab(this.$activeTab) : '';
+        //**** URL Routing Feature ****//
+        initUrlRoutingFeature() {
+            const self = this;
+            $(window).on('hashchange', function (){
+                const tabFromHash = self.$tabs.find('[href="' + location.hash + '"]').parent()[0],
+                    $tab = tabFromHash ? $(tabFromHash) : self.$tabs.first();
 
-        this.$activeTab.addClass( 'active' );
-        this.$activeContent.show();
-    };
+                self.changeActiveTabTo($tab);
+                if ($tab.find('.jlink').hasClass('dynamic')) {
+                    $tab.find('.jlink').trigger('click');
+                }
+            }).trigger('hashchange');
+        }
 
-    JTabsPlugin.prototype.showProgressBar = function(){
-        this.$progressBar.removeClass('hidden');
-    };
+        changeActiveTabTo($tab) {
+            if (this.$activeTab && this.$activeContent) {
+                this.$activeTab.removeClass('active');
+                this.$activeContent.hide();
+            }
+            this.$activeTab = $tab;
+            this.$activeContent = getContentForTab($tab);
 
-    JTabsPlugin.prototype.hideProgressBar = function(){
-        this.$progressBar.addClass('hidden');
-    };
+            location.hash = this.settings.urlRouting ? getHashFromTab(this.$activeTab) : '';
 
-    var $getContentForTab = function($tab){
-        return $( getHashFromTab( $tab ) );
-    };
+            this.$activeTab.addClass('active');
+            this.$activeContent.show();
+        }
 
-    var getHashFromTab = function($tab){
-        return $tab.find('.jlink')[0].hash;
-    };
+        showProgressBar () {
+            this.$progressBar.removeClass('hidden');
+        }
 
-    //Return JTabsPlugin to Public for Unit-Testing purposes only!!!
-    return JTabsPlugin;
+        hideProgressBar () {
+            this.$progressBar.addClass('hidden');
+        }
+    }
+
+    let getContentForTab = ($tab) => $( getHashFromTab( $tab ) );
+    let getHashFromTab = ($tab) => $tab.find('.jlink')[0].hash ;
+
 })(  jQuery);
