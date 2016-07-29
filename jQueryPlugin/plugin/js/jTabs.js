@@ -34,7 +34,7 @@
         init() {
             this.initProgressBar();
             this.initTabsWithContent();
-            this.settings.closeable  &&  this.initClosingTabsFeature();
+            this.settings.closeable &&  this.initClosingTabsFeature();
             this.settings.dynamicTabs.length && this.initDynamicTabsFeature();
             this.settings.urlRouting ? this.initUrlRoutingFeature() : this.changeActiveTabTo(this.$tabs.first());
         }
@@ -64,7 +64,7 @@
             const self = this;
             this.$tabs.on('dblclick', 'a.jlink', function (e) {
                 const $tab = $(this).parent(),
-                      $visibleTabs = $tab.siblings().not('.closed');
+                    $visibleTabs = $tab.siblings().not('.closed');
 
                 if ($visibleTabs.length > 0) {
                     const $newActiveTab = $visibleTabs;
@@ -83,54 +83,34 @@
         initDynamicTabsFeature() {
             const self = this;
             this.settings.dynamicTabs.forEach(function (tab) {
-                if (!self.$tabs[tab.number - 1]) {
-                    return;
-                }
+                if  (!self.$tabs[tab.number - 1]) return;
+
                 self.$tabs.eq(tab.number - 1).find('.jlink').addClass('dynamic').on('click', function () {
-                    //if content hasn't been loaded yet, do it now.
-                    if (!$('#tab' + tab.number).html().trim()) {
-                        self.loadContentForTab(tab);
-                    }
+                    if (!$('#tab' + tab.number).html().trim())  self.loadContentForTab(tab);                             //if content hasn't been loaded yet, do it now.
                 });
             });
         }
 
-        loadContentForTab(tab) {
-            /*
-            (tab.url) ? this.loadContentViaUrl(tab) :
-                (tab.load) ? this.loadContentViaCallback(tab) :
-                    (tab.loadAsPromise) && this.loadContentViaPromise(tab);
-                    */
-
-            if((tab.url)
-                this.loadContentViaUrl(tab);
-            if (tab.load && tab.load )
+        loadContentForTab( tab ) {
+            this.showProgressBar();
+            if ( tab.url ) this.loadViaUrl( tab );
+            if ( tab.load ) this.load( tab );
         }
 
-        loadContentViaPromise(tab) {
+        load( tab ) {
             const self = this;
-            this.showProgressBar();
-            tab.loadAsPromise().then((html) => {
+            let nextStep;
+            nextStep = tab.load(callback) && nextStep.then(callback);
+            function callback(html){
                 $('#tab' + +tab.number).html(html);
                 self.hideProgressBar();
-            });
+            }
         }
 
-        loadContentViaCallback(tab) {
-            const self = this;
-            this.showProgressBar();
-            tab.load((html) => {
-                $('#tab' + +tab.number).html(html);
-                self.hideProgressBar();
-            });
-        }
-
-        loadContentViaUrl(tab) {
-            const self = this;
+        loadViaUrl( tab ) {
             $.ajax({
                 method: 'GET',
-                url: tab.url || '',
-                beforeSend: () =>  self.showProgressBar()
+                url: tab.url || ''
             }).fail(function (e) {
                 $('#tab' + +tab.number).html(e);
                 if (tab.error) tab.error(e);

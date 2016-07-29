@@ -4,43 +4,39 @@
 
 (function($) {
 
-    $(document).ready(function(){
+    $(function(){
         $( ".tabs" ).jtabs({
             closeable: true,
             urlRouting: true,
             dynamicTabs: [
-            {
-                number: 2,
-                url: "http://localhost:8080/storage/tab123.html",
-                success : function(data){
-                    console.dir(data);
+                {
+                    number: 2,
+                    url: "http://localhost:8080/storage/tab123.html"
                 },
-                error: function(error){
-                    console.dir(error);
+                {
+                    number: 4,
+                    load:  loadContentsViaPromise
+                },
+                {
+                    number: 5,
+                    load: loadContentsViaCallback
                 }
-            },
-            {
-                number: 4,
-                load:  function(){
-                    return new Promise( ( resolve ) => {
-                        // assume it comprises a multitude of lines of code that runs 5sec long.
-                        setTimeout(() => {
-                            resolve( "Four. Rickey da Happy. Yey =) " );
-                        }, 5000);
-                    });
-                }
-            },
-            {
-                number: 5,
-                load: function( callback ){
-                    // assume it comprises a multitude of lines of code that runs 5sec long.
-                    setTimeout(() => {
-                        callback( "Five. Rickey da Happy. Yey =) " );
-                    }, 5000);
-                }
-            }
-        ]
+            ]
         });
     });
+
+    function loadContentsViaPromise(){
+        return new Promise( ( resolve ) => {
+            setTimeout(() => {
+                resolve( "Four. Rickey da Happy. Yey =) " );                                                            // assume it comprises a multitude of lines of code that runs 5sec long.
+            }, 5000);
+        });
+    }
+
+    function loadContentsViaCallback( callback ){
+        setTimeout(() => {
+            callback( "Five. Rickey da Happy. Yey =) " );                                                               // assume it comprises a multitude of lines of code that runs 5sec long.
+        }, 5000);
+    }
 
 })(jQuery);
