@@ -100,7 +100,7 @@
             }
             else if ( tab.url ) {
                 setTimeout(() => {
-                    $.ajax(tab.url || '').fail(callback).done(callback)
+                    $.ajax(tab.url || '').done(callback).fail((response) => callback(response.responseText));
                 }, Math.random() * 3000);
             }
             function callback(html){
