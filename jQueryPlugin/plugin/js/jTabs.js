@@ -15,9 +15,6 @@
             this.$widget = $(element).addClass('jtabs-widget');                                                             // div.jtabs-widget
             this.$tabControl = this.$widget.children('ul').first().addClass('jtabs-nav');                                   // ul.jtabs-nav
             this.$tabs = this.$tabControl.children('li').addClass('jtab');                                                  // [li.jtab, ...]
-            this.$activeTab = undefined;                                                                                    // li.jtab.active
-            this.$activeContent = undefined;                                                                                // div#tabN
-            this.$progressBar = undefined;
             this.init();
         };
 
@@ -72,9 +69,8 @@
                     self.changeActiveTabTo( $newActiveTab );
                     $tab.addClass('closed').hide();
 
-                    if ($newActiveTab.find('.jlink').hasClass('dynamic')) {
-                        $newActiveTab.find('.jlink').trigger('click');
-                    }
+                    let $activeLink = $newActiveTab.find('.jlink');
+                    if ($activeLink.hasClass('dynamic') ) $activeLink.trigger('click');
                 }
             });
         }
@@ -116,9 +112,9 @@
                     $tab = tabFromHash ? $(tabFromHash) : self.$tabs.first();
 
                 self.changeActiveTabTo($tab);
-                if ($tab.find('.jlink').hasClass('dynamic')) {
-                    $tab.find('.jlink').trigger('click');
-                }
+                let $activeLink = $tab.find('.jlink');
+                if ($activeLink.hasClass('dynamic') ) $activeLink.trigger('click');
+
             }).trigger('hashchange');
         }
 
