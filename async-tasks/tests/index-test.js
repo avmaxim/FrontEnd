@@ -5,6 +5,24 @@
 
 var expect = chai.expect;
 
+
+describe('Q lib testing...', function () {
+    it('should fail', function(){
+        let asyncAdd = function (a, b){
+            return new Promise( (res, rej) => {
+                setTimeout(()=>{
+                    res(a+b);
+                }, 5000);
+            });
+        };
+
+        window.t = Q.all([
+            asyncAdd(10, 10),
+            asyncAdd(20, 20)
+        ]);
+    });
+});
+
 describe('Asynchronous Tasks', function() {
 
     it('should result an array of 4 stores with promises', function() {
