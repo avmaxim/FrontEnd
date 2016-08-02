@@ -8,7 +8,11 @@
 
     angular.module('custom', ['controllers']);
     angular.module('libs', ['ui.router']);
-    
+
+    if(process.env['NODE_ENV'] == 'development'){
+        alert('debugging');
+        debugger;
+    }
 
     angular.module('controllers', [
         'mainControllerModule',

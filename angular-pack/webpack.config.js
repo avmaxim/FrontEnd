@@ -3,6 +3,7 @@
  */
 
 const webpack = require('webpack');
+const NODE_ENV = process.env['NODE_ENV'] || 'development';
 
 module.exports = {
     context: __dirname + '/js',
@@ -18,12 +19,16 @@ module.exports = {
         loaders:[{
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel?presets[]=es2015'
+            loader: 'babel'
         }]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+        new webpack.DefinePlugin({
+            'NODE_ENV': NODE_ENV
+        })
     ],
-    watch: true,
-    devtool: 'source-map'
+    watch:  NODE_ENV == 'development',
+    devtool: NODE_ENV == 'development' ?  'source-map' : null
+
 };
