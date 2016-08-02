@@ -15,4 +15,11 @@
         'registerControllerModule',
         'loginControllerModule'
     ]);
+
 })();
+
+require('./routes');
+require('./controllers/MainController');
+require('./controllers/HomeController');
+require('./controllers/LoginController');
+require('./controllers/RegisterController');
