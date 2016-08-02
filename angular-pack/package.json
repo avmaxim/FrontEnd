@@ -1,0 +1,15 @@
+{
+  "name": "angular-pack",
+  "version": "1.0.0",
+  "description": "Create dev & production build (Webpack + Angular + UI Router + Babel + LESS + npm)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1"
+  }
+}
