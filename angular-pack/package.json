@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bundle": "webpack"
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.1",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }

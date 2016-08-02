@@ -5,23 +5,18 @@ webpackJsonp([0],[
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
-
-	(function(){ 'use strict';
-
+	
+	(function () {
+	    'use strict';
+	
 	    angular.module('hoyeeeApp', ['custom', 'libs']);
-
+	
 	    angular.module('custom', ['controllers']);
 	    angular.module('libs', ['ui.router']);
-
-	    angular.module('controllers', [
-	        'mainControllerModule',
-	        'homeControllerModule',
-	        'registerControllerModule',
-	        'loginControllerModule'
-	    ]);
-
+	
+	    angular.module('controllers', ['mainControllerModule', 'homeControllerModule', 'registerControllerModule', 'loginControllerModule']);
 	})();
-
+	
 	__webpack_require__(1);
 	__webpack_require__(2);
 	__webpack_require__(3);
@@ -35,37 +30,32 @@ webpackJsonp([0],[
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
-
-	(function(){ 'use strict';
-	    
-	    angular
-	        .module('hoyeeeApp')
-	        .config( function( $stateProvider, $urlRouterProvider){
-	           
-	            $stateProvider
-	                .state('main', {
-	                    url: '',
-	                    templateUrl: '/angular-pack/views/main.html',
-	                    controller: 'mainController'
-	                })
-	                .state('home', {
-	                    url: '/home',
-	                    templateUrl: '/angular-pack/views/home.html',
-	                    controller: 'homeController'
-	                })
-	                .state('register', {
-	                    url: '/register',
-	                    templateUrl: '/angular-pack/views/register.html',
-	                    controller: 'registerController'
-	                })
-	                .state('login', {
-	                    url: '/login',
-	                    templateUrl: '/angular-pack/views/login.html',
-	                    controller: 'loginController'
-	                });
-
-	            $urlRouterProvider.otherwise('/');
+	
+	(function () {
+	    'use strict';
+	
+	    angular.module('hoyeeeApp').config(function ($stateProvider, $urlRouterProvider) {
+	
+	        $stateProvider.state('main', {
+	            url: '',
+	            templateUrl: '/angular-pack/views/main.html',
+	            controller: 'mainController'
+	        }).state('home', {
+	            url: '/home',
+	            templateUrl: '/angular-pack/views/home.html',
+	            controller: 'homeController'
+	        }).state('register', {
+	            url: '/register',
+	            templateUrl: '/angular-pack/views/register.html',
+	            controller: 'registerController'
+	        }).state('login', {
+	            url: '/login',
+	            templateUrl: '/angular-pack/views/login.html',
+	            controller: 'loginController'
 	        });
+	
+	        $urlRouterProvider.otherwise('/');
+	    });
 	})();
 
 /***/ },
@@ -75,17 +65,15 @@ webpackJsonp([0],[
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
-
-	(function(){ 'use strict';
-
-	    angular
-	        .module('mainControllerModule', [])
-	        .controller('mainController', [ mainController ]);
-
-	    function mainController(){
+	
+	(function () {
+	    'use strict';
+	
+	    angular.module('mainControllerModule', []).controller('mainController', [mainController]);
+	
+	    function mainController() {
 	        let vm = this;
 	    }
-
 	})();
 
 /***/ },
@@ -95,17 +83,15 @@ webpackJsonp([0],[
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
-
-	(function(){ 'use strict';
-
-	    angular
-	        .module('homeControllerModule', [])
-	        .controller('homeController', [homeController]);
-
-	    function homeController(){
+	
+	(function () {
+	    'use strict';
+	
+	    angular.module('homeControllerModule', []).controller('homeController', [homeController]);
+	
+	    function homeController() {
 	        let vm = this;
 	    }
-
 	})();
 
 /***/ },
@@ -115,17 +101,15 @@ webpackJsonp([0],[
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
-
-	(function(){ 'use strict';
-
-	    angular
-	        .module('loginControllerModule', [])
-	        .controller('loginController', [loginController]);
-
-	    function loginController(){
+	
+	(function () {
+	    'use strict';
+	
+	    angular.module('loginControllerModule', []).controller('loginController', [loginController]);
+	
+	    function loginController() {
 	        let vm = this;
 	    }
-
 	})();
 
 /***/ },
@@ -135,18 +119,17 @@ webpackJsonp([0],[
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
-
-	(function(){ 'use strict';
-
-	    angular
-	        .module('registerControllerModule', [])
-	        .controller('registerController', [registerController]);
-
-	    function registerController(){
+	
+	(function () {
+	    'use strict';
+	
+	    angular.module('registerControllerModule', []).controller('registerController', [registerController]);
+	
+	    function registerController() {
 	        let vm = this;
 	    }
-
 	})();
 
 /***/ }
 ]);
+//# sourceMappingURL=app.bundle.js.map

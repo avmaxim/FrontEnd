@@ -14,7 +14,16 @@ module.exports = {
         path: __dirname + '/build/js',
         filename: 'app.bundle.js'
     },
+    module: {
+        loaders:[{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel'
+        }]
+    },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
-    ]
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+    ],
+    watch: true,
+    devtool: 'source-map'
 };

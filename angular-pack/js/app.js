@@ -8,6 +8,7 @@
 
     angular.module('custom', ['controllers']);
     angular.module('libs', ['ui.router']);
+    
 
     angular.module('controllers', [
         'mainControllerModule',
