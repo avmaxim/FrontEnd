@@ -2,6 +2,8 @@ webpackJsonp([0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
@@ -27,6 +29,8 @@ webpackJsonp([0],[
 /* 1 */
 /***/ function(module, exports) {
 
+	'use strict';
+	
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
@@ -62,6 +66,8 @@ webpackJsonp([0],[
 /* 2 */
 /***/ function(module, exports) {
 
+	'use strict';
+	
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
@@ -72,7 +78,7 @@ webpackJsonp([0],[
 	    angular.module('mainControllerModule', []).controller('mainController', [mainController]);
 	
 	    function mainController() {
-	        let vm = this;
+	        var vm = this;
 	    }
 	})();
 
@@ -80,6 +86,8 @@ webpackJsonp([0],[
 /* 3 */
 /***/ function(module, exports) {
 
+	'use strict';
+	
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
@@ -90,7 +98,7 @@ webpackJsonp([0],[
 	    angular.module('homeControllerModule', []).controller('homeController', [homeController]);
 	
 	    function homeController() {
-	        let vm = this;
+	        var vm = this;
 	    }
 	})();
 
@@ -98,6 +106,8 @@ webpackJsonp([0],[
 /* 4 */
 /***/ function(module, exports) {
 
+	'use strict';
+	
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
@@ -108,7 +118,7 @@ webpackJsonp([0],[
 	    angular.module('loginControllerModule', []).controller('loginController', [loginController]);
 	
 	    function loginController() {
-	        let vm = this;
+	        var vm = this;
 	    }
 	})();
 
@@ -116,6 +126,8 @@ webpackJsonp([0],[
 /* 5 */
 /***/ function(module, exports) {
 
+	'use strict';
+	
 	/**
 	 * Created by andrei.maksimchanka on 8/2/2016.
 	 */
@@ -126,7 +138,7 @@ webpackJsonp([0],[
 	    angular.module('registerControllerModule', []).controller('registerController', [registerController]);
 	
 	    function registerController() {
-	        let vm = this;
+	        var vm = this;
 	    }
 	})();
 
