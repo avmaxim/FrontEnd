@@ -9,7 +9,7 @@
         .controller('homeController', [homeController]);
 
     function homeController(){
-        var vm = this;
+        let vm = this;
     }
 
 })();

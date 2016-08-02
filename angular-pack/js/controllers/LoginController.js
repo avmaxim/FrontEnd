@@ -9,7 +9,7 @@
         .controller('loginController', [loginController]);
 
     function loginController(){
-        var vm = this;
+        let vm = this;
     }
 
 })();
