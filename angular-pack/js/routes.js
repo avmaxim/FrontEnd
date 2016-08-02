@@ -21,7 +21,7 @@
                 })
                 .state('register', {
                     url: '/register',
-                    templateUtl: '/angular-pack/views/register.html',
+                    templateUrl: '/angular-pack/views/register.html',
                     controller: 'registerController'
                 })
                 .state('login', {

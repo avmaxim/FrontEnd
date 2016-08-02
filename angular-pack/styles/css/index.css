@@ -100,7 +100,6 @@ table {
   border-spacing: 0;
 }
 a {
-  margin-left: 100px;
   display: inline-block;
   padding: 10px 20px;
   background-color: #3ab514;
@@ -114,7 +113,6 @@ a {
 }
 h1 {
   font-size: 30px;
-  text-align: center;
   padding: 30px 0;
 }
 .container {
