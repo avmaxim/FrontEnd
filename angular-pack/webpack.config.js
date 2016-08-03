@@ -2,36 +2,43 @@
  * Created by andrei.maksimchanka on 8/2/2016.
  */
 
-const webpack = require('webpack');
-const NODE_ENV = process.env['NODE_ENV'] || 'development';
+const webpack = require('webpack'),
+    NODE_ENV = process.env['NODE_ENV'] || 'development',
+    config = {
+        context: __dirname + '/js',
+        entry: {
+            app: './app.js'
+        },
+        output: {
+            path: __dirname + '/build/js',
+            filename: 'app.bundle.js'
+        },
+        module: {
+            loaders:[{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ["es2015"]
+                }
+            }]
+        },
+        devtools: 'source-map',
+        plugins: [
+            new webpack.DefinePlugin({
+                'NODE_ENV': NODE_ENV
+            })
+        ]
+    };
 
-module.exports = {
-    context: __dirname + '/js',
-    entry: {
-        app: './app.js',
-        vendor: ['angular', 'angular-ui-router']
-    },
-    output: {
-        path: __dirname + '/build/js',
-        filename: 'app.bundle.js'
-    },
-    module: {
-        loaders:[{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-                presets: ["es2015"]
-            }
-        }]
-    },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
-        new webpack.DefinePlugin({
-            'NODE_ENV': NODE_ENV
+
+if ( NODE_ENV == 'production' ){
+    config.devtool = null;
+    config.plugins = [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false }
         })
-    ],
-    watch:  NODE_ENV == 'development',
-    devtool: NODE_ENV == 'development' ?  'source-map' : null
+    ];
+}
 
-};
+module.exports = config;
