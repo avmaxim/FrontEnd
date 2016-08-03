@@ -2,14 +2,10 @@
  * Created by andrei.maksimchanka on 8/2/2016.
  */
 
-(function(){ 'use strict';
+'use strict';
 
-    angular
-        .module('loginControllerModule', [])
-        .controller('loginController', [loginController]);
+function LoginController(){
+    let vm = this;
+}
 
-    function loginController(){
-        let vm = this;
-    }
-
-})();
+export default LoginController;

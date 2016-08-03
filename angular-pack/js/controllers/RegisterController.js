@@ -1,15 +1,10 @@
 /**
  * Created by andrei.maksimchanka on 8/2/2016.
  */
+'use strict';
 
-(function(){ 'use strict';
+function RegisterController(){
+    let vm = this;
+}
 
-    angular
-        .module('registerControllerModule', [])
-        .controller('registerController', [registerController]);
-
-    function registerController(){
-        let vm = this;
-    }
-
-})();
+export default RegisterController;

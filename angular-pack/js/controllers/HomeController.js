@@ -2,14 +2,12 @@
  * Created by andrei.maksimchanka on 8/2/2016.
  */
 
-(function(){ 'use strict';
+'use strict';
 
-    angular
-        .module('homeControllerModule', [])
-        .controller('homeController', [homeController]);
+function HomeController($http){
+    let vm = this;
+}
 
-    function homeController(){
-        let vm = this;
-    }
+HomeController.$inject = ['$http'];
 
-})();
+export default HomeController;

@@ -1,15 +1,10 @@
 /**
  * Created by andrei.maksimchanka on 8/2/2016.
  */
+'use strict';
 
-(function(){ 'use strict';
+function MainController(){
+    let vm = this;
+}
 
-    angular
-        .module('mainControllerModule', [])
-        .controller('mainController', [ mainController ]);
-
-    function mainController(){
-        let vm = this;
-    }
-
-})();
+export default MainController;
