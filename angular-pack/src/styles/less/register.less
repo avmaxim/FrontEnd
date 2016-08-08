@@ -1,4 +1,4 @@
-.login {
+.register {
   margin-top: 80px;
   margin-bottom: 80px;
 
@@ -9,7 +9,7 @@
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.1);
 
-    .login-title,
+    .register-title,
     .checkbox{
       margin-bottom: 30px;
     }
@@ -28,16 +28,26 @@
       &:focus{ z-index: 2; }
     }
 
-    input[type="text"] {
+    input[type="email"] {
       margin-bottom: -1px;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
 
-    input[type="password"] {
+    input[type="text"] {
       margin-bottom: 20px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    input[type="password"] {
+      margin-bottom: 41px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+    }
+
+    button:last-of-type{
+      margin-left: 50px;
     }
   }
 }

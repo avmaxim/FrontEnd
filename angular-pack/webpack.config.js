@@ -5,9 +5,12 @@
 const webpack = require('webpack'),
     NODE_ENV = process.env['NODE_ENV'] || 'development',
     config = {
-        context: __dirname + '/js',
+        context: __dirname + '/src/js',
         entry: {
             app: './app.js'
+        },
+        devServer: {
+          contentBase: './src/'
         },
         output: {
             path: __dirname + '/build/js',
@@ -23,7 +26,7 @@ const webpack = require('webpack'),
                 }
             }]
         },
-        devtools: 'source-map',
+        devtool: 'source-map',
         plugins: [
             new webpack.DefinePlugin({
                 'NODE_ENV': NODE_ENV

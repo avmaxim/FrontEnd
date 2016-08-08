@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "angular": "^1.5.8",
+    "angular-cookies": "^1.5.8",
     "angular-ui-router": "^0.3.1",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
