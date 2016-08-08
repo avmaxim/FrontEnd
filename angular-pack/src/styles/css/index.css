@@ -104,25 +104,25 @@ table {
   width: 70%;
   text-align: center;
 }
-.login {
+#login {
   margin-top: 80px;
   margin-bottom: 80px;
 }
-.login > form {
+#login > form {
   max-width: 380px;
   padding: 15px 35px 45px;
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.login > form .login-title,
-.login > form .checkbox {
+#login > form .login-title,
+#login > form .checkbox {
   margin-bottom: 30px;
 }
-.login > form .checkbox {
+#login > form .checkbox {
   font-weight: normal;
 }
-.login > form .form-control {
+#login > form .form-control {
   position: relative;
   font-size: 16px;
   height: auto;
@@ -131,20 +131,75 @@ table {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.login > form .form-control:focus {
+#login > form .form-control:focus {
   z-index: 2;
 }
-.login > form input[type="text"] {
+#login > form input[type="text"] {
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-.login > form input[type="password"] {
+#login > form input[type="password"] {
   margin-bottom: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-a {
+#login > form button[type="submit"] + a[ui-sref] {
+  display: inline-block;
+  right: 0;
+  text-align: center;
+  top: 0;
+  position: relative;
+}
+.register {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.register > form {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.register > form .register-title,
+.register > form .checkbox {
+  margin-bottom: 30px;
+}
+.register > form .checkbox {
+  font-weight: normal;
+}
+.register > form .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.register > form .form-control:focus {
+  z-index: 2;
+}
+.register > form input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.register > form input[type="text"] {
+  margin-bottom: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.register > form input[type="password"] {
+  margin-bottom: 41px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.register > form button:last-of-type {
+  margin-left: 50px;
+}
+.home a {
   display: inline-block;
   padding: 10px 20px;
   background-color: #3ab514;
