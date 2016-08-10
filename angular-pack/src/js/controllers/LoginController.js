@@ -4,7 +4,7 @@
 
 'use strict'; 
 
-function LoginController($http, $state, $cookies, urls){
+function LoginController($http, $state, $window, urls){
     let vm = this;
     vm.user = { name: '', password: ''};
     vm.submit = submit;
@@ -17,7 +17,7 @@ function LoginController($http, $state, $cookies, urls){
         $http
             .post(urls.ACCOUNT_LOGIN, loginData)
             .then((response) => {
-                $cookies.put("user", response.data.data);
+                $window.localStorage.setItem('user-info', JSON.stringify(response.data.data));
                 $state.go('home');
             })
             .catch((error) =>{
@@ -26,6 +26,6 @@ function LoginController($http, $state, $cookies, urls){
     }
 }
 
-LoginController.$inject = ['$http', '$state', '$cookies', 'urls'];
+LoginController.$inject = ['$http', '$state', '$window', 'urls'];
 
 export default LoginController;

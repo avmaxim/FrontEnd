@@ -3,7 +3,7 @@
  */
 'use strict';
 
-function RegisterController($http, $state, $cookies, urls){
+function RegisterController($http, $state, $window, urls){
     let vm = this;
     vm.user = { name: '', password: ''};
     vm.submit = submit;
@@ -17,8 +17,8 @@ function RegisterController($http, $state, $cookies, urls){
         $http
             .post(urls.ACCOUNT_REGISTER, registerData)
             .then((response) => {
-                alert("Successfully registered!");
                 $state.go('login');
+                console.log("Successfully registered!");
             })
             .catch((error) => {
                 console.error("Error occured: " + error);
@@ -26,6 +26,6 @@ function RegisterController($http, $state, $cookies, urls){
     }
 }
 
-RegisterController.$inject = ['$http', '$state', '$cookies', 'urls'];
+RegisterController.$inject = ['$http', '$state', '$window', 'urls'];
 
 export default RegisterController;

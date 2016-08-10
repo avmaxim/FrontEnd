@@ -1,11 +1,12 @@
 <div class="login wrapper" >
-    <form ng-submit="vm.submit()">
-        <h2 class="login-title">Hoyee</h2>
-        <input type="text" ng-model="vm.user.name" class="form-control" placeholder="Nickname" ng-required />
-        <input type="password" ng-model="vm.user.password" class="form-control" placeholder="Password" ng-required />
+    <form ng-submit="vm.submit()" class="form-signin">
+        <h2 class="form-signin-heading">Hoyee</h2>
+
+        <input type="text" ng-model="vm.user.name" class="form-control" placeholder="Nickname" required />
+        <input type="password" ng-model="vm.user.password" class="form-control" placeholder="Password" required />
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <a ui-sref="register">Sign Up</a>
+        <a ui-sref="register" role="button">Need to Sign up?</a>
     </form>
 
 </div>

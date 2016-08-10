@@ -4,10 +4,14 @@
 
 'use strict';
 
-function HomeController($http){
+function HomeController( $state, $cookies){
     let vm = this;
+    let user = JSON.parse( $cookies.get("user-info") );
+    if ( !user )
+        $state.go('main');
+    vm.userInfo = user;
 }
 
-HomeController.$inject = ['$http'];
+HomeController.$inject = ['$state', '$cookies'];
 
 export default HomeController;

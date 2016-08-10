@@ -1,12 +1,13 @@
 <div class="register wrapper" >
-    <form ng-submit="vm.submit()" >
-        <h2 class="register-title">Hoyee</h2>
-        <input type="email" ng-model="vm.user.email" placeholder="Email" ng-required />
-        <input type="text" ng-model="vm.user.name" placeholder="Nickname" ng-required />
-        <input type="password" ng-model="vm.user.password" placeholder="Password" ng-required />
+    <form ng-submit="vm.submit()" class="form-signin">
+        <h2 class="form-signin-heading">Hoyee</h2>
 
-        <button type="submit">Sign Up</button>
-        <a ui-sref="login">Login</a>
+        <input type="email" ng-model="vm.user.email" class="form-control" placeholder="Email" ng-required />
+        <input type="text" ng-model="vm.user.name" class="form-control" placeholder="Nickname" ng-required />
+        <input type="password" ng-model="vm.user.password" class="form-control" placeholder="Password" ng-required />
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block" >Sign Up</button>
+        <a ui-sref="login" role="button">Already have account?</a>
     </form>
 
 </div>

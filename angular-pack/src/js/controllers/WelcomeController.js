@@ -3,8 +3,8 @@
  */
 'use strict';
 
-function MainController(){
+function WelcomeController(){
     let vm = this;
 }
 
-export default MainController;
+export default WelcomeController;

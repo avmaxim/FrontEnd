@@ -2,28 +2,36 @@
  * Created by andrei.maksimchanka on 8/2/2016.
  */
 
-const webpack = require('webpack'),
-    NODE_ENV = process.env['NODE_ENV'] || 'development',
+var path = require('path');
+var webpack = require('webpack');
+
+const NODE_ENV = process.env['NODE_ENV'] || 'development',
     config = {
-        context: __dirname + '/src/js',
+        context: path.join(__dirname, 'src/js'),
         entry: {
             app: './app.js'
         },
         devServer: {
-          contentBase: './src/'
+            contentBase: './src/'
         },
         output: {
-            path: __dirname + '/build/js',
+            path: path.join(__dirname, 'build/js'),
             filename: 'app.bundle.js'
         },
         module: {
-            loaders:[{
+            loaders: [{
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
                     presets: ["es2015"]
                 }
+            }, {
+                test: /\.less$/,
+                loader: 'style!css!less'
+            }, {
+                test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
+                loader: 'url-loader?limit=100000'
             }]
         },
         devtool: 'source-map',
@@ -35,11 +43,11 @@ const webpack = require('webpack'),
     };
 
 
-if ( NODE_ENV == 'production' ){
+if (NODE_ENV == 'production') {
     config.devtool = null;
     config.plugins = [
         new webpack.optimize.UglifyJsPlugin({
-            compress: { warnings: false }
+            compress: {warnings: false}
         })
     ];
 }

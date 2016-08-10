@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title> Welcome to hoyee! </title>
-    <link rel="stylesheet" href="styles/css/index.css" />
 </head>
-
 <body ng-app="hoyeeApp">
 
-    <div>
-        <div class="container" ui-view></div>
+    <div class="page-wrapper">
+        <header ui-view="header"></header>
+
+        <main>
+            <div class="container" ui-view></div>
+        </main>
+
+        <footer>
+            <section>
+                Copyright © Andrew Maksimchenko
+            </section>
+        </footer>
     </div>
 
     <script src="app.bundle.js"></script>
