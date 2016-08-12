@@ -5,65 +5,45 @@
 'use strict';
 
 function config($stateProvider, $urlRouterProvider) {
-/*
+
     $stateProvider
         .state('main', {
             abstract: true,
-            template: "common start <div ui-view></div> common end"
+            templateUrl: '/views/main.html'
         })
         .state('main.public', {
             abstract: true,
-            template: "public start <div ui-view></div> public end"
+            templateUrl: '/views/main.public.html'
         })
-        .state('main.public.home', {
-            url: '/',
-            template: "this is home"
-        })
-        .state('main.private', {
-            abstract: true,
-            template: "private start <div ui-view></div> private end"
-        })
-        .state('main.private.dashboard', {
-            url: '/dashboard',
-            template: "this is dashboard"
-        });*/
-
-    $stateProvider
-        .state('main', {
-            url: '',
-            views: {
-                '' :{
-                    templateUrl: '/views/welcome.html'
-                },
-                'header': {
-                    templateProvider: function ($timeout, $window) {
-                        return $timeout(() => {
-                            let userInfo = $window.localStorage.getItem('user-info');
-                            return userInfo ? '<header-public></header-public>' : '<header-private></header-private>'
-                        }, 100);
-                    }
-                }
-            }
-        })
-
-        .state('home', {
-            url: '/home',
-            templateUrl: '/views/home.html',
-            controller: 'hoyeeApp.homeController',
-            controllerAs: 'vm'
-        })
-        .state('register', {
+        .state('main.public.register', {
             url: '/register',
             templateUrl: '/views/register.html',
             controller: 'hoyeeApp.registerController',
             controllerAs: 'vm'
         })
-        .state('login', {
+        .state('main.public.login', {
             url: '/login',
             templateUrl: '/views/login.html',
             controller: 'hoyeeApp.loginController',
             controllerAs: 'vm'
+        })
+        .state('main.public.welcome', {
+            url: '/',
+            templateUrl: '/views/welcome.html',
+            controller: 'hoyeeApp.welcomeController',
+            controllerAs: 'vm'
+        })
+        .state('main.private', {
+            abstract: true,
+            templateUrl: '/views/main.private.html'
+        })
+        .state('main.private.home', {
+            url: '/home',
+            templateUrl: '/views/home.html',
+            controller: 'hoyeeApp.homeController',
+            controllerAs: 'vm'
         });
+
     $urlRouterProvider.otherwise('/');
 }
 

@@ -5,7 +5,7 @@
 'use strict';
 
 let HeaderPrivateComponent = {
-    templateUrl: '/js/components/headerPrivate/header-private.html'
+    templateUrl: '/js/components/headerPrivate/header-private.html',
 };
 
 export default HeaderPrivateComponent;
