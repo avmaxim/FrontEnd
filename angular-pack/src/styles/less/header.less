@@ -1,0 +1,29 @@
+header-public,
+header-private {
+  background: @app-color;
+  height: 70px;
+  min-width: @app-min-width;
+  display: block;
+
+  > section {
+    .container;
+    &::after, &::before{
+      content: '';
+      display: table
+    }
+    &::after{
+      clear: both;
+    }
+  }
+
+  .hoyee-header{
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 35px;
+    color: white;
+    float: left;
+    line-height: 70px;
+  }
+}

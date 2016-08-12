@@ -1,0 +1,28 @@
+
+.btn-outline {
+  .btn-outline-mixin;
+  .transition(all 0.5s ease);
+  &:hover{
+    .btn-outline-reverse-mixin;
+  }
+}
+
+.btn-outline-reverse{
+  .btn-outline-reverse-mixin;
+  .transition(all 0.5s ease);
+  &:hover{
+    .btn-outline-mixin;
+  }
+}
+
+.btn-outline-mixin {
+  color: @app-color;
+  background-color: #fff;
+  border-color: @app-color;
+}
+
+.btn-outline-reverse-mixin {
+  color: #fff;
+  background-color: @app-color;
+  border-color: #fff;
+}

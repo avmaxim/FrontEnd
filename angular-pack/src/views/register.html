@@ -1,0 +1,36 @@
+<div class="register wrapper" >
+
+    <!-- REGISTRATION FORM  -->
+    <form ng-submit="vm.submit()" class="form-signin" name="registrationForm">
+
+        <h2 class="form-signin-heading">Hoyee</h2>
+
+        <!-- USERNAME -->
+        <div class="form-group" ng-class="{ 'has-error' : registrationForm.username.$invalid && !registrationForm.username.$pristine,
+                                            'has-success' : registrationForm.username.$valid }">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" ng-model="vm.user.name" ng-minlength="3" ng-maxlength="10" required>
+            <p ng-show="registrationForm.username.$valid.username.$error.minlength" class="help-block">Username is too short.</p>
+            <p ng-show="registrationForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group" ng-class="{ 'has-error' : registrationForm.email.$invalid && !registrationForm.email.$pristine,
+                                            'has-success' : registrationForm.email.$valid   }">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" ng-model="vm.user.email" required>
+            <p ng-show="registrationForm.email.$invalid && !registrationForm.email.$pristine" class="help-block">Enter a valid email.</p>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group" ng-class="{ 'has-success' : registrationForm.password.$valid }">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" ng-model="vm.user.password" required>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-outline-reverse btn-block">Sign Up</button>
+        <a ui-sref="main.public.login" role="button">Already have account?</a>
+
+    </form>
+
+</div>

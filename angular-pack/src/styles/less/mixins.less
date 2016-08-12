@@ -1,0 +1,17 @@
+.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.container{
+  width: @app-min-width;
+  margin: 0 auto;
+}
+
+.transition(@arguments){
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -o-transition: @arguments;
+  transition: @arguments;
+}
