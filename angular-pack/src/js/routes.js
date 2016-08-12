@@ -31,7 +31,10 @@ function config($stateProvider, $urlRouterProvider) {
             url: '/',
             templateUrl: '/views/welcome.html',
             controller: 'hoyeeApp.welcomeController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve : {
+                userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
+            },
         })
         .state('main.private', {
             abstract: true,
@@ -41,7 +44,13 @@ function config($stateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: '/views/home.html',
             controller: 'hoyeeApp.homeController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve : {
+                userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
+            },
+        })
+        .state('main.public.signout', {
+            controller: 'hoyeeApp.signoutController',
         });
 
     $urlRouterProvider.otherwise('/');

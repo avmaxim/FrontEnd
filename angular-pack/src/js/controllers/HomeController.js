@@ -4,15 +4,14 @@
 
 'use strict';
 
-function HomeController($state){
+function HomeController($state, userInfo){
     let vm = this;
-    let user = JSON.parse( localStorage.getItem("user-info") );
-    if ( !user ) {
+    if ( !userInfo ) {
         $state.go('main.public.welcome');
     }
-    vm.userInfo = user;
+    vm.userInfo = userInfo;
 }
 
-HomeController.$inject = ['$state'];
+HomeController.$inject = ['$state', 'userInfo'];
 
 export default HomeController;

@@ -1,0 +1,60 @@
+profile{
+  float: right;
+  display: block;
+
+  a[data-toggle="uib-dropdown"]{
+    line-height: 70px;
+    color: #fff;
+    padding: 0 15px;
+    cursor: pointer;
+    *{color: #fff;}
+
+    .transition(all 0.5s ease);
+    &:hover,  &:focus, &:active {
+      background-color: #fff;
+      color: @app-color;
+      *{ color: @app-color; }
+    }
+  }
+
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus {
+    background-color: #fff;
+    color: @app-color;
+    *{ color: @app-color; }
+  }
+
+  .navbar-login
+  {
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0;
+  }
+
+  .navbar-login-session
+  {
+    padding: 10px;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .icon-size
+  {
+    font-size: 87px;
+  }
+
+  .account-details,
+  .signout-btn{
+    font-weight: bold;
+  }
+}
+
+.transition(@arguments){
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -o-transition: @arguments;
+  transition: @arguments;
+}
+
+@app-color: #6A4F93;

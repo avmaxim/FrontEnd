@@ -3,12 +3,11 @@
  */
 'use strict';
 
-function WelcomeController($state){
+function WelcomeController($state, userInfo){
     let vm = this;
-    let user = JSON.parse( localStorage.getItem("user-info") );
-    if ( user )
+    if ( userInfo )
         $state.go('main.private.home');
 }
 
-WelcomeController.$inject = ['$state'];
+WelcomeController.$inject = ['$state', 'userInfo'];
 export default WelcomeController;

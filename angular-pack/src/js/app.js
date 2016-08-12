@@ -15,12 +15,21 @@ import angularUiBootstrap from 'angular-ui-bootstrap';
 import config from './routes.js';
 import componentsModule from './components/app.components';
 import controllersModule from './controllers/app.controllers';
-import serverClientApi from './urls';
+import servicesModule from './services/app.services';
+import serverClientApi from './urls' ;
+import profile from './profile/profile.module';
 
 let hoyeeApp = 'hoyeeApp';
 
 var app = angular
-                .module( hoyeeApp, [angularUiRouter, angularUiBootstrap, controllersModule, componentsModule] )
+                .module( hoyeeApp, [
+                            profile,
+                            angularUiRouter,
+                            angularUiBootstrap,
+                            controllersModule,
+                            componentsModule,
+                            servicesModule
+                ] )
                 .config( config )
                 .constant( 'urls', serverClientApi);
 
