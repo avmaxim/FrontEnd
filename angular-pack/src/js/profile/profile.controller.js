@@ -12,9 +12,7 @@ function ProfileController($state, AuthenticationService){
     function signOut(){
         AuthenticationService
             .signOut()
-            .then( () => {
-                $state.go('main.public.welcome');
-            })
+            .then( () => { $state.go('main.public.welcome') })
             .catch( error => alert(response.message) );
     }
 

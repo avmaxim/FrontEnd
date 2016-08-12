@@ -4,9 +4,9 @@
 
 'use strict';
 
-AuthenticationService.$inject = ['$timeout', '$q'];
+AuthenticationService.$inject = ['$q', '$timeout', '$httpProvider', 'urls'];
 
-function AuthenticationService($timeout, $q){
+function AuthenticationService($q, $timeout, $httpProvider, urls){
     let service = {};
 
     service.login = login;
@@ -15,8 +15,24 @@ function AuthenticationService($timeout, $q){
 
     return service;
 
-
     function login(username, password){
+        let credentials = {
+            username: username,
+            password: password
+        };
+        return $http
+                .post(urls.ACCOUNT_LOGIN, credentials)
+                .then((response) => {
+                    if (response.success) {
+                        saveUserSession( username , response.data.token );
+                        return response;
+                    } else {
+                        return $q.reject(response);
+                    }
+                });
+    }
+
+    function register(){
         return $q( (resolve) => {
             // emulate a request to Hoyee Server
             $timeout(()=> {
@@ -27,7 +43,7 @@ function AuthenticationService($timeout, $q){
 
     function signOut(){
         return $q( (resolve) => {
-            // emulate a request to Hoyee Server
+            // simulate a request to Hoyee Server
             $timeout(()=> {
                 localStorage.clear();
                 console.log("signed out");
@@ -36,13 +52,15 @@ function AuthenticationService($timeout, $q){
         });
     }
 
-    function register(){
-        return $q( (resolve) => {
-            // emulate a request to Hoyee Server
-            $timeout(()=> {
-                resolve();
-            }, 1000);
+    function saveUserSession(username, token){
+        localStorage.setItem('token', token);
+        localStorage.setItem('user-info', {
+            currentUser: {
+                username: username,
+                authData: token
+            }
         });
+        $httpProvider.defaults.headers.common['X-Auth-Token'] = 'Bearer ' + token;
     }
 }
 

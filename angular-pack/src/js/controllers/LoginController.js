@@ -2,30 +2,25 @@
  * Created by andrei.maksimchanka on 8/2/2016.
  */
 
-'use strict'; 
+'use strict';
 
-function LoginController($http, $state, urls){
+LoginController.$inject = ['$state', 'AuthenticationService'];
+
+function LoginController($state, AuthenticationService){
     let vm = this;
     vm.user = { name: '', password: ''};
     vm.submit = submit;
 
     function submit (){
-        const loginData = {
-            "username": vm.user.name,
-            "password": vm.user.password
-        };
-        $http
-            .post(urls.ACCOUNT_LOGIN, loginData)
+        AuthenticationService
+            .login( vm.user.name, vm.user.password )
             .then((response) => {
-                localStorage.setItem('user-info', JSON.stringify(response.data.data));
-                $state.go('main.private.home');
+                    AuthenticationService.setCredentials(vm.user.name, vm.user.password);
             })
-            .catch((error) =>{
-                console.error("Error occured: " + error);
-            })
+            .catch((error) => {
+                console.error("Error occured: " + error.message);
+            });
     }
 }
-
-LoginController.$inject = ['$http', '$state', 'urls'];
 
 export default LoginController;
