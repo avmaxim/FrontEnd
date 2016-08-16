@@ -4,15 +4,13 @@
 
 'use strict';
 
-AuthenticationService.$inject = ['$q', '$timeout', '$httpProvider', 'urls'];
+AuthenticationService.$inject = ['$http', '$q', '$timeout', 'urls'];
 
-function AuthenticationService($q, $timeout, $httpProvider, urls){
+function AuthenticationService($http, $q, $timeout, urls){
     let service = {};
-
     service.login = login;
     service.signOut = signOut;
     service.register = register;
-
     return service;
 
     function login(username, password){
@@ -23,11 +21,12 @@ function AuthenticationService($q, $timeout, $httpProvider, urls){
         return $http
                 .post(urls.ACCOUNT_LOGIN, credentials)
                 .then((response) => {
-                    if (response.success) {
-                        saveUserSession( username , response.data.token );
-                        return response;
+                    let responseData = response.data;
+                    if (responseData.success) {
+                        saveUserSession( username , responseData.data['token'] );
+                        return responseData;
                     } else {
-                        return $q.reject(response);
+                        return $q.reject(responseData);
                     }
                 });
     }
@@ -54,13 +53,12 @@ function AuthenticationService($q, $timeout, $httpProvider, urls){
 
     function saveUserSession(username, token){
         localStorage.setItem('token', token);
-        localStorage.setItem('user-info', {
+        localStorage.setItem('user-info', JSON.stringify({
             currentUser: {
                 username: username,
                 authData: token
             }
-        });
-        $httpProvider.defaults.headers.common['X-Auth-Token'] = 'Bearer ' + token;
+        }));
     }
 }
 

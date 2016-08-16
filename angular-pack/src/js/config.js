@@ -4,7 +4,7 @@
 
 'use strict';
 
-function config($stateProvider, $urlRouterProvider) {
+function config($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $stateProvider
         .state('main', {
@@ -48,14 +48,13 @@ function config($stateProvider, $urlRouterProvider) {
             resolve : {
                 userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
             },
-        })
-        .state('main.public.signout', {
-            controller: 'hoyeeApp.signoutController',
         });
 
+
     $urlRouterProvider.otherwise('/');
+    $httpProvider.interceptors.push('HttpHeadersInterceptor');
 }
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
 export default config;

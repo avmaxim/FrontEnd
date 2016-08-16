@@ -15,10 +15,14 @@ function LoginController($state, AuthenticationService){
         AuthenticationService
             .login( vm.user.name, vm.user.password )
             .then((response) => {
-                    AuthenticationService.setCredentials(vm.user.name, vm.user.password);
+                alert('Successfully logged in.');
+                $state.go('main.private.home');
             })
             .catch((error) => {
-                console.error("Error occured: " + error.message);
+                if (error.status == 401) {
+                    console.error("Error occured: " + error.message);
+                    $state.go('main.public.register');
+                }
             });
     }
 }

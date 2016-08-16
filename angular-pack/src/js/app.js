@@ -12,7 +12,7 @@ import angular from 'angular';
 import angularUiRouter from 'angular-ui-router';
 import angularUiBootstrap from 'angular-ui-bootstrap';
 
-import config from './routes.js';
+import config from './config.js';
 import componentsModule from './components/app.components';
 import controllersModule from './controllers/app.controllers';
 import servicesModule from './services/app.services';
