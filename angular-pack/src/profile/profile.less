@@ -1,3 +1,7 @@
+@import "../common/styles/less/vars";
+@import "../common/styles/less/mixins";
+@import "../common/styles/less/fonts";
+
 profile{
   float: right;
   display: block;
@@ -49,12 +53,3 @@ profile{
     font-weight: bold;
   }
 }
-
-.transition(@arguments){
-  -webkit-transition: @arguments;
-  -moz-transition: @arguments;
-  -o-transition: @arguments;
-  transition: @arguments;
-}
-
-@app-color: #6A4F93;

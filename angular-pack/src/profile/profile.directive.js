@@ -7,7 +7,7 @@
 function ProfileDirective(){
     return {
         restrict: 'E',
-        templateUrl: '/js/profile/profile.html',
+        templateUrl: '/profile/profile.html',
         controller: 'profileController',
         controllerAs: 'ctrl'
     };

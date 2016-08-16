@@ -5,7 +5,7 @@
 'use strict';
 
 let HeaderPublicComponent = {
-    templateUrl: '/js/components/headerPublic/header-public.html'
+    templateUrl: '/header/headerPublic/header-public.html'
 };
 
 export default HeaderPublicComponent;

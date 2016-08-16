@@ -7,7 +7,7 @@ var webpack = require('webpack');
 
 const NODE_ENV = process.env['NODE_ENV'] || 'development',
     config = {
-        context: path.join(__dirname, 'src/js'),
+        context: path.join(__dirname, 'src'),
         entry: {
             app: './app.js'
         },
@@ -15,7 +15,7 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
             contentBase: './src/'
         },
         output: {
-            path: path.join(__dirname, 'build/js'),
+            path: path.join(__dirname, 'build'),
             filename: 'app.bundle.js'
         },
         module: {
