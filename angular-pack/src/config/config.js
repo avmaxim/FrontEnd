@@ -48,6 +48,18 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
             resolve : {
                 userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
             },
+        })
+        .state('main.private.preview', {
+            url: '/article/preview',
+            template: '<h1>Preview</h1>',
+            //controller: 'hoyeeApp.previewArticleController',
+            //controllerAs: 'ctrl'
+        })
+        .state('main.private.upsert', {
+            url: '/article/upsert/:articleId',
+            template: '<h1>Preview</h1>',
+            controller: 'hoyeeApp.upsertArticleController',
+            controllerAs: 'ctrl'
         });
 
     $urlRouterProvider.otherwise('/');
