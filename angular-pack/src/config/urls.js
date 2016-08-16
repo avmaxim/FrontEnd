@@ -4,7 +4,7 @@
 
 'use strict';
 
-const SERVER_HOST = 'localhost:8888',
+const SERVER_HOST = 'localhost:9090/Hoyee',
     HOYEE_HOST_URL = window.location.protocol + '//' + SERVER_HOST,
     SERVER_CLIENT_API = {
         ACCOUNT_LOGIN: HOYEE_HOST_URL + '/account/login',

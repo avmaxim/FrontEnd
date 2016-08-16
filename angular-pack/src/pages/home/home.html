@@ -1,6 +1,6 @@
 <div class="home" >
-    <a ui-sref="main.private.upsert()">Create Article</a>
-    <a ui-sref="main.private.upsert({articleId: 2})">Edit Article</a>
+    <a ui-sref="main.private.upsert()" class="btn btn-lg btn-outline" role="button">Create Article</a>
+    <a ui-sref="main.private.upsert({articleId: 2})" class="btn btn-lg btn-outline" role="button">Edit Article</a>
     <div>
         <table>
             <tr ng-repeat="(key, value) in vm.userInfo">

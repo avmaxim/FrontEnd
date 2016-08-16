@@ -15,7 +15,7 @@ import angularUiBootstrap from 'angular-ui-bootstrap';
 
 import servicesModule from './config/interceptors/app.interceptors';
 import serverClientApi from './config/urls';
-import config from './config/config';
+import config from './routes';
 
 import header from './header/header.module';
 import profile from './profile/profile.module';

@@ -4,15 +4,27 @@
 
 'use strict';
 
-function UpsertArticleController($stateParams){
+function UpsertArticleController($state, $stateParams, $timeout){
     let vm = this;
-    if (!$stateParams['articleId'] )
-        console.log('create');
-    else
-        console.log('edit');
+    vm.submit = submit;
+
+    if ($stateParams['articleId'] ){
+        //getting article from server
+        vm.article = { header: 'Cool article', contents: 'This article\'s about different stuff like ...'};
+    } else {
+        vm.article = { header: '', contents: ''};
+    }
+
+    function submit(){
+        //simulate connection to server
+        $timeout(() => {
+            alert('Your article successfully saved. ');
+            $state.go('main.private.myarticles');
+        }, 2000);
+    } 
 
 }
 
-UpsertArticleController.$inject = ['$stateParams'];
+UpsertArticleController.$inject = ['$state', '$stateParams', '$timeout'];
 
 export default UpsertArticleController;

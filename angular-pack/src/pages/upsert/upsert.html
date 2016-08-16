@@ -7,7 +7,7 @@
             <section class="form-group " ng-class="{ 'has-error' : upsertForm.username.$invalid && !upsertForm.username.$pristine,
                                                      'has-success' : upsertForm.username.$valid }">
                 <label control-label>Header</label>
-                <input type="text" name="article-header" class="form-control" ng-model="ctrl.atricle.header" ng-minlength="10" required>
+                <input type="text" name="article-header" class="form-control" ng-model="ctrl.article.header" value="{{ctrl.article.contents}}" ng-minlength="10" required>
                 <p ng-show="upsertForm['article-header'].$error.minlength" class="help-block">Please, provide a more detailed header for the article</p>
             </section>
 
@@ -15,7 +15,9 @@
             <section class="form-group " ng-class="{ 'has-error' : upsertForm.username.$invalid && !upsertForm.username.$pristine,
                                                      'has-success' : upsertForm.username.$valid }">
                 <label control-label>Contents</label>
-                <textarea name="article-contents" class="form-control" ng-model="ctrl.atricle.contents" ng-minlength="100" required></textarea>
+                <textarea name="article-contents" class="form-control" ng-model="ctrl.article.contents" ng-minlength="100" required>
+                    {{ ctrl.article.contents}}
+                </textarea>
                 <p ng-show="upsertForm['article-header'].$error.minlength" class="help-block">Please, provide a more detailed contents for the article</p>
             </section>
 

@@ -47,19 +47,24 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
             controllerAs: 'vm',
             resolve : {
                 userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
-            },
-        })
-        .state('main.private.preview', {
-            url: '/article/preview',
-            template: '<h1>Preview</h1>',
-            //controller: 'hoyeeApp.previewArticleController',
-            //controllerAs: 'ctrl'
+            }
         })
         .state('main.private.upsert', {
             url: '/article/upsert/:articleId',
-            template: '<h1>Preview</h1>',
+            templateUrl: '/pages/upsert/upsert.html',
             controller: 'hoyeeApp.upsertArticleController',
             controllerAs: 'ctrl'
+        })
+        .state('main.private.myarticles', {
+            url: '/myarticles',
+            templateUrl: '/pages/myarticles/myarticles.html',
+            controller: 'hoyeeApp.myArticlesController',
+            controllerAs: 'ctrl',
+            resolve: {
+                myArticles: ['$http', 'urls', function($http, urls) {
+                    return $http.get( urls.ARTICLES_GET_PERSONAL );
+                }]
+            }
         });
 
     $urlRouterProvider.otherwise('/');
