@@ -9,22 +9,25 @@ function UpsertArticleController($state, $stateParams, ArticleService, $timeout)
     vm.upsert = upsert;
 
     if ( !$stateParams['articleId'] ) {                                                                                 //Create new article mode
-        vm.article = {header: '', contents: ''};
+        vm.article = {header: '', contents: '', };
     } else {                                                                                                            //Update article mode
         ArticleService
             .getArticleById( $stateParams['articleId'] )
             .then( (article) => {
-                vm.article = { header: article.header, contents: article.contents };
+                vm.article = article;
             })
             .catch( handleErrors );
     }
 
     function upsert(){
-        //simulate connection to server
-        $timeout(() => {
-            alert('Your article successfully saved. ');
-            $state.go('main.private.myarticles');
-        }, 1000);
+        vm.article.timestamp = new Date().getTime();
+        ArticleService
+            .upsertArticle( vm.article )
+            .then( () => {
+                alert('Your article successfully saved.');
+                $state.go('main.private.myarticles');
+            })
+            .catch( handleErrors );
     }
 
     function handleErrors(error){

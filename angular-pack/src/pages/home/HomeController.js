@@ -9,7 +9,7 @@ function HomeController($state, userInfo){
     if ( !userInfo ) {
         $state.go('main.public.welcome');
     }
-    vm.userInfo = userInfo;
+    //vm.userInfo = userInfo;
 }
 
 HomeController.$inject = ['$state', 'userInfo'];

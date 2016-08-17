@@ -6,10 +6,24 @@
   position: relative;
   top: 40px;
 
-  textarea { resize:vertical ; }
+  &::after, &::before {
+    content: '';
+    display:table;
+  }
+  &::after {
+    clear: both;
+  }
 
-  button[type="submit"]{
+  textarea {
+    resize: vertical;
+    min-height: 300px;
+  }
+
+  button[type="submit"],
+  a[role="button"]{
     width: 120px;
+    margin-left: 30px;
+    margin-top: 0;
     float: right;
   }
 }

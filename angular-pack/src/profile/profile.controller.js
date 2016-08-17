@@ -4,13 +4,13 @@
 
 'use strict';
 
-function ProfileController($state, AuthenticationService){
+function ProfileController($state, AuthService){
     let vm = this;
     vm.userInfo = '';
     vm.signOut = signOut;
 
     function signOut(){
-        AuthenticationService
+        AuthService
             .signOut()
             .then( () => $state.go('main.public.welcome') )
             .catch( error => alert(response.message) );
@@ -18,6 +18,6 @@ function ProfileController($state, AuthenticationService){
 
 }
 
-ProfileController.$inject = ['$state', 'AuthenticationService'] ;
+ProfileController.$inject = ['$state', 'AuthService'] ;
 
 export default ProfileController;

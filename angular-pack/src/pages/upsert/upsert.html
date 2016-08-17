@@ -6,7 +6,7 @@
             <!-- HEADER -->
             <section class="form-group "  ng-class="{ 'has-error' : upsertForm['article-header'].$invalid && !upsertForm['article-header'].$pristine,
                                                         'has-success' : upsertForm['article-header'].$valid }">
-                <label control-label>Header</label>
+                <label control-label>Title</label>
                 <input type="text" name="article-header" class="form-control" ng-model="ctrl.article.header" value="{{ctrl.article.header}}" ng-minlength="10" required>
                 <p ng-show="upsertForm['article-header'].$error.minlength" class="help-block">Please, provide a more detailed header for the article</p>
             </section>
@@ -21,7 +21,7 @@
                 <p ng-show="upsertForm['article-contents'].$error.minlength" class="help-block">Please, provide a more detailed contents for the article</p>
             </section>
 
-            <a ui-sref="main.private.preview" role="button">Preview</a>
+            <a ui-sref="main.private.preview" role="button" class="btn btn-lg btn-outline btn-block" >Preview</a>
             <button type="submit" class="btn btn-lg btn-outline btn-block">Save</button>
         </form>
     </article>

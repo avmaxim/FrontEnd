@@ -4,13 +4,23 @@
 
 'use strict';
 
-AuthenticationService.$inject = ['$http', '$q', '$timeout', 'urls'];
+function AuthService(){
+    return {
+        getUserInfo : getUserInfo,
+        $get: ['$http', '$q', '$timeout', 'urls', AuthServiceImpl]
+    };
 
-function AuthenticationService($http, $q, $timeout, urls){
+    function getUserInfo(){
+        return JSON.parse( localStorage.getItem("user-info") );
+    }
+}
+
+function AuthServiceImpl($http, $q, $timeout, urls){
     let service = {};
     service.login = login;
     service.signOut = signOut;
     service.register = register;
+
     return service;
 
     function login(username, password){
@@ -19,16 +29,16 @@ function AuthenticationService($http, $q, $timeout, urls){
             password: password
         };
         return $http
-                .post(urls.ACCOUNT_LOGIN, credentials)
-                .then((response) => {
-                    let responseData = response.data;
-                    if (responseData.success) {
-                        saveUserSession( username , responseData.data['token'] );
-                        return responseData.data;
-                    } else {
-                        return $q.reject(responseData);
-                    }
-                });
+            .post(urls.ACCOUNT_LOGIN, credentials)
+            .then((response) => {
+                let responseData = response.data;
+                if (responseData.success) {
+                    saveUserSession( username , responseData.data['token'] );
+                    return responseData.data;
+                } else {
+                    return $q.reject(responseData);
+                }
+            });
     }
 
     function register(){
@@ -60,6 +70,8 @@ function AuthenticationService($http, $q, $timeout, urls){
             }
         }));
     }
+
+
 }
 
-export default AuthenticationService;
+export default AuthService;

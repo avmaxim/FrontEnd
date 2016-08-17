@@ -4,7 +4,7 @@
 
 'use strict';
 
-function config($stateProvider, $urlRouterProvider, $httpProvider) {
+function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServiceProvider) {
 
     $stateProvider
         .state('main', {
@@ -37,8 +37,8 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
             controller: 'hoyeeApp.welcomeController',
             controllerAs: 'vm',
             resolve : {
-                userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
-            },
+                userInfo: () =>  AuthServiceProvider.getUserInfo()
+            }
         })
 
         .state('main.private', {
@@ -52,7 +52,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
             controller: 'hoyeeApp.homeController',
             controllerAs: 'vm',
             resolve : {
-                userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
+                userInfo: () =>  AuthServiceProvider.getUserInfo()
             }
         })
 
@@ -73,8 +73,8 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
                     return $http.get( urls.ARTICLES_GET_PERSONAL ).then( (response) => {
                         let responseData = response.data;
                         if ( responseData.success ){
-                            return JSON.parse(responseData.data["articles"]);
-                        } else {
+                            return JSON.parse(responseData.data.articles);
+                        } else { 
                             console.error(responseData.message);
                             return null;
                         }
@@ -87,6 +87,6 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.interceptors.push('HttpHeadersInterceptor');
 }
 
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AuthServiceProvider'];
 
 export default config;

@@ -1,6 +1,8 @@
 <div class="myarticles" >
     <article ng-repeat="article in ctrl.myArticles">
-            <h1>{{ article.header }}</h1>
-            <div>{{ article.contents }}</div>
+        <h4>{{ article.header }}</h4>
+        <div>{{ article.contents }}</div>
+        <div>LikesCount: {{ article.likesCount }}</div>
+        <div>Date: {{ article.timestamp }}</div>
     </article>
 </div>

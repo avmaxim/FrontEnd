@@ -4,15 +4,15 @@
 
 'use strict';
 
-LoginController.$inject = ['$state', 'AuthenticationService'];
+LoginController.$inject = ['$state', 'AuthService'];
 
-function LoginController($state, AuthenticationService){
+function LoginController($state, AuthService){
     let vm = this;
     vm.user = { name: '', password: ''};
     vm.submit = submit;
 
     function submit (){
-        AuthenticationService
+        AuthService
             .login( vm.user.name, vm.user.password )
             .then((response) => {
                 alert('Successfully logged in.');

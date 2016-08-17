@@ -6,11 +6,10 @@
 
 import login from './login/login.module';
 import registration from './registration/registration.module';
-import AuthenticationService from './AuthenticationService';
+import AuthService from './AuthService';
 
 let auth = 'hoyeeApp.auth';
 
 angular.module( auth, [ login, registration ])
-        .factory('AuthenticationService', AuthenticationService);
-
+        .provider('AuthService', AuthService);
 export default auth;
