@@ -4,13 +4,14 @@
 
 'use strict';
 
-const SERVER_HOST = 'localhost:9090/Hoyee',
+const SERVER_HOST = 'localhost:8888',
     HOYEE_HOST_URL = window.location.protocol + '//' + SERVER_HOST,
     SERVER_CLIENT_API = {
         ACCOUNT_LOGIN: HOYEE_HOST_URL + '/account/login',
         ACCOUNT_REGISTER: HOYEE_HOST_URL + '/account/register',
-        ARTICLES_GET_ALL: HOYEE_HOST_URL + '/article/getAll',
-        ARTICLES_GET_PERSONAL: HOYEE_HOST_URL + '/article/getPersonal'
+        ARTICLES_GET_ALL: HOYEE_HOST_URL + '/articles/getAll',
+        ARTICLES_GET_PERSONAL: HOYEE_HOST_URL + '/articles/getPersonal',
+        ARTICLE_GET_BY_ID: HOYEE_HOST_URL + '/articles/getById/{articleId}'
     };
 
 export default SERVER_CLIENT_API;

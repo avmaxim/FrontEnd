@@ -2,27 +2,27 @@
     <article>
 
         <!-- FORM-UPSERT -->
-        <form ng-submit="ctrl.submit()" name="upsertForm">
+        <form ng-submit="ctrl.upsert()" name="upsertForm">
             <!-- HEADER -->
-            <section class="form-group " ng-class="{ 'has-error' : upsertForm.username.$invalid && !upsertForm.username.$pristine,
-                                                     'has-success' : upsertForm.username.$valid }">
+            <section class="form-group "  ng-class="{ 'has-error' : upsertForm['article-header'].$invalid && !upsertForm['article-header'].$pristine,
+                                                        'has-success' : upsertForm['article-header'].$valid }">
                 <label control-label>Header</label>
-                <input type="text" name="article-header" class="form-control" ng-model="ctrl.article.header" value="{{ctrl.article.contents}}" ng-minlength="10" required>
+                <input type="text" name="article-header" class="form-control" ng-model="ctrl.article.header" value="{{ctrl.article.header}}" ng-minlength="10" required>
                 <p ng-show="upsertForm['article-header'].$error.minlength" class="help-block">Please, provide a more detailed header for the article</p>
             </section>
 
             <!-- CONTENTS -->
-            <section class="form-group " ng-class="{ 'has-error' : upsertForm.username.$invalid && !upsertForm.username.$pristine,
-                                                     'has-success' : upsertForm.username.$valid }">
+            <section class="form-group "  ng-class="{ 'has-error' : upsertForm['article-contents'].$invalid && !upsertForm['article-contents'].$pristine,
+                                                        'has-success' : upsertForm['article-contents'].$valid }">
                 <label control-label>Contents</label>
-                <textarea name="article-contents" class="form-control" ng-model="ctrl.article.contents" ng-minlength="100" required>
+                <textarea name="article-contents" class="form-control" ng-model="ctrl.article.contents" ng-minlength="20" required>
                     {{ ctrl.article.contents}}
                 </textarea>
-                <p ng-show="upsertForm['article-header'].$error.minlength" class="help-block">Please, provide a more detailed contents for the article</p>
+                <p ng-show="upsertForm['article-contents'].$error.minlength" class="help-block">Please, provide a more detailed contents for the article</p>
             </section>
 
             <a ui-sref="main.private.preview" role="button">Preview</a>
-            <button type="submit" class="btn btn-lg btn-outline-reverse btn-block">Save</button>
+            <button type="submit" class="btn btn-lg btn-outline btn-block">Save</button>
         </form>
     </article>
 </div>

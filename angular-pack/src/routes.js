@@ -11,22 +11,26 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
             abstract: true,
             templateUrl: '/common/views/main.html'
         })
+
         .state('main.public', {
             abstract: true,
             templateUrl: '/common/views/main.public.html'
         })
+
         .state('main.public.register', {
             url: '/register',
             templateUrl: '/auth/registration/register.html',
             controller: 'hoyeeApp.registerController',
             controllerAs: 'vm'
         })
+
         .state('main.public.login', {
             url: '/login',
             templateUrl: '/auth/login/login.html',
             controller: 'hoyeeApp.loginController',
             controllerAs: 'vm'
         })
+
         .state('main.public.welcome', {
             url: '/',
             templateUrl: '/pages/welcome/welcome.html',
@@ -36,10 +40,12 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
                 userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
             },
         })
+
         .state('main.private', {
             abstract: true,
             templateUrl: '/common/views/main.private.html'
         })
+
         .state('main.private.home', {
             url: '/home',
             templateUrl: '/pages/home/home.html',
@@ -49,12 +55,14 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
                 userInfo: () =>  JSON.parse( localStorage.getItem("user-info") )
             }
         })
+
         .state('main.private.upsert', {
             url: '/article/upsert/:articleId',
             templateUrl: '/pages/upsert/upsert.html',
             controller: 'hoyeeApp.upsertArticleController',
             controllerAs: 'ctrl'
         })
+
         .state('main.private.myarticles', {
             url: '/myarticles',
             templateUrl: '/pages/myarticles/myarticles.html',
@@ -62,7 +70,15 @@ function config($stateProvider, $urlRouterProvider, $httpProvider) {
             controllerAs: 'ctrl',
             resolve: {
                 myArticles: ['$http', 'urls', function($http, urls) {
-                    return $http.get( urls.ARTICLES_GET_PERSONAL );
+                    return $http.get( urls.ARTICLES_GET_PERSONAL ).then( (response) => {
+                        let responseData = response.data;
+                        if ( responseData.success ){
+                            return JSON.parse(responseData.data["articles"]);
+                        } else {
+                            console.error(responseData.message);
+                            return null;
+                        }
+                    });
                 }]
             }
         });

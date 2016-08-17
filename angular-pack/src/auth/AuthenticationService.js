@@ -24,7 +24,7 @@ function AuthenticationService($http, $q, $timeout, urls){
                     let responseData = response.data;
                     if (responseData.success) {
                         saveUserSession( username , responseData.data['token'] );
-                        return responseData;
+                        return responseData.data;
                     } else {
                         return $q.reject(responseData);
                     }

@@ -13,7 +13,7 @@ function HttpHeadersInterceptor($rootScope){
     return service;
 
     function request( config ){
-        const token = localStorage.getItem('user-info');
+        const token = localStorage.getItem('token');
         if ( token ) {
             config.headers['X-Auth-Token'] = 'Bearer ' + token;
         }
