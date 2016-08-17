@@ -4,14 +4,14 @@
 
 'use strict';
 
-function HomeController($state, userInfo){
+function HomeController($state, userInfo, articles){
     let vm = this;
     if ( !userInfo ) {
         $state.go('main.public.welcome');
     }
-    //vm.userInfo = userInfo;
+    vm.articles = articles;
 }
 
-HomeController.$inject = ['$state', 'userInfo'];
+HomeController.$inject = ['$state', 'userInfo', 'articles'];
 
 export default HomeController;

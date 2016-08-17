@@ -50,9 +50,20 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             url: '/home',
             templateUrl: '/pages/home/home.html',
             controller: 'hoyeeApp.homeController',
-            controllerAs: 'vm',
+            controllerAs: 'ctrl',
             resolve : {
-                userInfo: () =>  AuthServiceProvider.getUserInfo()
+                userInfo: () =>  AuthServiceProvider.getUserInfo(),
+                articles: ['$http', 'urls', function($http, urls) {
+                    return $http.get( urls.ARTICLES_GET_ALL ).then( (response) => {
+                        let responseData = response.data;
+                        if ( responseData.success ){
+                            return JSON.parse(responseData.data.articles);
+                        } else {
+                            console.error(responseData.message);
+                            return null;
+                        }
+                    });
+                }]
             }
         })
 

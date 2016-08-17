@@ -1,7 +1,12 @@
 <div class="home" >
     <a ui-sref="main.private.upsert()" class="btn btn-lg btn-outline-reverse" role="button">Create Article</a>
-    <!--<a ui-sref="main.private.upsert({articleId: 2})" class="btn btn-lg btn-outline-reverse" role="button">Edit Article</a>-->
-    <div>
 
+    <div>
+        <article ng-repeat="article in ctrl.articles">
+            <h4>{{ article.header }}</h4>
+            <div>{{ article.contents }}</div>
+            <div>LikesCount: {{ article.likesCount }}</div>
+            <div>Date: {{ article.timestamp }}</div>
+        </article>
     </div>
 </div>
