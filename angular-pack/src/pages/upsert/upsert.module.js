@@ -7,11 +7,11 @@
 
 import './upsert.less';
 
-import UpsertArticleController from './UpsertArticleController';
+import UpsertArticleController from './upsertArticle.controller';
 
-var upsertPages = 'hoyee.pages.upsert';
+var upsertPage = 'hoyee.pages.upsert';
 
-angular.module( upsertPages, [])
+angular.module( upsertPage, [])
     .controller('hoyeeApp.upsertArticleController', UpsertArticleController);
 
-export default upsertPages;
+export default upsertPage;

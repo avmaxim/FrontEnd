@@ -2,7 +2,7 @@
 
 import './register.less';
 
-import RegisterController from './RegisterController';
+import RegisterController from './register.controller';
 
 let register = 'hoyeeApp.auth.register';
 

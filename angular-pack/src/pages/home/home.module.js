@@ -5,7 +5,7 @@
 'use strict';
 
 import './home.less';
-import HomeController from './HomeController';
+import HomeController from './home.controller';
 
 var homePage = 'hoyee.pages.home';
 

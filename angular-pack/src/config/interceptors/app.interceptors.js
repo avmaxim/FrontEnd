@@ -4,7 +4,7 @@
 
 'use strict';
 
-import HttpHeadersInterceptor from './HttpHeadersInterceptor';
+import HttpHeadersInterceptor from './httpHeaders.interceptor';
 
 var interceptorsModule = 'hoyeeApp.interceptors';
 

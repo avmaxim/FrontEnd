@@ -76,6 +76,13 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
                     return ArticleService.getPersonalArticles();
                 }]
             }
+        })
+
+        .state('main.private.preview', {
+            url: '/article/preview/:articleId',
+            templateUrl: '/pages/preview/preview.html',
+            controller: 'hoyeeApp.previewArticleController',
+            controllerAs: 'ctrl'
         });
 
     $urlRouterProvider.otherwise('/');

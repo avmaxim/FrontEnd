@@ -6,7 +6,7 @@
 
 import login from './login/login.module';
 import registration from './registration/registration.module';
-import AuthService from './AuthService';
+import AuthService from './auth.service';
 
 let auth = 'hoyeeApp.auth';
 

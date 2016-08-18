@@ -5,7 +5,7 @@
 'use strict';
 
 import './welcome.less';
-import WelcomeController from './WelcomeController';
+import WelcomeController from './welcome.controller';
 
 var welcomePage = 'hoyee.pages.welcome';
 

@@ -5,7 +5,7 @@
 
 import './article.less';
 
-import ArticleService from './ArticleService';
+import ArticleService from './article.service';
 import ArticleCardDirective from './articleCard.directive';
 import ArticleCardController from './articleCard.controller';
 
