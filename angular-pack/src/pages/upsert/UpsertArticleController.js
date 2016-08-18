@@ -5,20 +5,20 @@
 'use strict';
 
 function UpsertArticleController($state, $stateParams, ArticleService){
-    let vm = this;
-    vm.upsert = upsert;
+    let ctrl = this;
+    ctrl.upsert = upsert;
 
     if ( !$stateParams['articleId'] ) {                                                                                 //Create new article mode
-        vm.article = {header: '', contents: '', };
+        ctrl.article = {header: '', contents: '', };
     } else {                                                                                                            //Update article mode
         ArticleService.getArticleById( $stateParams['articleId'] )
-                        .then( article => vm.article = article )
+                        .then( article => ctrl.article = article )
                         .catch( handleErrors );
     }
 
     function upsert(){
-        vm.article.timestamp = new Date().getTime();
-        ArticleService.upsertArticle( vm.article )
+        ctrl.article.timestamp = new Date().getTime();
+        ArticleService.upsertArticle( ctrl.article )
                         .then( () => {
                             alert('Your article successfully saved.');
                             $state.go('main.private.myarticles');

@@ -7,13 +7,13 @@
 LoginController.$inject = ['$state', 'AuthService'];
 
 function LoginController($state, AuthService){
-    let vm = this;
-    vm.user = { name: '', password: ''};
-    vm.submit = submit;
+    let ctrl = this;
+    ctrl.user = { name: '', password: ''};
+    ctrl.submit = submit;
 
     function submit (){
         AuthService
-            .login( vm.user.name, vm.user.password )
+            .login( ctrl.user.name, ctrl.user.password )
             .then((response) => {
                 alert('Successfully logged in.');
                 $state.go('main.private.home');

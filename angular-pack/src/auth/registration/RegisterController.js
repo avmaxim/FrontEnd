@@ -4,15 +4,15 @@
 'use strict';
 
 function RegisterController($http, $state, urls){
-    let vm = this;
-    vm.user = { name: '', password: ''};
-    vm.submit = submit;
+    let ctrl = this;
+    ctrl.user = { name: '', password: ''};
+    ctrl.submit = submit;
 
     function submit (){
         const registerData = {
-            "username": vm.user.name,
-            "password": vm.user.password,
-            "email": vm.user.email
+            "username": ctrl.user.name,
+            "password": ctrl.user.password,
+            "email": ctrl.user.email
         };
         $http
             .post(urls.ACCOUNT_REGISTER, registerData)

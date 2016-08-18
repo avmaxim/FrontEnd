@@ -4,9 +4,7 @@
 'use strict';
 
 function WelcomeController($state, userInfo){
-    let vm = this;
-    if ( userInfo )
-        $state.go('main.private.home');
+    userInfo && $state.go('main.private.home');
 }
 
 WelcomeController.$inject = ['$state', 'userInfo'];

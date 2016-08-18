@@ -5,9 +5,9 @@
 'use strict';
 
 function ProfileController($state, AuthService){
-    let vm = this;
-    vm.userInfo = '';
-    vm.signOut = signOut;
+    let ctrl = this;
+    ctrl.userInfo = '';
+    ctrl.signOut = signOut;
 
     function signOut(){
         AuthService

@@ -21,21 +21,21 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             url: '/register',
             templateUrl: '/auth/registration/register.html',
             controller: 'hoyeeApp.registerController',
-            controllerAs: 'vm'
+            controllerAs: 'ctrl'
         })
 
         .state('main.public.login', {
             url: '/login',
             templateUrl: '/auth/login/login.html',
             controller: 'hoyeeApp.loginController',
-            controllerAs: 'vm'
+            controllerAs: 'ctrl'
         })
 
         .state('main.public.welcome', {
             url: '/',
             templateUrl: '/pages/welcome/welcome.html',
             controller: 'hoyeeApp.welcomeController',
-            controllerAs: 'vm',
+            controllerAs: 'ctrl',
             resolve : {
                 userInfo: () =>  AuthServiceProvider.getUserInfo()
             }
@@ -54,14 +54,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             resolve : {
                 userInfo: () =>  AuthServiceProvider.getUserInfo(),
                 articles: ['ArticleService', function(ArticleService) {
-                    return ArticleService
-                                .getAllArticles()
-                                .then((articles) =>{
-                                    for(let i = 0; i< articles.length; i++){
-                                        articles[i].date = new Date(articles[i].timestamp).toDateString();
-                                    }
-                                    return articles;
-                                });
+                    return ArticleService.getAllArticles();
                 }]
             }
         })
@@ -75,7 +68,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
 
         .state('main.private.myarticles', {
             url: '/myarticles',
-            templateUrl: '/pages/myarticles/myarticles.html',
+            templateUrl: '/pages/myarticles/my-articles.html',
             controller: 'hoyeeApp.myArticlesController',
             controllerAs: 'ctrl',
             resolve: {

@@ -1,7 +1,7 @@
 <div class="login wrapper" >
 
     <!-- FORM-LOGIN -->
-    <form ng-submit="vm.submit()" class="form-signin" name="loginForm">
+    <form ng-submit="ctrl.submit()" class="form-signin" name="loginForm">
 
         <h2 class="form-signin-heading">Hoyee</h2>
 
@@ -9,7 +9,7 @@
         <div class="form-group " ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine,
                                             'has-success' : loginForm.username.$valid }">
             <label control-label>Username</label>
-            <input type="text" name="username" class="form-control" ng-model="vm.user.name" ng-minlength="3" ng-maxlength="10" required>
+            <input type="text" name="username" class="form-control" ng-model="ctrl.user.name" ng-minlength="3" ng-maxlength="10" required>
             <p ng-show="loginForm.username.$error.minlength" class="help-block">Username is too short.</p>
             <p ng-show="loginForm.username.$error.maxlength" class="help-block">Username is too long.</p>
         </div>
@@ -17,7 +17,7 @@
         <!-- PASSWORD -->
         <div class="form-group" ng-class="{ 'has-success' : loginForm.password.$valid }">
             <label>Password</label>
-            <input type="password" name="password" class="form-control" ng-model="vm.user.password" required>
+            <input type="password" name="password" class="form-control" ng-model="ctrl.user.password" required>
         </div>
 
         <button  type="submit" class="btn btn-lg btn-outline-reverse btn-block">Login</button>

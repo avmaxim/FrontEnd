@@ -4,7 +4,7 @@
 
 'use strict';
 
-import './myarticles.less';
+import './my-articles.less';
 import MyArticlesController from './MyArticlesController';
 
 var myArticlesPage = 'hoyee.pages.myarticles';
