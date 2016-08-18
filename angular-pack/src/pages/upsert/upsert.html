@@ -16,7 +16,7 @@
                                                         'has-success' : upsertForm['article-contents'].$valid }">
                 <label control-label>Contents</label>
                 <textarea name="article-contents" class="form-control" ng-model="ctrl.article.contents" ng-minlength="20" required>
-                    {{ ctrl.article.contents}}
+                    {{ ctrl.article.contents }}
                 </textarea>
                 <p ng-show="upsertForm['article-contents'].$error.minlength" class="help-block">Please, provide a more detailed contents for the article</p>
             </section>

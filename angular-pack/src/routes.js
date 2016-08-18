@@ -53,16 +53,15 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             controllerAs: 'ctrl',
             resolve : {
                 userInfo: () =>  AuthServiceProvider.getUserInfo(),
-                articles: ['$http', 'urls', function($http, urls) {
-                    return $http.get( urls.ARTICLES_GET_ALL ).then( (response) => {
-                        let responseData = response.data;
-                        if ( responseData.success ){
-                            return JSON.parse(responseData.data.articles);
-                        } else {
-                            console.error(responseData.message);
-                            return null;
-                        }
-                    });
+                articles: ['ArticleService', function(ArticleService) {
+                    return ArticleService
+                                .getAllArticles()
+                                .then((articles) =>{
+                                    for(let i = 0; i< articles.length; i++){
+                                        articles[i].date = new Date(articles[i].timestamp).toDateString();
+                                    }
+                                    return articles;
+                                });
                 }]
             }
         })
@@ -80,16 +79,8 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             controller: 'hoyeeApp.myArticlesController',
             controllerAs: 'ctrl',
             resolve: {
-                myArticles: ['$http', 'urls', function($http, urls) {
-                    return $http.get( urls.ARTICLES_GET_PERSONAL ).then( (response) => {
-                        let responseData = response.data;
-                        if ( responseData.success ){
-                            return JSON.parse(responseData.data.articles);
-                        } else { 
-                            console.error(responseData.message);
-                            return null;
-                        }
-                    });
+                myArticles: ['ArticleService', function(ArticleService) {
+                    return ArticleService.getPersonalArticles();
                 }]
             }
         });
@@ -98,6 +89,6 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
     $httpProvider.interceptors.push('HttpHeadersInterceptor');
 }
 
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AuthServiceProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AuthServiceProvider', 'ArticleServiceProvider'];
 
 export default config;

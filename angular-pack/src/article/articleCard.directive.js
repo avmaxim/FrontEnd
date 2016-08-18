@@ -1,0 +1,20 @@
+/**
+ * Created by andrei.maksimchanka on 8/18/2016.
+ */
+'use strict';
+
+function ArticleCardDirective(){
+    return {
+        restrict: 'E',
+        templateUrl: '/article/article-card.html',
+        controller: 'articleCardController',
+        controllerAs: 'ctrl',
+        scope: true,
+        bindToController: {
+            article: '=',
+            contents: '='
+        }
+    };
+}
+
+export default ArticleCardDirective;

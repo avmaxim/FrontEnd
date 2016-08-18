@@ -3,11 +3,17 @@
  */
 'use strict';
 
+import './article.less';
+
 import ArticleService from './ArticleService';
+import ArticleCardDirective from './articleCard.directive';
+import ArticleCardController from './articleCard.controller';
 
 let article = 'hoyeeApp.article';
 
 angular.module( article, [])
-        .factory('ArticleService', ArticleService);
+        .factory('ArticleService', ArticleService)
+        .directive('articleCard', ArticleCardDirective)
+        .controller('articleCardController', ArticleCardController);
 
 export default article;

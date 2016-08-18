@@ -25,10 +25,13 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
                 loader: 'babel',
                 query: {
                     presets: ["es2015"]
-                }
+               }
             }, {
                 test: /\.less$/,
                 loader: 'style!css!less'
+            }, {
+                test: /\.css$/,
+                loader: 'style!css'
             }, {
                 test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
                 loader: 'url-loader?limit=100000'

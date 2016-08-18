@@ -4,7 +4,7 @@
 
 'use strict';
 
-function UpsertArticleController($state, $stateParams, ArticleService, $timeout){
+function UpsertArticleController($state, $stateParams, ArticleService){
     let vm = this;
     vm.upsert = upsert;
 
@@ -43,6 +43,6 @@ function UpsertArticleController($state, $stateParams, ArticleService, $timeout)
 
 }
 
-UpsertArticleController.$inject = ['$state', '$stateParams', 'ArticleService', '$timeout'];
+UpsertArticleController.$inject = ['$state', '$stateParams', 'ArticleService'];
 
 export default UpsertArticleController;
