@@ -12,7 +12,7 @@ function ArticleCardDirective(){
         scope: true,
         bindToController: {
             article: '=',
-            contents: '='
+            contentSymbolsNumber: '@'
         }
     };
 }

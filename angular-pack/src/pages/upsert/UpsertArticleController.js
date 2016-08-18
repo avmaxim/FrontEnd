@@ -11,23 +11,19 @@ function UpsertArticleController($state, $stateParams, ArticleService){
     if ( !$stateParams['articleId'] ) {                                                                                 //Create new article mode
         vm.article = {header: '', contents: '', };
     } else {                                                                                                            //Update article mode
-        ArticleService
-            .getArticleById( $stateParams['articleId'] )
-            .then( (article) => {
-                vm.article = article;
-            })
-            .catch( handleErrors );
+        ArticleService.getArticleById( $stateParams['articleId'] )
+                        .then( article => vm.article = article )
+                        .catch( handleErrors );
     }
 
     function upsert(){
         vm.article.timestamp = new Date().getTime();
-        ArticleService
-            .upsertArticle( vm.article )
-            .then( () => {
-                alert('Your article successfully saved.');
-                $state.go('main.private.myarticles');
-            })
-            .catch( handleErrors );
+        ArticleService.upsertArticle( vm.article )
+                        .then( () => {
+                            alert('Your article successfully saved.');
+                            $state.go('main.private.myarticles');
+                        })
+                        .catch( handleErrors );
     }
 
     function handleErrors(error){

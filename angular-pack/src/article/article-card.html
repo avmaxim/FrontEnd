@@ -9,7 +9,10 @@
     <div class="card-footer text-muted">
         <div class="row">
             <div class="col-sm-11 article-date">{{ ctrl.article.date }}</div>
-            <div class="col-sm-1 article-likes" ng-class="{'liked': ctrl.isArticleLiked}">like <a ng-click="ctrl.toggleLike()"><i class="glyphicon glyphicon-heart"></i></a> {{ ctrl.article.likesCount }}</div>
+            <div class="col-sm-1 article-likes" ng-class="{'liked': ctrl.isArticleLiked}">
+                    <a ng-click="ctrl.toggleLike()"><i class="glyphicon glyphicon-heart"></i></a>
+                    {{ ctrl.article.likesCount }}
+            </div>
         </div>
     </div>
 </div>
