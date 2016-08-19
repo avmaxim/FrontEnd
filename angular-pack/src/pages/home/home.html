@@ -2,10 +2,9 @@
     <a ui-sref="main.private.upsert()" class="btn btn-lg btn-block btn-outline-reverse" role="button">Create Article</a>
 
     <div>
-        <article-card
-                content-symbols-number="500"
-                article="article"
-                ng-repeat="article in ctrl.articles">
+        <article-card ng-repeat="article in ctrl.articles | selectPosted"
+                        content-symbols-number="500"
+                        article="article">
         </article-card>
     </div>
 </div>

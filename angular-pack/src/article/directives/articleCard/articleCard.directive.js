@@ -6,7 +6,7 @@
 function ArticleCardDirective(){
     return {
         restrict: 'E',
-        templateUrl: '/article/article-card.html',
+        templateUrl: '/article/directives/articleCard/article-card.html',
         controller: 'articleCardController',
         controllerAs: 'ctrl',
         scope: true,

@@ -3,17 +3,19 @@
  */
 'use strict';
 
-import './article.less';
+import './directives/articleCard/article.less';
 
-import ArticleService from './article.service';
-import ArticleCardDirective from './articleCard.directive';
-import ArticleCardController from './articleCard.controller';
+import ArticleService from './services/article.service';
+import ArticleCardDirective from './directives/articleCard/articleCard.directive';
+import ArticleCardController from './directives/articleCard/articleCard.controller';
+import SelectPostedFilter from './filters/selectPosted/selectPosted.filter';
 
 let article = 'hoyeeApp.article';
 
 angular.module( article, [])
         .factory('ArticleService', ArticleService)
         .directive('articleCard', ArticleCardDirective)
-        .controller('articleCardController', ArticleCardController);
+        .controller('articleCardController', ArticleCardController)
+        .filter('selectPosted', SelectPostedFilter);
 
 export default article;
