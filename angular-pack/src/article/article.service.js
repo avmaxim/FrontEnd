@@ -12,9 +12,15 @@ function ArticleService($http, $q, urls){
     service.getPersonalArticles = getPersonalArticles;
     return service;
 
-    function getArticleById(articleId){
+    function getArticleById(articleId, userId){
         return $http
-            .get(urls.ARTICLE_GET_BY_ID.replace(/\{.*?\}/, articleId ))
+            .get(urls.ARTICLE_GET_BY_ID.replace(/\{.*?\}/g, function (match){
+                var index = {
+                    '{articleId}': articleId,
+                    '{userId}': userId
+                };
+                return index[match] != undefined ? index[match] : -1;
+            }))
             .then((response) => {
                 let responseData = response.data;
                 if (responseData.success) {

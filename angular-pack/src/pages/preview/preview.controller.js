@@ -7,10 +7,10 @@
 function PreviewArticleController( $state, $stateParams, ArticleService ){
     let ctrl = this;
 
-    if ( !$stateParams['articleId'] )
+    if ( !$stateParams['articleId'] && !$stateParams['userId'])
         return;
 
-    ArticleService.getArticleById( $stateParams['articleId'] )
+    ArticleService.getArticleById( $stateParams['articleId'], $stateParams['userId'])
                     .then( article => ctrl.article = article )
                     .catch( handleErrors );
 

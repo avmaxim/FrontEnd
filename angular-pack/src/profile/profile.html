@@ -2,7 +2,7 @@
     <li uib-dropdown>
         <a uib-dropdown-toggle data-toggle="uib-dropdown">
             <span class="glyphicon glyphicon-user"></span> 
-            <strong>avmax19</strong>
+            <strong>{{ctrl.userInfo.username}}</strong>
             <span class="glyphicon glyphicon-chevron-down"></span>
         </a>
         <ul uib-dropdown-menu>
@@ -15,8 +15,8 @@
                             </p>
                         </div>
                         <div class="col-lg-8">
-                            <p class="text-left"><strong>Anrew Maksimchenko</strong></p>
-                            <p class="text-left small">user@email.com</p>
+                            <p class="text-left"><strong>{{ctrl.userInfo.username}}</strong></p>
+                            <p class="text-left small">{{ctrl.userInfo.email}}</p>
                             <p class="text-left">
                                 <a href="#" class="btn btn-outline btn-block btn-sm account-details">Account details</a>
                             </p>

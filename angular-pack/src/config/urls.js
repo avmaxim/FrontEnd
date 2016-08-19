@@ -11,9 +11,10 @@ const SERVER_HOST = 'localhost:8888',
         ACCOUNT_REGISTER: HOYEE_HOST_URL + '/account/register',
         ARTICLES_GET_ALL: HOYEE_HOST_URL + '/articles/getAll',
         ARTICLES_GET_PERSONAL: HOYEE_HOST_URL + '/articles/getPersonal',
-        ARTICLE_GET_BY_ID: HOYEE_HOST_URL + '/articles/getById/{articleId}',
+        ARTICLE_GET_BY_ID: HOYEE_HOST_URL + '/articles/getById/{articleId}/{userId}',
         ARTICLE_UPDATE: HOYEE_HOST_URL + '/articles/update/{articleId}',
-        ARTICLE_CREATE: HOYEE_HOST_URL + '/articles/create'
+        ARTICLE_CREATE: HOYEE_HOST_URL + '/articles/create',
+        USER_GET_CURRENT: HOYEE_HOST_URL + '/user/getCurrent'
     };
 
 export default SERVER_CLIENT_API;

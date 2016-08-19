@@ -4,12 +4,12 @@
     </div>
     <div class="card-block">
         <p class="card-text article-contents">{{ ctrl.article.contents }}</p>
-        <p class="card-text" ><a ui-sref="main.private.preview({articleId: ctrl.article.articleId })" role="button" href="#" class="card-link">Read more... </a></p>
+        <p class="card-text" ><a ui-sref="main.private.preview({articleId: ctrl.article.articleId, userId: ctrl.article.userId})" role="button" href="#" class="card-link">Read more... </a></p>
     </div>
     <div class="card-footer text-muted">
         <div class="row">
             <div class="col-sm-11 article-date">{{ ctrl.article.date }}</div>
-            <div class="col-sm-1 article-likes" ng-class="{'liked': ctrl.isArticleLiked}">
+            <div class="col-sm-1 article-likes" alt="like"  ng-class="{'liked': ctrl.isArticleLiked}">
                     <a ng-click="ctrl.toggleLike()"><i class="glyphicon glyphicon-heart"></i></a>
                     {{ ctrl.article.likesCount }}
             </div>

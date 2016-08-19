@@ -22,6 +22,7 @@ import profile from './profile/profile.module';
 import auth from './auth/auth.module';
 import pages from './pages/pages.module';
 import article from './article/article.module';
+import user from './user/user.module';
 
 let hoyeeApp = 'hoyeeApp';
 
@@ -32,6 +33,7 @@ var app = angular
                     auth,
                     pages,
                     article,
+                    user,
                     angularUiRouter,
                     angularUiBootstrap,
                     servicesModule

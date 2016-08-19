@@ -9,10 +9,6 @@ function AuthService(){
         getUserInfo : getUserInfo,
         $get: ['$http', '$q', '$timeout', 'urls', AuthServiceImpl]
     };
-
-    function getUserInfo(){
-        return JSON.parse( localStorage.getItem("user-info") );
-    }
 }
 
 function AuthServiceImpl($http, $q, $timeout, urls){
@@ -20,6 +16,7 @@ function AuthServiceImpl($http, $q, $timeout, urls){
     service.login = login;
     service.signOut = signOut;
     service.register = register;
+    service.getUserInfo = getUserInfo;
 
     return service;
 
@@ -28,17 +25,18 @@ function AuthServiceImpl($http, $q, $timeout, urls){
             username: username,
             password: password
         };
-        return $http
-            .post(urls.ACCOUNT_LOGIN, credentials)
-            .then((response) => {
-                let responseData = response.data;
-                if (responseData.success) {
-                    saveUserSession( username , responseData.data['token'] );
+        return $http.post(urls.ACCOUNT_LOGIN, credentials).then((response) => {
+            let responseData = response.data;
+            if (responseData.success) {
+                saveToken(responseData.data['token']);
+                return $http.get(urls.USER_GET_CURRENT).then( (response) => {
+                    saveUserSession(JSON.parse(response.data.data.user));
                     return responseData.data;
-                } else {
-                    return $q.reject(responseData);
-                }
-            });
+                });
+            } else {
+                return $q.reject(responseData);
+            }
+        });
     }
 
     function register(){
@@ -61,17 +59,19 @@ function AuthServiceImpl($http, $q, $timeout, urls){
         });
     }
 
-    function saveUserSession(username, token){
-        localStorage.setItem('token', token);
+    function saveUserSession(user){
         localStorage.setItem('user-info', JSON.stringify({
-            currentUser: {
-                username: username,
-                authData: token
-            }
+            currentUser: user
         }));
     }
 
+    function saveToken(token){
+        localStorage.setItem('token', token);
+    }
+}
 
+function getUserInfo(){
+    return JSON.parse( localStorage.getItem("user-info") );
 }
 
 export default AuthService;

@@ -79,7 +79,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
         })
 
         .state('main.private.preview', {
-            url: '/article/preview/:articleId',
+            url: '/article/preview/:articleId/:userId',
             templateUrl: '/pages/preview/preview.html',
             controller: 'hoyeeApp.previewArticleController',
             controllerAs: 'ctrl'
@@ -89,6 +89,6 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
     $httpProvider.interceptors.push('HttpHeadersInterceptor');
 }
 
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AuthServiceProvider', 'ArticleServiceProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AuthServiceProvider'];
 
 export default config;

@@ -4,10 +4,10 @@
 
 'use strict';
 
-function ProfileController($state, AuthService){
+function ProfileController($state, AuthService, UserService){
     let ctrl = this;
-    ctrl.userInfo = '';
     ctrl.signOut = signOut;
+    ctrl.userInfo = UserService.getCurrentUserDetails();
 
     function signOut(){
         AuthService
@@ -18,6 +18,6 @@ function ProfileController($state, AuthService){
 
 }
 
-ProfileController.$inject = ['$state', 'AuthService'] ;
+ProfileController.$inject = ['$state', 'AuthService', 'UserService'] ;
 
 export default ProfileController;
