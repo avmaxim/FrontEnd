@@ -31,11 +31,15 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
                 loader: 'style!css!less'
             }, {
                 test: /\.css$/,
-                loader: 'style!css'
-            }, {
+                loader: 'style!css',
+                exclude: /node_modules/
+            }, { 
                 test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
                 loader: 'url-loader?limit=100000'
             }]
+        },
+        watchOptions: {
+          aggregateTimeout: 100
         },
         devtool: 'source-map',
         plugins: [
@@ -48,6 +52,7 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
 
 if (NODE_ENV == 'production') {
     config.devtool = null;
+    config.watchOptions = null;
     config.plugins = [
         new webpack.optimize.UglifyJsPlugin({
             compress: {warnings: false}

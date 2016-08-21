@@ -1,3 +1,4 @@
+
 .vertical-align {
   position: relative;
   top: 50%;
@@ -20,4 +21,11 @@
   -webkit-box-sizing: @arguments;
   -moz-box-sizing: @arguments;
   box-sizing: @arguments;
+}
+
+.user-select(@arguments) {
+  -webkit-user-select: @arguments;
+  -moz-user-select: @arguments;
+  -ms-user-select: @arguments;
+  user-select: @arguments;
 }

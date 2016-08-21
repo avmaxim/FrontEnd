@@ -1,8 +1,11 @@
 <div class="myarticles" >
+
     <article-card
             content-symbols-number="500"
+            enable-options="true"
             article="article"
             ng-repeat="article in ctrl.myArticles">
     </article-card>
+
     <p class="empty-articles-list" ng-hide="ctrl.myArticles.length">Sorry, but u don't have any personal articles yet</p>
 </div>

@@ -12,6 +12,7 @@ function ArticleCardDirective(){
         scope: true,
         bindToController: {
             article: '=',
+            hasOptions: '=enableOptions',
             contentSymbolsNumber: '@'
         }
     };

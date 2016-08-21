@@ -9,6 +9,7 @@ function ArticleService($http, $q, urls){
     service.getArticleById = getArticleById;
     service.upsertArticle = upsertArticle;
     service.getAllArticles = getAllArticles;
+    service.removeArticle = removeArticle;
     service.getPersonalArticles = getPersonalArticles;
     return service;
 
@@ -31,6 +32,10 @@ function ArticleService($http, $q, urls){
             });
     }
 
+    function removeArticle(article){
+        //return $http.delete()
+    }
+    
     function upsertArticle(article){
         let upsertUrl = (!article.articleId) ? urls.ARTICLE_CREATE : urls.ARTICLE_UPDATE.replace(/\{.*?\}/, article.articleId );
         return $http
