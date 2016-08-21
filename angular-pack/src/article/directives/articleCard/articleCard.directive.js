@@ -16,6 +16,6 @@ function ArticleCardDirective(){
             contentSymbolsNumber: '@'
         }
     };
-}
+} 
 
 export default ArticleCardDirective;
