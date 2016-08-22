@@ -14,6 +14,7 @@ const SERVER_HOST = 'localhost:8888',
         ARTICLE_GET_BY_ID: HOYEE_HOST_URL + '/articles/getById/{articleId}/{userId}',
         ARTICLE_UPDATE: HOYEE_HOST_URL + '/articles/update/{articleId}',
         ARTICLE_CREATE: HOYEE_HOST_URL + '/articles/create',
+        ARTICLE_DELETE: HOYEE_HOST_URL + '/articles/delete/{articleId}',
         USER_GET_CURRENT: HOYEE_HOST_URL + '/user/getCurrent'
     };
 

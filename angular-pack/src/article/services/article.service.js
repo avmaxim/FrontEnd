@@ -32,8 +32,17 @@ function ArticleService($http, $q, urls){
             });
     }
 
-    function removeArticle(article){
-        //return $http.delete()
+    function removeArticle( article ){
+        return $http 
+            .delete( urls.ARTICLE_DELETE.replace(/\{.*?\}/g, article.articleId) )
+            .then( (response) => {
+                let responseData = response.data;
+                if (responseData.success) {
+                    return responseData.data;
+                } else {
+                    return $q.reject(responseData);
+                }
+            });
     }
     
     function upsertArticle(article){
