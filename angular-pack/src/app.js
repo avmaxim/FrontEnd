@@ -23,6 +23,7 @@ import auth from './auth/auth.module';
 import pages from './pages/pages.module';
 import article from './article/article.module';
 import user from './user/user.module';
+import comment from './comment/comment.module';
 
 let hoyeeApp = 'hoyeeApp';
 
@@ -34,6 +35,7 @@ var app = angular
                     pages,
                     article,
                     user,
+                    comment,
                     angularUiRouter,
                     angularUiBootstrap,
                     servicesModule

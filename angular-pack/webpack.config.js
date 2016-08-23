@@ -38,9 +38,6 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
                 loader: 'url-loader?limit=100000'
             }]
         },
-        watchOptions: {
-          aggregateTimeout: 100
-        },
         devtool: 'source-map',
         plugins: [
             new webpack.DefinePlugin({

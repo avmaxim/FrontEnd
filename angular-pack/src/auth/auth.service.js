@@ -25,35 +25,35 @@ function AuthServiceImpl($http, $q, $timeout, urls){
             username: username,
             password: password
         };
-        return $http.post(urls.ACCOUNT_LOGIN, credentials).then((response) => {
-            let responseData = response.data;
-            if (responseData.success) {
-                saveToken(responseData.data['token']);
-                return $http.get(urls.USER_GET_CURRENT).then( (response) => {
-                    saveUserSession(JSON.parse(response.data.data.user));
-                    return responseData.data;
-                });
-            } else {
-                return $q.reject(responseData);
-            }
-        });
+        return $http
+            .post(urls.ACCOUNT_LOGIN, credentials)
+            .then((response) => {
+                saveToken(response.data);
+                return $http
+                    .get(urls.USER_GET_CURRENT)
+                    .then( (response) => {
+                        saveUserSession(response.data);
+                        return response.data;
+                    });
+            })
+            .catch( (error) =>  console.error( error ) );
     }
 
-    function register(){
-        return $q( (resolve) => {
-            // emulate a request to Hoyee Server
-            $timeout(()=> {
-                resolve();
-            }, 1000);
-        });
+    function register(username, password, email){
+        const registerData = {
+            "username": username,
+            "password": password,
+            "email": email
+        };
+        return $http
+            .post(urls.ACCOUNT_REGISTER, registerData)
+            .catch( (error) =>  console.error( error ) );
     }
 
     function signOut(){
         return $q( (resolve) => {
-            // simulate a request to Hoyee Server
             $timeout(()=> {
                 localStorage.clear();
-                console.log("signed out");
                 resolve();
             }, 1000);
         });

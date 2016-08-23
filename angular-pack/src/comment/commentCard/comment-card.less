@@ -1,0 +1,41 @@
+@import "../../common/styles/less/vars";
+@import "../../common/styles/less/mixins";
+@import "../../common/styles/less/fonts";
+
+comment-card > .comment{
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  margin: 20px auto;
+  padding: 15px;
+  &::after, &::before{ display: table; content: ''; }
+  &::after { clear: both; }
+}
+
+.author-avatar-wrapper {
+  float: left;
+  width: 15%;
+  img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+.comment-details-wrapper{
+  float: left;
+  width: 85%;
+  margin-bottom: 30px;
+}
+
+.comment-date{
+  color: #ccc;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.comment-author{
+  font-size: 19px;
+  margin-bottom: 5px;
+}

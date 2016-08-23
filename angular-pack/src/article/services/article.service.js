@@ -22,67 +22,37 @@ function ArticleService($http, $q, urls){
                 };
                 return index[match] != undefined ? index[match] : -1;
             }))
-            .then((response) => {
-                let responseData = response.data;
-                if (responseData.success) {
-                    return responseData.data;
-                } else {
-                    return $q.reject(responseData);
-                }
-            });
+            .then((response) => response.data)
+            .catch( (error) =>  console.error( error ) );
     }
 
     function removeArticle( article ){
         return $http 
             .delete( urls.ARTICLE_DELETE.replace(/\{.*?\}/g, article.articleId) )
-            .then( (response) => {
-                let responseData = response.data;
-                if (responseData.success) {
-                    return responseData.data;
-                } else {
-                    return $q.reject(responseData);
-                }
-            });
+            .then( (response) => response.data )
+            .catch( (error) =>  console.error( error ) );
     }
     
     function upsertArticle(article){
         let upsertUrl = (!article.articleId) ? urls.ARTICLE_CREATE : urls.ARTICLE_UPDATE.replace(/\{.*?\}/, article.articleId );
         return $http
             .post(upsertUrl, article)
-            .then((response) => {
-                let responseData = response.data;
-                if (responseData.success) {
-                    return responseData.data;
-                } else {
-                    return $q.reject(responseData);
-                }
-            });
+            .then((response) => response.data )
+            .catch( (error) =>  console.error( error ) );
     }
 
     function getAllArticles(){
         return $http
             .get( urls.ARTICLES_GET_ALL )
-            .then( (response) => {
-                let responseData = response.data;
-                if ( responseData.success ){
-                    return JSON.parse(responseData.data.articles);
-                } else {
-                    return $q.reject(responseData);
-                }
-            });
+            .then( (response) => response.data )
+            .catch( (error) =>  console.error( error ) );
     }
 
     function getPersonalArticles(){
         return $http
             .get( urls.ARTICLES_GET_PERSONAL )
-            .then( (response) => {
-                let responseData = response.data;
-                if ( responseData.success ){
-                    return JSON.parse(responseData.data.articles);
-                } else {
-                    return $q.reject(responseData);
-                }
-            });
+            .then( (response) => response.data )
+            .catch( (error) =>  console.error( error ) );
     }
 }
 

@@ -17,12 +17,6 @@ function LoginController($state, AuthService){
             .then((response) => {
                 alert('Successfully logged in.');
                 $state.go('main.private.home');
-            })
-            .catch((error) => {
-                if (error.status == 401) {
-                    console.error("Error occured: " + error.message);
-                    $state.go('main.public.register');
-                }
             });
     }
 }

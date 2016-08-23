@@ -7,12 +7,12 @@
 import './article-card.less';
 
 import ArticleCardDirective from './articleCard.directive';
-import ArticleCardController from './articleCard.controller';
+import ArticleCardController from './articleCard.controller'; 
 
 let articleCard = 'hoyeeApp.article.articleCard';
 
 angular.module( articleCard, [])
     .directive('articleCard', ArticleCardDirective)
-    .controller('articleCardController', ArticleCardController)
+    .controller('articleCardController', ArticleCardController);
 
 export default articleCard;

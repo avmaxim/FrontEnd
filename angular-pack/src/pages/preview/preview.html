@@ -1,4 +1,23 @@
 <div class="preview">
-    <h2>Preview</h2>
-    {{ctrl.article}}
+    <div class="article-container">
+        <h3 class="article-header"> {{ ctrl.article.header }} </h3>
+        <div >
+            <p >{{ ctrl.article.contents }}</p>
+        </div>
+        <div >
+            <div class="row">
+                <div class="col-sm-11 article-date">{{ ctrl.article.date }}</div>
+                <div class="col-sm-1 article-likes" alt="like"  ng-class="{'liked': ctrl.isArticleLiked}">
+                    <a ng-click="ctrl.toggleLike()"><i class="glyphicon glyphicon-heart"></i></a>
+                    {{ ctrl.article.likesCount }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>Comments</h3>
+    <!-- <comment-card template-only="true"></comment-card>-->
+    <comment-card comment="comment"
+                  ng-repeat="comment in ctrl.article.comments">
+    </comment-card>
+
 </div>
