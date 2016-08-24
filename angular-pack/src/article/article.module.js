@@ -6,8 +6,8 @@
 import ArticleService from './services/article.service';
 import SelectPostedFilter from './filters/selectPosted/selectPosted.filter';
 
-import articleOptions from './directives/articleOptions/articleOptions.module';
-import articleCard from './directives/articleCard/articleCard.module';
+import articleOptions from './articleOptions/articleOptions.module';
+import articleCard from './articleCard/articleCard.module';
    
 let article = 'hoyeeApp.article';
 

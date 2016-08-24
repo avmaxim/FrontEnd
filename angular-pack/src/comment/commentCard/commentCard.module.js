@@ -3,12 +3,12 @@
 
 import './comment-card.less';
 import CommentCardController from './commentCard.controller';
-import CommentCardDirective from './commentCard.directive';
+import CommentCardComponent from './commentCard.component';
 
 let commentCard = 'hoyeeApp.comment.commentCard';
 
 angular.module( commentCard, [])
     .controller('commentCardController', CommentCardController)
-    .directive('commentCard', CommentCardDirective);
+    .component('commentCard', CommentCardComponent);
 
 export default commentCard;

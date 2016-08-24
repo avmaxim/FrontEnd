@@ -5,10 +5,12 @@
 'use strict';
 
 import HttpHeadersInterceptor from './httpHeaders.interceptor';
+import HttpServerErrorsInterceptor from './httpServerErrors.interceptor';
 
 var interceptorsModule = 'hoyeeApp.interceptors';
 
 angular.module(interceptorsModule, [])
-        .factory('HttpHeadersInterceptor', HttpHeadersInterceptor);
+        .factory('HttpHeadersInterceptor', HttpHeadersInterceptor)
+        .factory('HttpServerErrorsInterceptor', HttpServerErrorsInterceptor);
 
 export default interceptorsModule;

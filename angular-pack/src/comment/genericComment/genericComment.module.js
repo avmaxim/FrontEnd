@@ -6,12 +6,12 @@
 
 import './generic-comment.less';
 import GenericCommentController from './genericComment.controller';
-import GenericCommentDirective from './genericComment.directive';
+import GenericCommentComponent from './genericComment.component';
 
 let genericComment = 'hoyeeApp.comment.genericComment';
 
 angular.module( genericComment, [])
     .controller('genericCommentController', GenericCommentController)
-    .directive('genericComment', GenericCommentDirective);
+    .component('genericComment', GenericCommentComponent);
 
 export default genericComment;

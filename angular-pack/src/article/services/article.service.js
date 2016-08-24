@@ -2,9 +2,9 @@
 'use strict';
 
 
-ArticleService.$inject = ['$http', '$q', 'urls'];
+ArticleService.$inject = ['$http', 'urls'];
 
-function ArticleService($http, $q, urls){
+function ArticleService($http, urls){
     let service = {};
     service.getArticleById = getArticleById;
     service.upsertArticle = upsertArticle;
@@ -13,20 +13,11 @@ function ArticleService($http, $q, urls){
     service.getPersonalArticles = getPersonalArticles;
     return service;
 
-    function getArticleById(articleId, userId){
+    function getArticleById(articleId, userId) {
+        const occurrences = { '{articleId}' : articleId, '{userId}' :  userId  };
         return $http
-            .get(urls.ARTICLE_GET_BY_ID.replace(/\{.*?\}/g, function (match){
-                var index = {
-                    '{articleId}': articleId,
-                    '{userId}': userId
-                };
-                return index[match] != undefined ? index[match] : -1;
-            }))
-            .then((response) => {
-                let article = response.data;
-                article.date = new Date(article.timestamp).toDateString();
-                return article;
-            })
+            .get(urls.ARTICLE_GET_BY_ID.replace(/\{.*?\}/g, (match) =>  occurrences[match] ? occurrences[match] : -1 ))
+            .then( (article) => (article.data.date = new Date( article.data.timestamp ).toDateString(), article.data) )
             .catch( (error) =>  console.error( error ) );
     }
 
@@ -38,7 +29,7 @@ function ArticleService($http, $q, urls){
     }
     
     function upsertArticle(article){
-        let upsertUrl = (!article.articleId) ? urls.ARTICLE_CREATE : urls.ARTICLE_UPDATE.replace(/\{.*?\}/, article.articleId );
+        let upsertUrl = !article.articleId ? urls.ARTICLE_CREATE : urls.ARTICLE_UPDATE.replace(/\{.*?\}/, article.articleId );
         return $http
             .post(upsertUrl, article)
             .then((response) => response.data )
@@ -48,26 +39,18 @@ function ArticleService($http, $q, urls){
     function getAllArticles(){
         return $http
             .get( urls.ARTICLES_GET_ALL )
-            .then( (response) => {
-                let articles = response.data;
-                for(let i = 0; i < articles.length; i++){
-                    articles[i].date = new Date(articles[i].timestamp).toDateString();
-                }
-                return articles;
-            })
+            .then( (response) => response.data.map(
+                article => (article.date = new Date(article.timestamp).toDateString(), article)
+            ))
             .catch( (error) =>  console.error( error ) );
     }
 
     function getPersonalArticles(){
         return $http
             .get( urls.ARTICLES_GET_PERSONAL )
-            .then( (response) => {
-                let articles = response.data;
-                for(let i = 0; i < articles.length; i++){
-                    articles[i].date = new Date(articles[i].timestamp).toDateString();
-                }
-                return articles;
-            })
+            .then( (response) => response.data.map(
+                article => (article.date = new Date(article.timestamp).toDateString(), article)
+            ))
             .catch( (error) =>  console.error( error ) );
     }
 }

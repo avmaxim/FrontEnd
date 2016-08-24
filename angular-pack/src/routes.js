@@ -87,6 +87,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
 
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push('HttpHeadersInterceptor');
+    $httpProvider.interceptors.push('HttpServerErrorsInterceptor');
 }
 
 config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', 'AuthServiceProvider'];

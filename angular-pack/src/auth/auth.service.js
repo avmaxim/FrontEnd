@@ -27,16 +27,9 @@ function AuthServiceImpl($http, $q, $timeout, urls){
         };
         return $http
             .post(urls.ACCOUNT_LOGIN, credentials)
-            .then((response) => {
-                saveToken(response.data);
-                return $http
-                    .get(urls.USER_GET_CURRENT)
-                    .then( (response) => {
-                        saveUserSession(response.data);
-                        return response.data;
-                    });
-            })
-            .catch( (error) =>  console.error( error ) );
+            .then( response => saveToken(response.data) )
+            .then( () => $http.get(urls.USER_GET_CURRENT))
+            .then( response => (saveUserSession(response.data), response.data) );
     }
 
     function register(username, password, email){
@@ -47,7 +40,7 @@ function AuthServiceImpl($http, $q, $timeout, urls){
         };
         return $http
             .post(urls.ACCOUNT_REGISTER, registerData)
-            .catch( (error) =>  console.error( error ) );
+            .catch( error =>  console.error( error ) );
     }
 
     function signOut(){

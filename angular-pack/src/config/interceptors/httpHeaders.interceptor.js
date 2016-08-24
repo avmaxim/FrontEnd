@@ -4,29 +4,13 @@
 
 "use strict";
 
-HttpHeadersInterceptor.$inject = ['$rootScope'];
-
-function HttpHeadersInterceptor($rootScope){
-    let service = {};
-    service.request = request;
-    service.responseError = responseError;
-    return service;
-
-    function request( config ){
-        const token = localStorage.getItem('token');
-        if ( token ) {
-            config.headers['X-Auth-Token'] = 'Bearer ' + token;
+function HttpHeadersInterceptor(){
+    return {
+        request: function ( config ){
+            const token = localStorage.getItem('token');
+            return (token && (config.headers['X-Auth-Token'] = 'Bearer ' + token), config);
         }
-        return config;
     }
-
-     function responseError( response ) {
-        if ( response.status === 401 ) {
-            $rootScope.$broadcast('Unauthorized');
-        }
-        return response;
-    }
-
 }
 
 export default HttpHeadersInterceptor;

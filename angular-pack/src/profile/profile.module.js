@@ -6,14 +6,14 @@
 
 import './profile.less';
 import ProfileController from './profile.controller';
-import ProfileDirective from './profile.directive';
+import ProfileComponent from './profile.component';
 
 
 let profile = 'hoyeeApp.profile';
 
 angular.module( profile, [])
     .controller('profileController', ProfileController)
-    .directive('profile', ProfileDirective);
+    .component('profile', ProfileComponent);
 
 
 export default profile;

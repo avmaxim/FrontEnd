@@ -6,13 +6,13 @@
 
 import './article-card.less';
 
-import ArticleCardDirective from './articleCard.directive';
+import ArticleCardComponent from './articleCard.component';
 import ArticleCardController from './articleCard.controller'; 
 
 let articleCard = 'hoyeeApp.article.articleCard';
 
 angular.module( articleCard, [])
-    .directive('articleCard', ArticleCardDirective)
+    .component('articleCard', ArticleCardComponent)
     .controller('articleCardController', ArticleCardController);
 
 export default articleCard;

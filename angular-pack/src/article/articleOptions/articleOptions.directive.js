@@ -6,13 +6,12 @@
 export default function ArticleOptionsDirective(){
     return {
         restrict: 'E',
-        templateUrl: '/article/directives/articleOptions/article-options.html',
+        templateUrl: '/article/articleOptions/article-options.html',
         controller: 'articleOptionsController',
         controllerAs: 'ctrl',
         scope: true,
         bindToController: {
-            article: '=forArticle',
-            enable: '='
+            article: '=forArticle'
         },
         link: function (scope, elem, attrs) {
             elem.parent().css('position', 'relative');

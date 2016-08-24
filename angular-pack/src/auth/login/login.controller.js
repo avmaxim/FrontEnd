@@ -10,6 +10,7 @@ function LoginController($state, AuthService){
     let ctrl = this;
     ctrl.user = { name: '', password: ''};
     ctrl.submit = submit;
+    ctrl.logicFailed = false;
 
     function submit (){
         AuthService
@@ -17,7 +18,12 @@ function LoginController($state, AuthService){
             .then((response) => {
                 alert('Successfully logged in.');
                 $state.go('main.private.home');
-            });
+            })
+            .catch((error) => {
+                if( error.status == 401 ){
+                    ctrl.loginFailed = true;
+                }
+            })
     }
 }
 
