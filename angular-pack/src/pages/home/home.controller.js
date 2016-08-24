@@ -6,11 +6,7 @@
 
 function HomeController($state, userInfo, articles){
     userInfo || $state.go('main.public.welcome');
-
     let ctrl = this;
-    for(let i = 0; i < articles.length; i++){
-        articles[i].date = new Date(articles[i].timestamp).toDateString();
-    }
     ctrl.articles = articles;
 }
 

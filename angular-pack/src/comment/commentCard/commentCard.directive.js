@@ -12,8 +12,7 @@ function CommentCardDirective(){
         controllerAs: 'ctrl',
         scope: true,
         bindToController: {
-            comment: '=',
-            hasTemplateOnly: '=templateOnly'
+            comment: '='
         }
     };
 }

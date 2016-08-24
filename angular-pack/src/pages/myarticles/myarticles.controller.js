@@ -6,9 +6,6 @@
 
 function MyArticlesController( myArticles ){
     let ctrl = this;
-    for(let i = 0; i < myArticles.length; i++){
-        myArticles[i].date = new Date(myArticles[i].timestamp).toDateString();
-    }
     ctrl.myArticles = myArticles;
 }
 

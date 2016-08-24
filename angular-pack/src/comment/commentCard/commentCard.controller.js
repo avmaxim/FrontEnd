@@ -10,6 +10,7 @@ function CommentCardController(CommentService, UserService){
     let ctrl = this;
     ctrl.toggleLike = toggleLike;
     ctrl.isCommentLiked = false;
+    ctrl.comment.date = new Date( ctrl.comment.timestamp ).toDateString();
     UserService.getUserById( ctrl.comment.userId ).then( (user)=> ctrl.commentAuthor = user );
 
     function toggleLike(){

@@ -4,7 +4,7 @@
 
 'use strict';
 
-function PreviewArticleController( $state, $stateParams, ArticleService ){
+function PreviewArticleController( $stateParams, ArticleService ){
     let ctrl = this;
 
     if ( !$stateParams['articleId'] && !$stateParams['userId']){
@@ -12,10 +12,10 @@ function PreviewArticleController( $state, $stateParams, ArticleService ){
     } else {
         ArticleService
             .getArticleById($stateParams['articleId'], $stateParams['userId'])
-            .then(article => ctrl.article = article)
+            .then(article => ctrl.article = article )
     }
 }
 
-PreviewArticleController.$inject = ['$state', '$stateParams', 'ArticleService'];
+PreviewArticleController.$inject = ['$stateParams', 'ArticleService'];
 
 export default PreviewArticleController;

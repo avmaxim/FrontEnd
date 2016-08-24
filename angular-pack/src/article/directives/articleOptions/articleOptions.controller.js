@@ -22,10 +22,15 @@ export default function ArticleOptionsController( $state, ArticleService ) {
     };
 
     this.removeArticle = () => {
+        let answer = confirm("R u sure u wanna remove this article?");
+        if(!answer){
+            return;
+        }
         ArticleService
             .removeArticle( this.article )
             .then(()=>{
-                alert('Article successfully removed!')
+                alert('Article successfully removed!');
+                $state.go('main.private.myarticles');
             })
     };
 

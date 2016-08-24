@@ -4,16 +4,14 @@
 
 'use strict';
 
-import './commentCard/comment-card.less';
-import CommentCardController from './commentCard/commentCard.controller';
-import CommentCardDirective from './commentCard/commentCard.directive';
-import CommentService from './comment.service';
+import commentCard from './commentCard/commentCard.module';
+import genericComment from './genericComment/genericComment.module';
 
+import CommentService from './comment.service';
 
 let comment = 'hoyeeApp.comment';
 
-angular.module( comment, [])
-    .controller('commentCardController', CommentCardController)
-    .directive('commentCard', CommentCardDirective)
+angular.module( comment, [commentCard])
     .factory('CommentService', CommentService);
+
 export default comment;

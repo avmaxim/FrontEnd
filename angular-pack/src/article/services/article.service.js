@@ -22,7 +22,11 @@ function ArticleService($http, $q, urls){
                 };
                 return index[match] != undefined ? index[match] : -1;
             }))
-            .then((response) => response.data)
+            .then((response) => {
+                let article = response.data;
+                article.date = new Date(article.timestamp).toDateString();
+                return article;
+            })
             .catch( (error) =>  console.error( error ) );
     }
 
@@ -44,14 +48,26 @@ function ArticleService($http, $q, urls){
     function getAllArticles(){
         return $http
             .get( urls.ARTICLES_GET_ALL )
-            .then( (response) => response.data )
+            .then( (response) => {
+                let articles = response.data;
+                for(let i = 0; i < articles.length; i++){
+                    articles[i].date = new Date(articles[i].timestamp).toDateString();
+                }
+                return articles;
+            })
             .catch( (error) =>  console.error( error ) );
     }
 
     function getPersonalArticles(){
         return $http
             .get( urls.ARTICLES_GET_PERSONAL )
-            .then( (response) => response.data )
+            .then( (response) => {
+                let articles = response.data;
+                for(let i = 0; i < articles.length; i++){
+                    articles[i].date = new Date(articles[i].timestamp).toDateString();
+                }
+                return articles;
+            })
             .catch( (error) =>  console.error( error ) );
     }
 }
