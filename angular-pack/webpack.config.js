@@ -37,6 +37,10 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
             }, { 
                 test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
                 loader: 'url-loader?limit=100000'
+            }, {
+                test: /\.js$/, 
+                loader: 'ng-annotate',
+                exclude: /node_modules/
             }]
         },
         devtool: 'source-map',

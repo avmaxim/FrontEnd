@@ -7,6 +7,7 @@
 
 export default class ArticleCardController {
 
+    /*@ngInject*/
     constructor(ArticleService){
         this.ArticleService = ArticleService;
         this.isArticleLiked = false;
@@ -20,5 +21,3 @@ export default class ArticleCardController {
         this.ArticleService.upsertArticle( this.article );
     }
 }
-
-ArticleCardController.$inject = ['ArticleService'] ;

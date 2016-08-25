@@ -5,8 +5,7 @@
 'use strict';
 
 export default class GenericCommentController{
+    /*@ngInject*/
     constructor(UserService){
     }
 }
-
-GenericCommentController.$inject = ['UserService'];

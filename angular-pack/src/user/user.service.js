@@ -5,6 +5,8 @@
 'use strict';
 
 export default class UserService{
+
+    /*@ngInject*/
     constructor($http, urls, AuthService){
         this.$http = $http;
         this.urls = urls;
@@ -20,5 +22,3 @@ export default class UserService{
             .then( (response) => response.data);
     }
 }
-
-UserService.$inject = ['$http', 'urls', 'AuthService'];

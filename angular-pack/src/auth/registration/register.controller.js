@@ -6,7 +6,7 @@
 
 
 export default class RegisterController {
-
+    /*@ngInject*/
     constructor($state, AuthService){
         this.$state = $state;
         this.AuthService = AuthService;
@@ -22,5 +22,3 @@ export default class RegisterController {
             })
     }
 }
-
- RegisterController.$inject = ['$state', 'AuthService'];

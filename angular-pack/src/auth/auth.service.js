@@ -6,19 +6,19 @@
 
 export default class AuthService{
     constructor(){
-
     }
+
     getUserInfo(){
         return JSON.parse( localStorage.getItem("user-info") );
     }
-
-    /*ngInject*/
-    $get(){
-        return new AuthServiceImpl;
+    /*@ngInject*/
+    $get($http, $q, $timeout, urls){
+        return new AuthServiceImpl( $http, $q, $timeout, urls);
     }
 }
 
 class AuthServiceImpl{
+
     constructor($http, $q, $timeout, urls){
         this.$http = $http;
         this.$q = $q;
@@ -67,6 +67,8 @@ class AuthServiceImpl{
     saveToken(token){
         localStorage.setItem('token', token);
     }
-}
 
-AuthServiceImpl.$inject = ['$http', '$q', '$timeout', 'urls'];
+    getUserInfo(){
+        return JSON.parse( localStorage.getItem("user-info") );
+    }
+}

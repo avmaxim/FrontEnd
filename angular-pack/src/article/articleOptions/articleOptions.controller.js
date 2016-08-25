@@ -3,7 +3,7 @@
  */
  
 export default class ArticleOptionsController {
-
+    /*@ngInject*/
     constructor( $state, ArticleService ){
         this.$state = $state;
         this.ArticleService = ArticleService;
@@ -46,5 +46,3 @@ export default class ArticleOptionsController {
             })
     };
 }
-
-ArticleOptionsController.$inject = ['$state', 'ArticleService'];

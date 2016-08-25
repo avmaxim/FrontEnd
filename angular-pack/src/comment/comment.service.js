@@ -2,7 +2,7 @@
 'use strict';
  
 export default class CommentService {
-
+    /*@ngInject*/
     constructor($http, urls) {
         this.$http = $http;
         this.urls = urls;
@@ -12,5 +12,3 @@ export default class CommentService {
         return 0;
     }
 }
-
-CommentService.$inject = ['$http', 'urls'];

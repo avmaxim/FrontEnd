@@ -5,6 +5,8 @@
 'use strict';
 
 export default class ProfileController{
+
+    /*@ngInject*/
     constructor($state, AuthService, UserService){
         this.$state = $state;
         this.AuthService = AuthService;
@@ -18,5 +20,3 @@ export default class ProfileController{
     }
 
 }
-
-ProfileController.$inject = ['$state', 'AuthService', 'UserService'] ;

@@ -5,7 +5,8 @@
 'use strict';
 
 export default class LoginController {
-    
+
+    /*@ngInject*/
     constructor($state, AuthService) {
         this.$state = $state;
         this.AuthService = AuthService;
@@ -27,5 +28,3 @@ export default class LoginController {
             })
     }
 }
-
-LoginController.$inject = ['$state', 'AuthService'];

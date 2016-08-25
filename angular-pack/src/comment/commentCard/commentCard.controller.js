@@ -5,7 +5,7 @@
 'use strict';
 
 export default class CommentCardController {
-       
+    /*@ngInject*/
     constructor(UserService) {
         //this.CommentService = CommentService;
         this.isCommentLiked = false;
@@ -18,5 +18,3 @@ export default class CommentCardController {
         //this.CommentService.upsertComment( this.comment );
     }
 }
-
-CommentCardController.$inject = ['UserService'] ;

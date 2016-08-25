@@ -9,5 +9,5 @@ import UserService from './user.service';
 let user = 'hoyeeApp.user';
 
 angular.module( user, [ ])
-        .service('UserService', new UserService);
+        .service('UserService', UserService);
 export default user;

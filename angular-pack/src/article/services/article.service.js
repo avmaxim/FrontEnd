@@ -2,7 +2,7 @@
 'use strict';
 
 export default class ArticleService{
-
+    /*@ngInject*/
     constructor($http, urls) {
         this.$http = $http;
         this.urls = urls;
@@ -49,5 +49,3 @@ export default class ArticleService{
             .catch( (error) =>  console.error( error ) );
     }
 }
-
-ArticleService.$inject = ['$http', 'urls'];
