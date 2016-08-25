@@ -8,7 +8,7 @@ let CommentCardComponent = {
     templateUrl: '/comment/commentCard/comment-card.html',
     controller: 'commentCardController',
     bindings: {
-        comment: '='
+        comment: '=datasource'
     }
 };
 

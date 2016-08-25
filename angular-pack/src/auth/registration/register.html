@@ -28,6 +28,8 @@
             <input type="password" name="password" class="form-control" ng-model="ctrl.user.password" required>
         </div>
 
+        <p class="login-fail" ng-show="ctrl.isRegistrationFailed">{{ctrl.registerFailedMsg}}</p>
+
         <button type="submit" class="btn btn-lg btn-outline-reverse btn-block">Sign Up</button>
         Already have account?  <a ui-sref="main.public.login" role="button">Login</a>
     </form>

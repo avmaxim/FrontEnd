@@ -4,7 +4,7 @@
     <div>
         <article-card   ng-repeat="article in ctrl.articles | selectPosted | orderBy:'-timestamp' "
                         content-symbols-number="500"
-                        article="article"
+                        datasource="article"
                         enable-options="false">
         </article-card>
     </div>

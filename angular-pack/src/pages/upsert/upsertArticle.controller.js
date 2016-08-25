@@ -5,6 +5,7 @@
 'use strict';
 
 export default class UpsertArticleController {
+
     constructor($state, $stateParams, ArticleService){
         this.$state = $state;
         this.$stateParams = $stateParams;

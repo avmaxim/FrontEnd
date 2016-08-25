@@ -6,7 +6,10 @@
 
 let GenericCommentComponent = {
     templateUrl: '/comment/genericComment/generic-comment.html',
-    controller: 'genericCommentController'
+    controller: 'genericCommentController',
+    bindings: {
+        article: '=forArticle'
+    }
 };
 
 export default GenericCommentComponent;

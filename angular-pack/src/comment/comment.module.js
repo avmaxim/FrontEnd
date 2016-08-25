@@ -11,7 +11,7 @@ import CommentService from './comment.service';
  
 let comment = 'hoyeeApp.comment';
 
-angular.module( comment, [commentCard])
-    .service('CommentService', new CommentService);
+angular.module( comment, [commentCard, genericComment])
+    .service('CommentService', CommentService);
 
 export default comment;

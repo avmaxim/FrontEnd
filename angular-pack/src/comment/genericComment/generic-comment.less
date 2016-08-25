@@ -1,3 +1,30 @@
 @import "../../common/styles/less/vars";
 @import "../../common/styles/less/mixins";
 @import "../../common/styles/less/fonts";
+
+new-comment > .generic-comment{
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  border: thin solid @app-color;
+  margin: 20px auto;
+  padding: 15px;
+  &::after, &::before{ display: table; content: ''; }
+  &::after { clear: both; }
+}
+
+.comment-details-wrapper{ margin-bottom: 0; }
+
+form[name='commentForm']{
+
+  textarea{
+    width: 100%;
+    min-height: 55px;
+    resize: vertical;
+  }
+
+  button[type="submit"]{
+    width: 15%;
+    float: right;
+  }
+}

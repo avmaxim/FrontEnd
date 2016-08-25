@@ -12,6 +12,6 @@ let genericComment = 'hoyeeApp.comment.genericComment';
 
 angular.module( genericComment, [])
     .controller('genericCommentController', GenericCommentController)
-    .component('genericComment', GenericCommentComponent);
+    .component('newComment', GenericCommentComponent);
 
 export default genericComment;

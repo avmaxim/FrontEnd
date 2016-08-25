@@ -11,7 +11,7 @@ export default class ArticleService{
     getArticleById(articleId, userId) {
         const occurrences = { '{articleId}' : articleId, '{userId}' :  userId  };
         return this.$http
-                .get(this.urls.ARTICLE_GET_BY_ID.replace(/\{.*?\}/g, (match) =>  occurrences[match] ? occurrences[match] : -1 ))
+                .get( this.urls.ARTICLE_GET_BY_ID.replace(/\{.*?\}/g, (match) =>  occurrences[match] ? occurrences[match] : -1 ))
                 .then( (article) => (article.data.date = new Date( article.data.timestamp ).toDateString(), article.data) )
                 .catch( (error) =>  console.error( error ) );
     }

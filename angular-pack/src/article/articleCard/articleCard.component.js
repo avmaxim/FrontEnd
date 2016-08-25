@@ -7,7 +7,7 @@ let ArticleCardComponent = {
     templateUrl: '/article/articleCard/article-card.html',
     controller: 'articleCardController',
     bindings: {
-        article: '=',
+        article: '=datasource',
         hasOptions: '=enableOptions',
         contentSymbolsNumber: '@'
     }

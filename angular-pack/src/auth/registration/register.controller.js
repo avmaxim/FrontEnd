@@ -11,6 +11,7 @@ export default class RegisterController {
         this.$state = $state;
         this.AuthService = AuthService;
         this.user = { name: '', password: ''};
+        this.isRegistrationFailed = false;
     } 
      
     submit (){
@@ -18,7 +19,11 @@ export default class RegisterController {
             .register(this.user.name, this.user.password, this.user.register)
             .then( () => {
                 this.$state.go('main.public.login');
-                console.log("Successfully registered!");
+                alert("Congratulations! U've been successfully registered!");
+            })
+            .catch( (error) => {
+                this.isRegistrationFailed = true;
+                this.registerFailedMsg = 'Sorry, that was a problem with a registration service. Plz, try again later.'
             })
     }
 }

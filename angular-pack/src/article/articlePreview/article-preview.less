@@ -1,0 +1,32 @@
+@import "../../common/styles/less/vars";
+@import "../../common/styles/less/mixins";
+@import "../../common/styles/less/fonts";
+
+.article-container {
+  background: #fff;
+  border-radius: 6px;
+  border: thin solid @app-color;
+  padding: 20px 40px;
+  margin: 40px auto 0;
+
+  .article-likes {
+    cursor: default;
+    font-weight: bold;
+    text-align: right;
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      vertical-align: middle;
+      i { color: grey; }
+    }
+    &.liked i { color: @app-color;   }
+  }
+
+  .article-header { text-align: center;   }
+  .article-date { color: grey; }
+
+  .article-contents {
+    white-space: pre-wrap;
+    padding: 20px 0;
+  }
+}

@@ -5,16 +5,10 @@
 'use strict';
 
 export default class PreviewArticleController {
-    constructor( $stateParams, ArticleService ){
-        if ( $stateParams['articleId'] && $stateParams['userId']) {
-            ArticleService
-                .getArticleById($stateParams['articleId'], $stateParams['userId'])
-                .then(article => this.article = article )
-        } else {
-            // Logic for previewing article that hasn't been created yet. Navigated from Upsert page.
-            // Not implemented yet
-        }
+
+    /*@ngInject*/
+    constructor( article ){
+        this.article = article;
     }
 }
 
-PreviewArticleController.$inject = ['$stateParams', 'ArticleService'];

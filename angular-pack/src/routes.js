@@ -82,7 +82,14 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             url: '/article/preview/:articleId/:userId',
             templateUrl: '/pages/preview/preview.html',
             controller: 'hoyeeApp.previewArticleController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+            resolve: {
+                article: ['ArticleService', '$stateParams', function(ArticleService, $stateParams){
+                    if ( $stateParams['articleId'] && $stateParams['userId']) {
+                        return ArticleService.getArticleById( $stateParams['articleId'], $stateParams['userId']);
+                    }
+                }]
+            }
         });
 
     $urlRouterProvider.otherwise('/');

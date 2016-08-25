@@ -20,7 +20,7 @@
             <input type="password" name="password" class="form-control" ng-model="ctrl.user.password" required>
         </div>
 
-        <p class="login-fail" ng-show="ctrl.loginFailed">Invalid  username or password.</p>
+        <p class="login-fail" ng-show="ctrl.isLoginFailed">{{ctrl.loginFailedMsg}}</p>
 
         <button  type="submit" class="btn btn-lg btn-outline-reverse btn-block">Login</button>
         Don't have account yet?  <a ui-sref="main.public.register" role="button">Sign Up</a>

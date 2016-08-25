@@ -1,3 +1,22 @@
 <div class="generic-comment">
+    <div class="author-avatar-wrapper">
+        <img src="$ctrl.author.avatar" />
+    </div>
+    <div class="comment-details-wrapper">
+        <div class="comment-author"> {{$ctrl.author.username}} </div>
+        <div class="comment-date"> {{$ctrl.comment.date}} </div>
+        <div class="comment-contents">
 
+            <!-- FORM-COMMENT -->
+            <form ng-submit="$ctrl.submit()" name="commentForm" >
+                <section class="form-group " ng-class="{ 'has-error' : commentForm['comment-contents'].$invalid && !commentForm['comment-contents'].$pristine,
+                                                         'has-success' : commentForm['comment-contents'].$valid }">
+                    <textarea name="comment-contents" class="form-control"  ng-model="ctrl.comment.contents" ng-minlength="5" required></textarea>
+                    <p ng-show="commentForm['comment-contents'].$error.minlength" class="help-block">Please, provide a more detailed comment for the article</p>
+                </section>
+                <button type="submit" class="btn btn-sm btn-block btn-success">Comment</button>
+            </form>
+
+        </div>
+    </div>
 </div>

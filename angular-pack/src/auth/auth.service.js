@@ -9,8 +9,9 @@ export default class AuthService{
     }
 
     getUserInfo(){
-        return JSON.parse( localStorage.getItem("user-info") );
+        return getUserInfo();
     }
+
     /*@ngInject*/
     $get($http, $q, $timeout, urls){
         return new AuthServiceImpl( $http, $q, $timeout, urls);
@@ -45,8 +46,7 @@ class AuthServiceImpl{
             "email": email
         };
         return this.$http
-            .post(this.urls.ACCOUNT_REGISTER, registerData)
-            .catch( error =>  console.error( error ) );
+            .post(this.urls.ACCOUNT_REGISTER, registerData);
     }
 
     signOut(){
@@ -69,6 +69,10 @@ class AuthServiceImpl{
     }
 
     getUserInfo(){
-        return JSON.parse( localStorage.getItem("user-info") );
+        return getUserInfo();
     }
+}
+
+function getUserInfo(){
+    return JSON.parse( localStorage.getItem("user-info") )
 }

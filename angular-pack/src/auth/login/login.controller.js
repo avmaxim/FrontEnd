@@ -11,7 +11,7 @@ export default class LoginController {
         this.$state = $state;
         this.AuthService = AuthService;
         this.user = {name: '', password: ''};
-        this.logicFailed = false;
+        this.isLoginFailed = false;
     }
     
     submit (){
@@ -22,8 +22,11 @@ export default class LoginController {
                 this.$state.go('main.private.home');
             })
             .catch((error) => {
+                this.isLoginFailed = true;
                 if( error.status == 401 ){
-                    this.loginFailed = true;
+                    this.loginFailedMsg = 'Incorrent username or password';
+                }else {
+                    this.loginFailedMsg = 'Sorry, that was a problem with a login service. Plz, try again later.';
                 }
             })
     }

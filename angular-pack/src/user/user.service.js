@@ -12,6 +12,7 @@ export default class UserService{
         this.urls = urls;
         this.AuthService = AuthService;
     }
+
     getCurrentUserDetails(){
         return this.AuthService.getUserInfo().currentUser;
     }
