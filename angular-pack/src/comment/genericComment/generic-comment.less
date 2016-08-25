@@ -11,6 +11,11 @@ new-comment > .generic-comment{
   padding: 15px;
   &::after, &::before{ display: table; content: ''; }
   &::after { clear: both; }
+
+  avatar {
+    float: left;
+    width: 15%;
+  }
 }
 
 .comment-details-wrapper{ margin-bottom: 0; }
@@ -19,7 +24,7 @@ form[name='commentForm']{
 
   textarea{
     width: 100%;
-    min-height: 55px;
+    min-height: 140px;
     resize: vertical;
   }
 

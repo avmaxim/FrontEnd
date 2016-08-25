@@ -11,8 +11,9 @@ export default class ProfileController{
         this.$state = $state;
         this.AuthService = AuthService;
         this.UserService = UserService;
-        this.userInfo = this.UserService.getCurrentUserDetails()
+        this.user = this.UserService.getCurrentUserDetails()
     }
+
     signOut (){
         this.AuthService
             .signOut()

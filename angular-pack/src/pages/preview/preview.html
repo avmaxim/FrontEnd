@@ -1,14 +1,9 @@
 <div class="preview">
-
     <article-preview datasource="ctrl.article"></article-preview>
 
     <h3>Comments</h3>
 
     <new-comment for-article="ctrl.article"></new-comment>
 
-    <comment-card datasource="comment"
-                  ng-repeat="comment in ctrl.article.comments ">
-    </comment-card>
-
-    <p class="empty-comments-list" ng-hide="ctrl.article.comments.length">No comments yet.</p>
+    <comment-card datasource="comment" ng-repeat="comment in ctrl.article.comments "> </comment-card>
 </div>

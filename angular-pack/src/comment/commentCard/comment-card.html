@@ -1,9 +1,9 @@
-<div class="comment">
-    <div class="author-avatar-wrapper">
-        <img src="$ctrl.commentAuthor.avatar" />
-    </div>
+<div class="comment" ng-if="$ctrl.isInitialized">
+
+    <avatar src="$ctrl.author.avatar" size="md" ></avatar>
+
     <div class="comment-details-wrapper">
-        <div class="comment-author"> {{$ctrl.commentAuthor.username}} </div>
+        <div class="comment-author"> {{$ctrl.author.username}} </div>
         <div class="comment-date"> {{$ctrl.comment.date}} </div>
         <div class="comment-contents">  {{$ctrl.comment.contents}} </div>
     </div>

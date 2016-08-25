@@ -1,0 +1,28 @@
+@import "../../common/styles/less/vars";
+@import "../../common/styles/less/mixins";
+@import "../../common/styles/less/fonts";
+
+avatar:not([shape]) img,
+avatar[shape="squircle"] img{ border-radius: 5px; }
+avatar[shape="circle"]  img { border-radius: 50%; }
+avatar[shape="square"]  img { border-radius: 0; }
+
+avatar[size='xs'] img {
+  width: 40px;
+  height: 40px;
+}
+
+avatar[size='sm'] img {
+  width: 60px;
+  height: 60px;
+}
+
+avatar[size='md'] img {
+  width: 90px;
+  height: 90px;
+}
+
+avatar[size='lg'] img {
+  width: 120px;
+  height: 120px;
+}

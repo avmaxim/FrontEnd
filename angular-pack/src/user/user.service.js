@@ -1,7 +1,3 @@
-/**
- * Created by andrei.maksimchanka on 8/2/2016.
- */
-
 'use strict';
 
 export default class UserService{
@@ -16,7 +12,11 @@ export default class UserService{
     getCurrentUserDetails(){
         return this.AuthService.getUserInfo().currentUser;
     }
-    
+
+    getCurrentUserAvatar(){
+        return this.AuthService.getUserInfo().currentUser.avatar;
+    }
+
     getUserById(userId){
         return this.$http
             .get( this.urls.USER_GET_BY_ID.replace(/\{.*?\}/, userId) )

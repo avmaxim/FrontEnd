@@ -1,9 +1,10 @@
 <div class="article-container">
-    <h3 class="article-header"> {{ $ctrl.article.header }} </h3>
-    <div >
-        <p class="article-contents">{{ $ctrl.article.contents }}</p>
+    <div class="article-header-wrapper">
+        <div class="article-avatar"> {{ $ctrl.article.avatar }} </div>
+        <h3 class="article-header"> {{ $ctrl.article.header }} </h3>
     </div>
-    <div>
+    <div class="article-details-wrapper">
+        <p class="article-contents">{{ $ctrl.article.contents }}</p>
         <div class="row">
             <div class="col-sm-11 article-date">Last updated {{ $ctrl.article.date }}</div>
             <div class="col-sm-1 article-likes" ng-class="{'liked': $ctrl.isArticleLiked}">
@@ -12,7 +13,6 @@
                 </a>
                 {{ $ctrl.article.likesCount }}
             </div>
-
         </div>
     </div>
 </div>
