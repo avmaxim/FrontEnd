@@ -8,10 +8,10 @@ import commentCard from './commentCard/commentCard.module';
 import genericComment from './genericComment/genericComment.module';
 
 import CommentService from './comment.service';
-
+ 
 let comment = 'hoyeeApp.comment';
 
 angular.module( comment, [commentCard])
-    .factory('CommentService', CommentService);
+    .service('CommentService', new CommentService);
 
 export default comment;

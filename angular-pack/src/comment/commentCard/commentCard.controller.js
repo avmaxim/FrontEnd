@@ -4,19 +4,19 @@
 
 'use strict';
 
-CommentCardController.$inject = ['CommentService', 'UserService'] ;
+export default class CommentCardController {
+       
+    constructor(UserService) {
+        //this.CommentService = CommentService;
+        this.isCommentLiked = false;
+        this.comment.date = new Date(this.comment.timestamp).toDateString();
+        UserService.getUserById( this.comment.userId ).then((user)=> this.commentAuthor = user);
+    }
 
-function CommentCardController(CommentService, UserService){
-    let ctrl = this;
-    ctrl.toggleLike = toggleLike;
-    ctrl.isCommentLiked = false;
-    ctrl.comment.date = new Date( ctrl.comment.timestamp ).toDateString();
-    UserService.getUserById( ctrl.comment.userId ).then( (user)=> ctrl.commentAuthor = user );
-
-    function toggleLike(){
-        (ctrl.isCommentLiked = !ctrl.isCommentLiked) ? ctrl.comment.likesCount++ : ctrl.comment.likesCount--;
-        CommentService.upsertComment( ctrl.comment );
+    toggleLike(){
+        (this.isCommentLiked = !this.isCommentLiked) ? this.comment.likesCount++ : this.comment.likesCount--;
+        //this.CommentService.upsertComment( this.comment );
     }
 }
 
-export default CommentCardController;
+CommentCardController.$inject = ['UserService'] ;

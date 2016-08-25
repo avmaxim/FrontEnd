@@ -5,18 +5,20 @@
 
 'use strict';
 
-ArticleCardController.$inject = ['ArticleService'] ;
+export default class ArticleCardController {
 
-function ArticleCardController(ArticleService){
-    let ctrl = this;
-    ctrl.isArticleLiked = false;
-    ctrl.article.contents = ctrl.contentSymbolsNumber ? ctrl.article.contents.slice(0, parseInt(ctrl.contentSymbolsNumber)) + '...' :  ctrl.article.contents;
-    ctrl.toggleLike = toggleLike;
+    constructor(ArticleService){
+        this.ArticleService = ArticleService;
+        this.isArticleLiked = false;
+        if( this.contentSymbolsNumber ){
+            this.article.contents = this.article.contents.slice(0, parseInt(this.contentSymbolsNumber)) + '...';
+        }
+    }
 
-    function toggleLike(){
-        (ctrl.isArticleLiked = !ctrl.isArticleLiked) ? ctrl.article.likesCount++ : ctrl.article.likesCount--;
-        ArticleService.upsertArticle( ctrl.article );
+    toggleLike (){
+        (this.isArticleLiked = !this.isArticleLiked) ? this.article.likesCount++ : this.article.likesCount--;
+        this.ArticleService.upsertArticle( this.article );
     }
 }
 
-export default ArticleCardController;
+ArticleCardController.$inject = ['ArticleService'] ;

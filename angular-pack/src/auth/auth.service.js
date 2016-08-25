@@ -4,67 +4,69 @@
 
 'use strict';
 
-function AuthService(){
-    return {
-        getUserInfo : getUserInfo,
-        $get: ['$http', '$q', '$timeout', 'urls', AuthServiceImpl]
-    };
+export default class AuthService{
+    constructor(){
+
+    }
+    getUserInfo(){
+        return JSON.parse( localStorage.getItem("user-info") );
+    }
+
+    /*ngInject*/
+    $get(){
+        return new AuthServiceImpl;
+    }
 }
 
-function AuthServiceImpl($http, $q, $timeout, urls){
-    let service = {};
-    service.login = login;
-    service.signOut = signOut;
-    service.register = register;
-    service.getUserInfo = getUserInfo;
+class AuthServiceImpl{
+    constructor($http, $q, $timeout, urls){
+        this.$http = $http;
+        this.$q = $q;
+        this.$timeout = $timeout;
+        this.urls = urls;
+    }
 
-    return service;
-
-    function login(username, password){
+    login (username, password) {
         let credentials = {
             username: username,
             password: password
         };
-        return $http
-            .post(urls.ACCOUNT_LOGIN, credentials)
-            .then( response => saveToken(response.data) )
-            .then( () => $http.get(urls.USER_GET_CURRENT))
-            .then( response => (saveUserSession(response.data), response.data) );
+        return this.$http
+            .post(this.urls.ACCOUNT_LOGIN, credentials)
+            .then( response => this.saveToken(response.data) )
+            .then( () => this.$http.get(this.urls.USER_GET_CURRENT))
+            .then( response => (this.saveUserSession(response.data), response.data) );
     }
 
-    function register(username, password, email){
+    register(username, password, email){
         const registerData = {
             "username": username,
             "password": password,
             "email": email
         };
-        return $http
-            .post(urls.ACCOUNT_REGISTER, registerData)
+        return this.$http
+            .post(this.urls.ACCOUNT_REGISTER, registerData)
             .catch( error =>  console.error( error ) );
     }
 
-    function signOut(){
-        return $q( (resolve) => {
-            $timeout(()=> {
+    signOut(){
+        return this.$q( (resolve) => {
+            this.$timeout(()=> {
                 localStorage.clear();
                 resolve();
             }, 1000);
         });
     }
 
-    function saveUserSession(user){
+    saveUserSession(user){
         localStorage.setItem('user-info', JSON.stringify({
             currentUser: user
         }));
     }
 
-    function saveToken(token){
+    saveToken(token){
         localStorage.setItem('token', token);
     }
 }
 
-function getUserInfo(){
-    return JSON.parse( localStorage.getItem("user-info") );
-}
-
-export default AuthService;
+AuthServiceImpl.$inject = ['$http', '$q', '$timeout', 'urls'];

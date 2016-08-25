@@ -9,8 +9,9 @@ const NODE_ENV = process.env['NODE_ENV'] || 'development',
     config = {
         context: path.join(__dirname, 'src'),
         entry: {
-            app: './app.js'
+            app: './app.js' 
         },
+        target: 'node',
         devServer: {
             contentBase: './src/'
         },

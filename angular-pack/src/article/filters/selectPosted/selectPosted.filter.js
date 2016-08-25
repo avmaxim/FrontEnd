@@ -4,10 +4,8 @@
 
 'use strict';
 
-function SelectPostedFilter(){
+export default function SelectPostedFilter(){
     return function(items){
-        return items.filter(item => item.isPosted);
+        return (items.length) ? items.filter(item => item.isPosted) : items;
     }
 }
-
-export default SelectPostedFilter;

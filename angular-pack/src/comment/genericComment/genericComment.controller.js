@@ -4,11 +4,9 @@
 
 'use strict';
 
-GenericCommentController.$inject = ['UserService'];
-
-function GenericCommentController( UserService ){
-    let ctrl = this;
-
+export default class GenericCommentController{
+    constructor(UserService){
+    }
 }
 
-export default GenericCommentController;
+GenericCommentController.$inject = ['UserService'];

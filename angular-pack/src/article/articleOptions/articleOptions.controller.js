@@ -1,45 +1,50 @@
 /**
  * Created by andrei on 8/19/2016.
  */
-
-ArticleOptionsController.$inject = ['$state', 'ArticleService'];
  
-export default function ArticleOptionsController( $state, ArticleService ) {
+export default class ArticleOptionsController {
 
-    this.previewArticle = () => {
+    constructor( $state, ArticleService ){
+        this.$state = $state;
+        this.ArticleService = ArticleService;
+    }
+    
+    previewArticle () {
         const stateParams = {
             articleId: this.article.articleId,
             userId: this.article.userId
         };
-        $state.go('main.private.preview', stateParams);
-    };
+        this.$state.go('main.private.preview', stateParams);
+    }; 
 
-    this.editArticle = () => {
+    editArticle () {
         const stateParams = {
             articleId: this.article.articleId
         };
-        $state.go('main.private.upsert', stateParams);
+        this.$state.go('main.private.upsert', stateParams);
     };
 
-    this.removeArticle = () => {
+    removeArticle () {
         let answer = confirm("R u sure u wanna remove this article?");
         if(!answer){
             return;
         }
-        ArticleService
+        this.ArticleService
             .removeArticle( this.article )
             .then(()=>{
                 alert('Article successfully removed!');
-                $state.go('main.private.myarticles');
+                this.$state.go('main.private.myarticles');
             })
     };
-
-    this.postArticle = () => {
+ 
+    postArticle () {
         this.article.isPosted = true;
-        ArticleService
+        this.ArticleService
             .upsertArticle( this.article )
             .then(()=> {
                 alert('Article successfully updated!')
             })
     };
 }
+
+ArticleOptionsController.$inject = ['$state', 'ArticleService'];

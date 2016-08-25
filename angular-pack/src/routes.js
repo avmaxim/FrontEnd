@@ -1,7 +1,7 @@
 /**
  * Created by andrei.maksimchanka on 8/2/2016.
  */
-
+ 
 'use strict';
 
 function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServiceProvider) {

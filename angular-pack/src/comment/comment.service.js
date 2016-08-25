@@ -1,19 +1,16 @@
 
 'use strict';
+ 
+export default class CommentService {
 
-
-CommentService.$inject = ['$http', 'urls'];
-
-function CommentService($http, urls){
-    let service = {};
-    service.upsertComment = upsertComment;
-
-    function upsertComment(comment){
-        
+    constructor($http, urls) {
+        this.$http = $http;
+        this.urls = urls;
     }
 
-    return service;
-
+    upsertComment(comment){
+        return 0;
+    }
 }
 
-export default CommentService;
+CommentService.$inject = ['$http', 'urls'];

@@ -12,5 +12,5 @@ var interceptorsModule = 'hoyeeApp.interceptors';
 angular.module(interceptorsModule, [])
         .factory('HttpHeadersInterceptor', HttpHeadersInterceptor)
         .factory('HttpServerErrorsInterceptor', HttpServerErrorsInterceptor);
-
+ 
 export default interceptorsModule;

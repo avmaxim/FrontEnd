@@ -8,12 +8,11 @@ import "./common/styles/less/base-reset.less";
 import "../node_modules/bootstrap/less/bootstrap.less";
 import "./common/styles/less/index.less";
 
-import angular from 'angular';
+import angular from 'angular'; 
 import angularUiRouter from 'angular-ui-router';
 import angularUiBootstrap from 'angular-ui-bootstrap';
 
-
-import servicesModule from './config/interceptors/app.interceptors';
+import interceptors from './config/interceptors/app.interceptors';
 import serverClientApi from './config/urls';
 import config from './routes';
 
@@ -29,6 +28,8 @@ let hoyeeApp = 'hoyeeApp';
 
 var app = angular
                 .module( hoyeeApp, [
+                    angularUiRouter,
+                    angularUiBootstrap,
                     header,
                     profile,
                     auth,
@@ -36,9 +37,7 @@ var app = angular
                     article,
                     user,
                     comment,
-                    angularUiRouter,
-                    angularUiBootstrap,
-                    servicesModule
+                    interceptors
                 ])
                 .config( config )
                 .constant( 'urls', serverClientApi);

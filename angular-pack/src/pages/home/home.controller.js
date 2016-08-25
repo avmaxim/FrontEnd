@@ -4,12 +4,14 @@
 
 'use strict';
 
-function HomeController($state, userInfo, articles){
-    userInfo || $state.go('main.public.welcome');
-    let ctrl = this;
-    ctrl.articles = articles;
+export default class HomeController{
+    constructor($state, userInfo, articles){
+        userInfo || $state.go('main.public.welcome');
+        this.$state = $state;
+        this.userInfo = userInfo;
+        this.articles = articles;
+    }
+
 }
 
-HomeController.$inject = ['$state', 'userInfo', 'articles'];
-
-export default HomeController;
+HomeController.$inject = ['$state', 'userInfo', 'articles']; 

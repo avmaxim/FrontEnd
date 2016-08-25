@@ -4,27 +4,28 @@
 
 'use strict';
 
-LoginController.$inject = ['$state', 'AuthService'];
-
-function LoginController($state, AuthService){
-    let ctrl = this;
-    ctrl.user = { name: '', password: ''};
-    ctrl.submit = submit;
-    ctrl.logicFailed = false;
-
-    function submit (){
-        AuthService
-            .login( ctrl.user.name, ctrl.user.password )
+export default class LoginController {
+    
+    constructor($state, AuthService) {
+        this.$state = $state;
+        this.AuthService = AuthService;
+        this.user = {name: '', password: ''};
+        this.logicFailed = false;
+    }
+    
+    submit (){
+        this.AuthService
+            .login( this.user.name, this.user.password )
             .then((response) => {
                 alert('Successfully logged in.');
-                $state.go('main.private.home');
+                this.$state.go('main.private.home');
             })
             .catch((error) => {
                 if( error.status == 401 ){
-                    ctrl.loginFailed = true;
+                    this.loginFailed = true;
                 }
             })
     }
 }
 
-export default LoginController;
+LoginController.$inject = ['$state', 'AuthService'];

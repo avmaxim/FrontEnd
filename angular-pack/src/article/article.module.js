@@ -10,9 +10,9 @@ import articleOptions from './articleOptions/articleOptions.module';
 import articleCard from './articleCard/articleCard.module';
    
 let article = 'hoyeeApp.article';
-
+ 
 angular.module( article, [ articleOptions, articleCard ])
-        .factory('ArticleService', ArticleService)
+        .service('ArticleService', ArticleService)
         .filter('selectPosted', SelectPostedFilter);
 
 export default article;

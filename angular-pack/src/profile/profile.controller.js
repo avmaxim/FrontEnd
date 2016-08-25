@@ -4,20 +4,19 @@
 
 'use strict';
 
-function ProfileController($state, AuthService, UserService){
-    let ctrl = this;
-    ctrl.signOut = signOut;
-    ctrl.userInfo = UserService.getCurrentUserDetails();
-
-    function signOut(){
-        AuthService
+export default class ProfileController{
+    constructor($state, AuthService, UserService){
+        this.$state = $state;
+        this.AuthService = AuthService;
+        this.UserService = UserService;
+        this.userInfo = this.UserService.getCurrentUserDetails()
+    }
+    signOut (){
+        this.AuthService
             .signOut()
-            .then( () => $state.go('main.public.welcome') )
-            .catch( error => alert(response.message) );
+            .then( () => this.$state.go('main.public.welcome') );
     }
 
 }
 
 ProfileController.$inject = ['$state', 'AuthService', 'UserService'] ;
-
-export default ProfileController;
