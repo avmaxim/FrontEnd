@@ -2,63 +2,75 @@
  * Created by andrei.maksimchanka on 8/2/2016.
  */
 
-var path = require('path');
+var resolve = require('path').resolve;
 var webpack = require('webpack');
+var NODE_ENV = process.env.NODE_ENV || 'development';
 
-const NODE_ENV = process.env['NODE_ENV'] || 'development',
-    config = {
-        context: path.join(__dirname, 'src'),
-        entry: {
-            app: './app.js' 
-        },
-        target: 'node',
-        devServer: {
-            contentBase: './src/'
-        },
-        output: {
-            path: path.join(__dirname, 'build'),
-            filename: 'app.bundle.js'
-        },
-        module: {
-            loaders: [{
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ["es2015"]
-               }
-            }, {
-                test: /\.less$/,
-                loader: 'style!css!less'
-            }, {
-                test: /\.css$/,
-                loader: 'style!css',
-                exclude: /node_modules/
-            }, { 
-                test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
-                loader: 'url-loader?limit=100000'
-            }, {
-                test: /\.js$/, 
-                loader: 'ng-annotate',
-                exclude: /node_modules/
-            }]
-        },
-        devtool: 'source-map',
-        plugins: [
-            new webpack.DefinePlugin({
-                'NODE_ENV': NODE_ENV
-            })
-        ]
-    };
+var entryPoint = resolve(__dirname, 'src/app.js');
+var srcPath = resolve(__dirname, 'src');
+var buildPath = resolve(__dirname, 'build');
+
+console.log(entryPoint);
+console.log(buildPath);
+
+
+var config = {
+    context: srcPath,
+    entry: [
+        'webpack/hot/dev-server',
+        entryPoint
+    ],
+    target: 'node',
+    devServer: {
+        contentBase: './src/'
+    },
+    output: {
+        filename: 'app.bundle.js',
+        path: buildPath,
+        publicPath: '/m/src/'
+    },
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel',
+            query: {
+                presets: ["es2015"]
+            }
+        }, {
+            test: /\.less$/,
+            loader: 'style!css!less'
+        }, {
+            test: /\.css$/,
+            loader: 'style!css',
+            exclude: /node_modules/
+        }, {
+            test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
+            loader: 'url-loader?limit=100000'
+        }, {
+            test: /\.js$/,
+            loader: 'ng-annotate',
+            exclude: /node_modules/
+        }]
+    },
+    devtool: 'source-map',
+    plugins: [
+        new webpack.DefinePlugin({
+            'NODE_ENV': NODE_ENV,
+            GLOB: JSON.stringify(srcPath)
+        }),
+        new webpack.HotModuleReplacementPlugin()
+    ]
+};
 
 
 if (NODE_ENV == 'production') {
+    config.entry = entryPoint;
     config.devtool = null;
+    config.devServer = null;
     config.watchOptions = null;
     config.plugins = [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {warnings: false}
-        })
+
     ];
 }
 
