@@ -1,9 +1,9 @@
 <div class="home" >
     <a ui-sref="main.private.upsert()" class="btn btn-lg btn-block btn-outline-reverse" role="button">Create Article</a>
 
-    <div>
+    <div scroll-opacity="article-card">
         <article-card   ng-repeat="article in ctrl.articles | selectPosted | orderBy:'-timestamp' "
-                        content-symbols-number="500"
+                        content-symbols-number="100"
                         datasource="article"
                         enable-options="false">
         </article-card>

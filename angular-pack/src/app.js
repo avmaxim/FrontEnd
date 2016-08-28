@@ -23,6 +23,7 @@ import pages from './pages/pages.module';
 import article from './article/article.module';
 import user from './user/user.module';
 import comment from './comment/comment.module';
+import scrollOpacity from './scroll-opacity/scrollOpacity.module';
 
 let hoyeeApp = 'hoyeeApp';
 
@@ -37,6 +38,7 @@ var app = angular
                     article,
                     user,
                     comment,
+                    scrollOpacity,
                     interceptors
                 ])
                 .config( config )

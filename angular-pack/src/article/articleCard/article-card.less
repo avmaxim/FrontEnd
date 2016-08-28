@@ -2,35 +2,39 @@
 @import "../../common/styles/less/mixins";
 @import "../../common/styles/less/fonts";
 
-article-card > .card{
-  border-radius: 6px;
-  margin: 30px auto;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+article-card {
+  display: block;
+  > .card{
+    border-radius: 6px;
+    margin: 30px auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
-  .article-likes{
-    cursor: default;
-    font-weight: bold;
-    text-align: right;
-    a{
-      text-decoration: none;
-      cursor: pointer;
-      vertical-align: middle;
-      i{ color: grey; }
+
+    .article-likes{
+      cursor: default;
+      font-weight: bold;
+      text-align: right;
+      a{
+        text-decoration: none;
+        cursor: pointer;
+        vertical-align: middle;
+        i{ color: grey; }
+      }
+      &.liked i{ color: @app-color; }
     }
-    &.liked i{ color: @app-color; }
-  }
 
-  .article-contents{ text-align: justify; }
+    .article-contents{ text-align: justify; }
 
-  .article-date, .article-title{ text-align: center; }
-  .article-title{
-    font-size: 20px;
-  }
+    .article-date, .article-title{ text-align: center; }
+    .article-title{
+      font-size: 20px;
+    }
 
-  .card-block{
-    text-align: justify;
-    padding: 20px 30px;
+    .card-block{
+      text-align: justify;
+      padding: 20px 30px;
+    }
+    .card-header{ border-radius: 6px 6px 0 0; }
+    .card-footer{ border-radius: 0 0 6px 6px; }
   }
-  .card-header{ border-radius: 6px 6px 0 0; }
-  .card-footer{ border-radius: 0 0 6px 6px; }
 }

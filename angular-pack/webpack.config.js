@@ -10,10 +10,6 @@ var entryPoint = resolve(__dirname, 'src/app.js');
 var srcPath = resolve(__dirname, 'src');
 var buildPath = resolve(__dirname, 'build');
 
-console.log(entryPoint);
-console.log(buildPath);
-
-
 var config = {
     context: srcPath,
     entry: [
@@ -26,8 +22,7 @@ var config = {
     },
     output: {
         filename: 'app.bundle.js',
-        path: buildPath,
-        publicPath: '/m/src/'
+        path: buildPath
     },
     module: {
         loaders: [{
@@ -56,8 +51,7 @@ var config = {
     devtool: 'source-map',
     plugins: [
         new webpack.DefinePlugin({
-            'NODE_ENV': NODE_ENV,
-            GLOB: JSON.stringify(srcPath)
+            'NODE_ENV': NODE_ENV
         }),
         new webpack.HotModuleReplacementPlugin()
     ]

@@ -7,7 +7,7 @@
 import './article-card.less';
 
 import ArticleCardComponent from './articleCard.component';
-import ArticleCardController from './articleCard.controller'; 
+import ArticleCardController from './articleCard.controller';   
 
 let articleCard = 'hoyeeApp.article.articleCard';
 
