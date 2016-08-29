@@ -12,9 +12,14 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             templateUrl: '/common/views/main.html'
         })
 
+        /*** Public states ***/
+
         .state('main.public', {
             abstract: true,
-            templateUrl: '/common/views/main.public.html'
+            templateUrl: '/common/views/main.public.html',
+            data: {
+                requiresAuthorization: false
+            }
         })
 
         .state('main.public.register', {
@@ -32,27 +37,26 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
         })
 
         .state('main.public.welcome', {
-            url: '/',
-            templateUrl: '/pages/welcome/welcome.html',
-            controller: 'hoyeeApp.welcomeController',
-            controllerAs: 'ctrl',
-            resolve : {
-                userInfo: () =>  AuthServiceProvider.getUserInfo()
-            }
+            url: '/welcome',
+            templateUrl: '/pages/welcome/welcome.html'
         })
+
+        /*** Private states ***/
 
         .state('main.private', {
             abstract: true,
-            templateUrl: '/common/views/main.private.html'
+            templateUrl: '/common/views/main.private.html',
+            data: {
+                requiresAuthorization: true
+            }
         })
 
         .state('main.private.home', {
-            url: '/home',
+            url: '/',
             templateUrl: '/pages/home/home.html',
             controller: 'hoyeeApp.homeController',
             controllerAs: 'ctrl',
             resolve : {
-                userInfo: () =>  AuthServiceProvider.getUserInfo(),
                 articles: ['ArticleService', function(ArticleService) {
                     return ArticleService.getAllArticles();
                 }]

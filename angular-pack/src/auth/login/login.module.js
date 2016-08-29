@@ -4,7 +4,6 @@ import './login.less';
 
 import LoginController from './login.controller';
 
-
 let login = 'hoyeeApp.auth.login';
 
 angular.module( login, [])

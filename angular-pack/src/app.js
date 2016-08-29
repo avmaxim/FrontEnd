@@ -14,7 +14,9 @@ import angularUiBootstrap from 'angular-ui-bootstrap';
 
 import interceptors from './config/interceptors/app.interceptors';
 import serverClientApi from './config/urls';
+
 import config from './routes';
+import run from './config/run.js';
 
 import header from './header/header.module';
 import profile from './profile/profile.module';
@@ -42,6 +44,6 @@ var app = angular
                     interceptors
                 ])
                 .config( config )
-                .constant( 'urls', serverClientApi);
-
+                .constant( 'urls', serverClientApi)
+                .run ( run )
 export default hoyeeApp;

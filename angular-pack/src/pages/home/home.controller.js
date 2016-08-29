@@ -5,13 +5,11 @@
 'use strict';
 
 export default class HomeController{
-    constructor($state, userInfo, articles){
-        userInfo || $state.go('main.public.welcome');
+    constructor($state, articles){
         this.$state = $state;
-        this.userInfo = userInfo;
         this.articles = articles;
     }
 
 }
 
-HomeController.$inject = ['$state', 'userInfo', 'articles']; 
+HomeController.$inject = ['$state', 'articles'];

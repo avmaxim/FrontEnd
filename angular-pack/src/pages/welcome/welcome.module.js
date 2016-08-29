@@ -5,11 +5,9 @@
 'use strict';
 
 import './welcome.less';
-import WelcomeController from './welcome.controller';
 
 var welcomePage = 'hoyee.pages.welcome';
 
-angular.module( welcomePage, [])
-    .controller('hoyeeApp.welcomeController', WelcomeController);
+angular.module( welcomePage, []);
 
 export default welcomePage;
