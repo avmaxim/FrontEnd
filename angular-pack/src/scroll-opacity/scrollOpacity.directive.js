@@ -22,45 +22,38 @@
  ************************************************************
  */
 
-let opacityAreaHeight = 420;
-let componentsSelector = 'article-card';
 
-export default class ScrollOpacity{
+export default function ScrollOpacity($document, $timeout) {
 
-    constructor($document, $timeout){
-        this.$document = $document;
-        this.$timeout = $timeout;
+    let opacityAreaHeight = 420;
+    let componentsSelector = 'article-card';
+    let directiveElement = null;
 
-        this.restrict = 'A';
-    }
+    return {
+        restrict: 'A',
+        link: link
+    };
 
-    link(scope, elem, attrs){
-        this.scope = scope;
-        this.elem = elem;
-        this.attrs = attrs;
-
+    function link(scope, elem, attrs){
+        directiveElement = elem;
         componentsSelector = attrs.scrollOpacity || componentsSelector;
         opacityAreaHeight = attrs.opacityAreaHeight || opacityAreaHeight;
 
-        angular
-            .element(  this.$document )
-            .on('scroll', this.scroll.bind(this) )
-            .ready( this.scroll.bind(this) );
+        angular.element( $document ).on('scroll', scroll ).ready( scroll );
     }
 
-    scroll(event) {
-        const self = this;
-        this.$timeout( () => {
+    function scroll() {
+        $timeout( () => {
 
-            const viewportHeight = self.$document[0].documentElement.clientHeight;
+            const viewportHeight = $document[0].documentElement.clientHeight;
             const noOpacityAreaHeight = viewportHeight - opacityAreaHeight;
-            let components = [].slice.call( self.elem[0].querySelectorAll( componentsSelector ) );
+            let components = [].slice.call( directiveElement[0].querySelectorAll( componentsSelector ) );
 
             if (!components)  return;
 
             components.forEach( (component) => angular.element(component).css('opacity', 1 ) );
 
-            if ((viewportHeight + self.$document[0].body.scrollTop) >= self.$document[0].body.scrollHeight) {
+            if ((viewportHeight + $document[0].body.scrollTop) >= $document[0].body.scrollHeight) {
                 return;
             }
 
