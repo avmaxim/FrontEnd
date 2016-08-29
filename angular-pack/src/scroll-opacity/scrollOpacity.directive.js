@@ -11,9 +11,9 @@
   |      *                  *     |
  H|      *   [__________]   *     |
  e|      * ---------------- *    -|
- i|      *   [__________]   *     |
+ i|      *   [__________]   *     |                            opacity is 0.(6)
  g|      *                  *     | }-> opacityAreaHeight
- h|      *   [__________]   *     |
+ h|      *   [__________]   *     |                            opacity is 0.(3)
  t|-->   ********************    -|
 
  ************************************************************
@@ -22,14 +22,10 @@
  ************************************************************
  */
 
-
 let opacityAreaHeight = 420;
 let componentsSelector = 'article-card';
 
-const Window = new WeakMap();
-const Timeout = new WeakMap();
-
-class ScrollOpacity{
+export default class ScrollOpacity{
 
     constructor($document, $timeout){
         this.$document = $document;
@@ -82,12 +78,6 @@ class ScrollOpacity{
 
         });
     }
-
-    static entryPoint($document, $timeout){
-        return new ScrollOpacity($document, $timeout);
-    }
 }
 
-ScrollOpacity.entryPoint.$inject = ['$document', '$timeout'];
-
-export default ScrollOpacity.entryPoint;
+ScrollOpacity.$inject = ['$document', '$timeout'];

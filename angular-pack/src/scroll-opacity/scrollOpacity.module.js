@@ -5,10 +5,11 @@
 'use strict';
 
 import ScrollOpacity from './scrollOpacity.directive';
+import register from '../config/register.js';
 
 let scrollOpacity = 'hoyeeApp.scrollOpacity';
 
-angular.module( scrollOpacity, [  ])
-        .directive('scrollOpacity', ScrollOpacity);
+angular.module( scrollOpacity, []);
+register( scrollOpacity ).directive('scrollOpacity', ScrollOpacity);
 
 export default scrollOpacity;
