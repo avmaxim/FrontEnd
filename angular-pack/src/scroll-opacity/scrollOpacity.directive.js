@@ -12,7 +12,7 @@
  H|      *   [__________]   *     |
  e|      * ---------------- *    -|
  i|      *   [__________]   *     |
- g|      *                  *     | }-> OPACITY_AREA_HEIGHT
+ g|      *                  *     | }-> opacityAreaHeight
  h|      *   [__________]   *     |
  t|-->   ********************    -|
 
@@ -22,7 +22,8 @@
  ************************************************************
  */
 
-const OPACITY_AREA_HEIGHT = 420;
+
+let opacityAreaHeight = 420;
 let componentsSelector = 'article-card';
 
 class ScrollOpacity{
@@ -30,7 +31,6 @@ class ScrollOpacity{
     constructor($window, $timeout){
         this.$window = $window;
         this.$timeout = $timeout;
-
         this.restrict = 'A';
     }
 
@@ -40,7 +40,8 @@ class ScrollOpacity{
         this.attrs = attrs;
 
         componentsSelector = attrs.scrollOpacity || componentsSelector;
-        
+        opacityAreaHeight = attrs.opacityAreaHeight || opacityAreaHeight;
+
         angular.element(this.$window ).on('scroll', this.scroll.bind(this));
         angular.element(this.$window.document).ready( this.scroll.bind(this));
 
@@ -51,7 +52,7 @@ class ScrollOpacity{
         this.$timeout( () => {
 
             const viewportHeight = self.$window.innerHeight;
-            const noOpacityAreaHeight = viewportHeight - OPACITY_AREA_HEIGHT;
+            const noOpacityAreaHeight = viewportHeight - opacityAreaHeight;
 
             let components = [].slice.call( self.elem[0].querySelectorAll(componentsSelector) );
             if (!components)  return;
