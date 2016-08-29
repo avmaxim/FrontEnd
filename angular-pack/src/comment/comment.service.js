@@ -10,8 +10,9 @@ export default class CommentService {
     }
 
     saveComment(comment){
-        //stub for now
-        console.log('Your comment is successfully added');
-        console.dir(comment);
+        return this.$http
+                    .post( this.urls.COMMENT_CREATE, comment )
+                    .then( (comment) => comment.data )
+                    .catch( (error) =>  console.error( error ) );
     }
 }

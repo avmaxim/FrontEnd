@@ -16,7 +16,8 @@ const SERVER_HOST = 'localhost:8888',
         ARTICLE_CREATE: HOYEE_HOST_URL + '/articles/create',
         ARTICLE_DELETE: HOYEE_HOST_URL + '/articles/delete/{articleId}',
         USER_GET_CURRENT: HOYEE_HOST_URL + '/users/getCurrent',
-        USER_GET_BY_ID: HOYEE_HOST_URL + '/users/getById/{userId}'
+        USER_GET_BY_ID: HOYEE_HOST_URL + '/users/getById/{userId}',
+        COMMENT_CREATE: HOYEE_HOST_URL + '/comments/create'
     };
 
 export default SERVER_CLIENT_API;

@@ -11,7 +11,7 @@
             <form ng-submit="$ctrl.submit()" name="commentForm" >
                 <section class="form-group " ng-class="{ 'has-error' : commentForm['comment-contents'].$invalid && !commentForm['comment-contents'].$pristine,
                                                          'has-success' : commentForm['comment-contents'].$valid }">
-                    <textarea name="comment-contents" class="form-control"  ng-model="ctrl.comment.contents" placeholder="Enter your comment here" ng-minlength="5" required></textarea>
+                    <textarea name="comment-contents" class="form-control"  ng-model="$ctrl.comment.contents" placeholder="Enter your comment here" ng-minlength="5" required></textarea>
                     <p ng-show="commentForm['comment-contents'].$error.minlength" class="help-block">Please, provide a more detailed comment for the article</p>
                 </section>
                 <button type="submit" class="btn btn-sm btn-block btn-success">Comment</button>

@@ -33,7 +33,7 @@ export default class ArticleOptionsController {
             .removeArticle( this.article )
             .then(()=>{
                 alert('Article successfully removed!');
-                this.$state.go('main.private.myarticles');
+                this.$state.reload();
             })
     };
  

@@ -8,7 +8,7 @@ comment-card > .comment{
   border-radius: 6px;
   border: thin solid @app-color;
   margin: 20px auto;
-  padding: 15px;
+  padding: 15px 15px 50px 15px;
   &::after, &::before{ display: table; content: ''; }
   &::after { clear: both; }
 
@@ -16,6 +16,8 @@ comment-card > .comment{
     float: left;
     width: 15%;
   }
+
+  .comment-contents{ white-space: pre-wrap; }
 }
 
 .comment-details-wrapper{
@@ -36,3 +38,4 @@ comment-card > .comment{
   font-size: 19px;
   margin-bottom: 5px;
 }
+
