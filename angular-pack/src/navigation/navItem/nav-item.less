@@ -1,0 +1,31 @@
+@import "../../common/styles/less/vars";
+@import "../../common/styles/less/mixins";
+@import "../../common/styles/less/fonts";
+
+nav-item {
+
+  > li.nav-item {
+
+    float: left;
+    list-style-type: none;
+    transition: .3s background-color;
+
+    &:hover {
+      background-color: #583e80;
+    }
+
+    &:last-of-type::after {
+        clear: left;
+    }
+
+    a {
+      text-decoration: none;
+      transition: .3s color;
+      font-size: 15px;
+      line-height: 70px;
+      display: block;
+      padding: 0 20px;
+      color: #fff;
+    }
+  }
+}

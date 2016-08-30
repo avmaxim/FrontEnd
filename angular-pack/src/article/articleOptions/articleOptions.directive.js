@@ -1,7 +1,7 @@
 /**
  * Created by andrei on 8/19/2016.
  */
-
+'use strict';
 
 export default function ArticleOptionsDirective(){
     return {

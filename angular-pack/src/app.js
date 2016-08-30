@@ -26,6 +26,7 @@ import article from './article/article.module';
 import user from './user/user.module';
 import comment from './comment/comment.module';
 import scrollOpacity from './scroll-opacity/scrollOpacity.module';
+import navigation from './navigation/navigation.module';
 
 let hoyeeApp = 'hoyeeApp';
 
@@ -41,9 +42,10 @@ var app = angular
                     user,
                     comment,
                     scrollOpacity,
-                    interceptors
+                    interceptors,
+                    navigation
                 ])
                 .config( config )
                 .constant( 'urls', serverClientApi)
-                .run ( run )
+                .run ( run );
 export default hoyeeApp;
