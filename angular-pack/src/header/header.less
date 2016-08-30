@@ -5,7 +5,7 @@
 header-public,
 header-private {
   background: @app-color;
-  height: 70px;
+  height: @header-height;
   min-width: @app-min-width;
   display: block;
 
@@ -20,14 +20,12 @@ header-private {
     }
   }
 
-  .hoyee-header{
+  .hoyee-header > a{
     cursor: pointer;
-    display: inline-block;
     text-decoration: none;
     font-weight: bold;
     font-size: 35px;
     color: white;
-    float: left;
-    line-height: 70px;
+    line-height: @header-height;
   }
 }

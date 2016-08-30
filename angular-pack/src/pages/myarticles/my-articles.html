@@ -4,7 +4,7 @@
             content-symbols-number="500"
             enable-options="true"
             datasource="article"
-            ng-repeat="article in ctrl.myArticles | orderBy:'-timestamp' ">
+            ng-repeat="article in ctrl.myArticles | filter: ctrl.searhResult | orderBy:'-timestamp' ">
     </article-card>
 
     <p class="empty-articles-list" ng-hide="ctrl.myArticles.length">Sorry, but u don't have any personal articles yet</p>

@@ -27,6 +27,7 @@ import user from './user/user.module';
 import comment from './comment/comment.module';
 import scrollOpacity from './scroll-opacity/scrollOpacity.module';
 import navigation from './navigation/navigation.module';
+import search from './search/search.module';
 
 let hoyeeApp = 'hoyeeApp';
 
@@ -34,6 +35,7 @@ var app = angular
                 .module( hoyeeApp, [
                     angularUiRouter,
                     angularUiBootstrap,
+                    interceptors,
                     header,
                     profile,
                     auth,
@@ -42,8 +44,8 @@ var app = angular
                     user,
                     comment,
                     scrollOpacity,
-                    interceptors,
-                    navigation
+                    navigation,
+                    search
                 ])
                 .config( config )
                 .constant( 'urls', serverClientApi)

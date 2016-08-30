@@ -5,8 +5,18 @@
 'use strict'; 
 
 export default class MyArticlesController{
-    constructor (myArticles){
+    constructor (myArticles, SearchService){
         this.myArticles = myArticles;
+        this.searhResult = '';
+
+        this.SearchService = SearchService;
+        this.SearchService.attachObserver( this );
+    }
+
+    /* 'update' method is being invoked by SearchService once it gets updated */
+    update(){
+        this.searhResult = this.SearchService.getQuery();
     }
 }
-MyArticlesController.$inject = ['myArticles'];
+
+MyArticlesController.$inject = ['myArticles', 'SearchService'];

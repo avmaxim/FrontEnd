@@ -2,29 +2,12 @@
 @import "../../common/styles/less/mixins";
 @import "../../common/styles/less/fonts";
 
-nav-menu > .nav-menu {
-  .nav-menu-list{
-    margin: 0 0 0 30px;
-    float: left;
-
-    &::after, &::before{
-      content: '';
-      display: table;
-    }
-
-    &::after{ clear: both; }
+nav-menu > .nav-menu .nav-menu-list{
+  margin: 0;
+  height: @header-height;
+  &::after, &::before{
+    content: '';
+    display: table;
   }
-}
-
-
-nav-menu[width='sm'] > .nav-menu{
-  width: 40%;
-}
-
-nav-menu[width='md'] > .nav-menu{
-  width: 70%;
-}
-
-nav-menu[width='lg'] > .nav-menu{
-  width: 100%;
+  &::after{ clear: both; }
 }

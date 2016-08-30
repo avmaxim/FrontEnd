@@ -1,9 +1,15 @@
 <section>
-    <a ui-sref="main.private.home" class="hoyee-header">Hoyee</a>
-    <nav-menu width="md">
-        <nav-item link="main.private.home">Home</nav-item>
-        <nav-item link="main.private.myarticles">My Articles</nav-item>
-        <!-- <nav-item action="search()">Search</nav-item>-->
-    </nav-menu>
-    <profile></profile>
+    <div class="hoyee-header col-lg-2">
+        <a ui-sref="main.private.home">Hoyee</a>
+    </div>
+
+    <nav class="col-lg-8">
+        <nav-menu class="col-md-4">
+            <nav-item link="main.private.home">Home</nav-item>
+            <nav-item link="main.private.myarticles">My Articles</nav-item>
+        </nav-menu>
+        <search class="col-md-8"></search>
+    </nav>
+
+    <profile class="col-lg-2"></profile>
 </section>

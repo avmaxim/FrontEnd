@@ -4,12 +4,20 @@
 
 'use strict';
 
-export default class HomeController{
-    constructor($state, articles){
+export default class HomeController {
+    constructor($state, articles, SearchService){
         this.$state = $state;
         this.articles = articles;
+        this.searhResult = '';
+
+        this.SearchService = SearchService;
+        this.SearchService.attachObserver( this );
     }
 
+    /* 'update' method is being invoked by SearchService once it gets updated */
+    update(){
+        this.searhResult = this.SearchService.getQuery();
+    }
 }
 
-HomeController.$inject = ['$state', 'articles'];
+HomeController.$inject = ['$state', 'articles', 'SearchService'];
