@@ -26,3 +26,38 @@
   background-color: @app-color;
   border-color: #fff;
 }
+
+.btn-floating {
+  @dimensions: 55px;
+  display: inline-block;
+  color: #fff;
+  width: @dimensions;
+  height: @dimensions;
+  line-height: @dimensions;
+  padding: 0;
+  background-color: #ff587e;
+  border-radius: 50%;
+  transition: .3s;
+  cursor: pointer;
+  vertical-align: middle;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+
+  &:hover{
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
+  }
+
+  > i {
+    color: #fff;
+    font-size: 34px;
+    left: 17px;
+    line-height: @dimensions;
+    font-family: Arial;
+  }
+}
+
+.fixed-button-wrapper {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 999;
+}
