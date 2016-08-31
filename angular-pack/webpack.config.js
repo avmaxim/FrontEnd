@@ -5,6 +5,8 @@
 var resolve = require('path').resolve;
 var webpack = require('webpack');
 var NODE_ENV = process.env.NODE_ENV || 'development';
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
 
 var entryPoint = resolve(__dirname, 'src/app.js');
 var srcPath = resolve(__dirname, 'src');
@@ -37,16 +39,15 @@ var config = {
             loader: 'style!css!less'
         }, {
             test: /\.css$/,
-            loader: 'style!css',
-            exclude: /node_modules/
+            loader: 'style!css!postcss'
         }, {
-            test: /\.(png|woff|woff2|eot|otf|ttf|svg)$/,
+            test: /\.(png|woff|woff2|eot|otf|ttf|svg)(\?.*$|$)/,
             loader: 'url-loader?limit=100000'
         }, {
             test: /\.js$/,
             loader: 'ng-annotate',
             exclude: /node_modules/
-        }]
+        }, ]
     },
     devtool: 'source-map',
     plugins: [
@@ -54,7 +55,10 @@ var config = {
             'NODE_ENV': NODE_ENV
         }),
         new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    postcss: function () {
+        return [precss, autoprefixer];
+    }
 };
 
 

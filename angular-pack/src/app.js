@@ -4,21 +4,30 @@
 
 'use strict';
 
+//Styles
 import "./common/styles/less/base-reset.less";
-import "../node_modules/bootstrap/less/bootstrap.less";
+import "bootstrap/less/bootstrap.less";
+import "font-awesome/css/font-awesome.css";
+import "textangular/dist/textAngular.css";
 import "./common/styles/less/index.less";
 
+//node_modules
 import angular from 'angular';
 import angularAnimate from 'angular-animate';
 import angularUiRouter from 'angular-ui-router';
 import angularUiBootstrap from 'angular-ui-bootstrap';
+import 'rangy';
+import 'rangy/lib/rangy-selectionsaverestore';
+import 'textangular/dist/textAngular-sanitize.min';
+import textAngular from 'textangular';
 
+//config
 import interceptors from './config/interceptors/app.interceptors';
 import serverClientApi from './config/urls';
-
 import config from './routes';
 import run from './config/run.js';
 
+//Hoyee modules
 import header from './header/header.module';
 import profile from './profile/profile.module';
 import auth from './auth/auth.module';
@@ -38,6 +47,7 @@ var app = angular
                     angularUiRouter,
                     angularUiBootstrap,
                     angularAnimate,
+                    textAngular,
                     interceptors,
                     modals,
                     header,

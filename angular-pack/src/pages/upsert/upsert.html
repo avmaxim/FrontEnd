@@ -3,11 +3,12 @@
 
         <!-- FORM-UPSERT -->
         <form ng-submit="ctrl.upsert()" name="upsertForm">
+
             <!-- HEADER -->
             <section class="form-group "  ng-class="{ 'has-error' : upsertForm['article-header'].$invalid && !upsertForm['article-header'].$pristine,
                                                         'has-success' : upsertForm['article-header'].$valid }">
                 <label control-label>Title</label>
-                <input type="text" name="article-header" class="form-control" ng-model="ctrl.article.header" value="{{ctrl.article.header}}" ng-minlength="10" required>
+                <input type="text" name="article-header" class="form-control article-header" ng-model="ctrl.article.header" value="{{ctrl.article.header}}" ng-minlength="10" required>
                 <p ng-show="upsertForm['article-header'].$error.minlength" class="help-block">Please, provide a more detailed header for the article</p>
             </section>
 
@@ -15,13 +16,13 @@
             <section class="form-group "  ng-class="{ 'has-error' : upsertForm['article-contents'].$invalid && !upsertForm['article-contents'].$pristine,
                                                         'has-success' : upsertForm['article-contents'].$valid }">
                 <label control-label>Contents</label>
-                <textarea name="article-contents" class="form-control" ng-model="ctrl.article.contents" ng-minlength="20" required>
-                    {{ ctrl.article.contents }}
-                </textarea>
+                <text-angular name="article-contents" ng-model="ctrl.article.contents"></text-angular>
                 <p ng-show="upsertForm['article-contents'].$error.minlength" class="help-block">Please, provide a more detailed contents for the article</p>
             </section>
 
-            <button type="submit" class="btn btn-lg btn-outline btn-block">Save to MyArticles</button>
+            <section class="submit-wrapper">
+                <button type="submit" class="btn btn-lg btn-outline btn-block">Save to MyArticles</button>
+            </section>
         </form>
     </article>
 </div>

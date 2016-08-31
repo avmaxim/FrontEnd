@@ -4,7 +4,8 @@
         <h3 class="article-header"> {{ $ctrl.article.header }} </h3>
     </div>
     <div class="article-details-wrapper">
-        <p class="article-contents">{{ $ctrl.article.contents }}</p>
+        <div ta-bind ng-model="$ctrl.article.contents"></div>
+
         <div class="row">
             <div class="col-sm-11 article-date">Last updated {{ $ctrl.article.date }}</div>
             <div class="col-sm-1 article-likes" ng-class="{'liked': $ctrl.isArticleLiked}">
