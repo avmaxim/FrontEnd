@@ -4,8 +4,9 @@
  
 export default class ArticleOptionsController {
     /*@ngInject*/
-    constructor( $state, ArticleService ){
+    constructor( $state, $uibModal, ArticleService ){
         this.$state = $state;
+        this.$uibModal = $uibModal;
         this.ArticleService = ArticleService;
     }
     
@@ -25,24 +26,24 @@ export default class ArticleOptionsController {
     };
 
     removeArticle () {
-        let answer = confirm("R u sure u wanna remove this article?");
-        if(!answer){
-            return;
-        }
-        this.ArticleService
-            .removeArticle( this.article )
-            .then(()=>{
-                alert('Article successfully removed!');
-                this.$state.reload();
-            })
+        this.$uibModal
+            .open({ component: 'removeArticleModalComponent' })
+            .result.then( (ok) => {
+                this.ArticleService
+                    .removeArticle( this.article )
+                    .then(()=>{
+                        this.$state.reload();
+                    })
+            });
     };
  
     postArticle () {
-        this.article.isPosted = true;
-        this.ArticleService
-            .upsertArticle( this.article )
-            .then(()=> {
-                alert('Article successfully updated!')
-            })
+        this.$uibModal
+            .open({ component: 'postArticleModalComponent' })
+            .result.then( (ok) => {
+                this.article.isPosted = true;
+                this.ArticleService.postArticle( this.article );
+            });
+
     };
 }

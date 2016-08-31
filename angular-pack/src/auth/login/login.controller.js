@@ -18,7 +18,6 @@ export default class LoginController {
         this.AuthService
             .login( this.user.name, this.user.password )
             .then((response) => {
-                alert('Successfully logged in.');
                 this.$state.go('main.private.home');
             })
             .catch((error) => {

@@ -7,8 +7,9 @@
 
 export default class RegisterController {
     /*@ngInject*/
-    constructor($state, AuthService){
+    constructor($state, $uibModal, AuthService){
         this.$state = $state;
+        this.$uibModal = $uibModal;
         this.AuthService = AuthService;
         this.user = { name: '', password: ''};
         this.isRegistrationFailed = false;
@@ -18,8 +19,11 @@ export default class RegisterController {
         this.AuthService
             .register(this.user.name, this.user.password, this.user.register)
             .then( () => {
-                this.$state.go('main.public.login');
-                alert("Congratulations! U've been successfully registered!");
+                this.$uibModal
+                    .open({ component: 'registerSuccessModalComponent' })
+                    .result.then( (ok) => {
+                        this.$state.go('main.public.login');
+                    })
             })
             .catch( (error) => {
                 this.isRegistrationFailed = true;

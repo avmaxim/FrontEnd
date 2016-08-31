@@ -9,7 +9,6 @@ export default class ArticleCardController {
 
     /*@ngInject*/
     constructor(ArticleService){
-        console.log('articleCard (controller)' );
         this.ArticleService = ArticleService;
         this.isArticleLiked = false;
         if( this.contentSymbolsNumber ){

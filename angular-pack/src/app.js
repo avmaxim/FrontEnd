@@ -8,7 +8,8 @@ import "./common/styles/less/base-reset.less";
 import "../node_modules/bootstrap/less/bootstrap.less";
 import "./common/styles/less/index.less";
 
-import angular from 'angular'; 
+import angular from 'angular';
+import angularAnimate from 'angular-animate';
 import angularUiRouter from 'angular-ui-router';
 import angularUiBootstrap from 'angular-ui-bootstrap';
 
@@ -28,6 +29,7 @@ import comment from './comment/comment.module';
 import scrollOpacity from './scroll-opacity/scrollOpacity.module';
 import navigation from './navigation/navigation.module';
 import search from './search/search.module';
+import modals from './common/modals/modals.module';
 
 let hoyeeApp = 'hoyeeApp';
 
@@ -35,7 +37,9 @@ var app = angular
                 .module( hoyeeApp, [
                     angularUiRouter,
                     angularUiBootstrap,
+                    angularAnimate,
                     interceptors,
+                    modals,
                     header,
                     profile,
                     auth,

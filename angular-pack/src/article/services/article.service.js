@@ -31,6 +31,13 @@ export default class ArticleService{
             .catch( (error) =>  console.error( error ) );
     }
 
+    postArticle(article){
+        return this.$http
+            .post(this.urls.ARTICLE_POST.replace(/\{.*?\}/, article.articleId), article)
+            .then((response) => response.data )
+            .catch( (error) =>  console.error( error ) );
+    }
+
     getAllArticles(){
         return this.$http
             .get( this.urls.ARTICLES_GET_ALL )
