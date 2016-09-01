@@ -3,7 +3,9 @@
         {{ $ctrl.article.header }}
     </div>
     <div class="card-block">
-        <p class="card-text article-contents">{{ $ctrl.article.contents }}</p>
+        <p class="card-text article-contents">
+            <div ta-bind ng-model="$ctrl.article.summary"></div>
+        </p>
         <p class="card-text">
             <a ui-sref="main.private.preview({articleId: $ctrl.article.articleId, userId: $ctrl.article.userId})" role="button" class="card-link">Read more... </a>
         </p>

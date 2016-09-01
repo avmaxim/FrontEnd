@@ -55,4 +55,10 @@ export default class ArticleService{
             ))
             .catch( (error) =>  console.error( error ) );
     }
+
+    getArticleAuthor( article ){
+        return this.$http
+            .get( this.urls.USER_GET_BY_ID.replace(/\{.*?\}/, article.userId) )
+            .then( (response) => response.data);
+    }
 }

@@ -88,9 +88,17 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, AuthServicePr
             controller: 'hoyeeApp.previewArticleController',
             controllerAs: 'ctrl',
             resolve: {
-                article: ['ArticleService', '$stateParams', function(ArticleService, $stateParams){
+                article: ['$q', '$stateParams', 'ArticleService', function($q, $stateParams, ArticleService){
                     if ( $stateParams['articleId'] && $stateParams['userId']) {
-                        return ArticleService.getArticleById( $stateParams['articleId'], $stateParams['userId']);
+                        let deferred = $q.defer();
+                        let resultArticle = {};
+                        ArticleService.getArticleById( $stateParams['articleId'], $stateParams['userId'])
+                                    .then( (article) => (resultArticle = article, ArticleService.getArticleAuthor( article )) )
+                                    .then( (author) => {
+                                        resultArticle.author = author;
+                                        deferred.resolve(resultArticle);
+                                    });
+                        return deferred.promise;
                     }
                 }]
             }
