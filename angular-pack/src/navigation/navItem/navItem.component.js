@@ -9,7 +9,7 @@ let NavItemComponent = {
     },
     template: `
         <li class="nav-item">
-            <a ui-sref="{{ $ctrl.link }}" ng-transclude></a>
+            <a ui-sref="{{ ::$ctrl.link }}" ng-transclude></a>
         </li>
     `
 };

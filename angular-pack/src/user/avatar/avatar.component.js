@@ -11,4 +11,5 @@ let AvatarComponent = {
     }
 };
 
+
 export default AvatarComponent;

@@ -7,7 +7,7 @@
             ng-repeat="article in ctrl.myArticles | filter: ctrl.searhResult | orderBy:'-timestamp' ">
     </article-card>
 
-    <p class="empty-articles-list" ng-hide="ctrl.myArticles.length">Sorry, but u don't have any personal articles yet</p>
+    <p class="empty-articles-list" ng-hide="::ctrl.myArticles.length">Sorry, but u don't have any personal articles yet</p>
 
     <div class="fixed-button-wrapper">
         <a ui-sref="main.private.upsert()" class="btn-floating" >

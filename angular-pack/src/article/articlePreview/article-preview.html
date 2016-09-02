@@ -1,6 +1,6 @@
 <div class="article-container">
     <div class="article-header-wrapper">
-        <h2 class="article-header"> {{ $ctrl.article.header }} </h2>
+        <h2 class="article-header"> {{::$ctrl.article.header }} </h2>
     </div>
     <div class="article-details-wrapper">
         <div class="article-contents" ta-bind ng-model="$ctrl.article.contents"></div>
@@ -9,7 +9,7 @@
             <div class="col-sm-1 author-avatar">
                 <avatar src="$ctrl.article.author.avatar" size="xs"></avatar>
             </div>
-            <div class="col-sm-10 article-date">Last updated {{ $ctrl.article.date }}</div>
+            <div class="col-sm-10 article-date">Last updated {{ ::$ctrl.article.date }}</div>
             <div class="col-sm-1 article-likes" ng-class="{'liked': $ctrl.isArticleLiked}">
                 <a ng-click="$ctrl.toggleLike()">
                     <i class="glyphicon glyphicon-heart"></i>

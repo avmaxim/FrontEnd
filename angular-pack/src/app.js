@@ -42,8 +42,7 @@ import modals from './common/modals/modals.module';
 
 let hoyeeApp = 'hoyeeApp';
 
-var app = angular
-                .module( hoyeeApp, [
+var app = angular.module( hoyeeApp, [
                     angularUiRouter,
                     angularUiBootstrap,
                     angularAnimate,

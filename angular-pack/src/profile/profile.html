@@ -2,7 +2,7 @@
     <li uib-dropdown>
         <a uib-dropdown-toggle data-toggle="uib-dropdown">
             <avatar class="avatar-icon" src="$ctrl.user.avatar" size="xs" shape="circle"></avatar> 
-            <strong class="profile-name">{{$ctrl.user.username}}</strong>
+            <strong class="profile-name">{{::$ctrl.user.username}}</strong>
             <span class="glyphicon glyphicon-chevron-down"></span>
         </a>
         <ul uib-dropdown-menu>
@@ -13,8 +13,8 @@
                             <avatar src="$ctrl.user.avatar" size="md"></avatar>
                         </div>
                         <div class="col-lg-8">
-                            <p class="text-left"><strong>{{$ctrl.user.username}}</strong></p>
-                            <p class="text-left small">{{$ctrl.user.email}}</p>
+                            <p class="text-left"><strong>{{::$ctrl.user.username}}</strong></p>
+                            <p class="text-left small">{{::$ctrl.user.email}}</p>
                             <p class="text-left">
                                 <a href="#" class="btn btn-outline btn-block btn-sm account-details">Account details</a>
                             </p>
